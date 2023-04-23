@@ -5,7 +5,7 @@ import { IconButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 // import About from '../screens/About';
 import usePreferences from '../hooks/usePreferences';
-import { ForgotPassword, Login, Register, Terms } from '../screens/auth';
+import { ForgotPassword, Login, Register, Terms, About } from '../screens/auth';
 
 const RootStack = createNativeStackNavigator();
 
@@ -58,7 +58,7 @@ export default function GuestNavigation(props: any) {
 					headerLeft: () => buttonBack()
 				}}
 			/>
-			{/* <RootStack.Screen name="about" component={About} options={{ title: "About Us" }} /> */}
+			<RootStack.Screen name="about" component={About} options={{ title: "About Us" }} />
 			<RootStack.Screen name="terms" component={Terms} options={{ title: 'Terms and Conditions' }} />
 		</RootStack.Navigator>
 	)
