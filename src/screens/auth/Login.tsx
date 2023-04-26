@@ -22,6 +22,7 @@ export default function Login(props: any) {
   const login = async () => {
 
     setLoading(true);
+    props.navigation.navigate('Main');
 
     // if (email, password) {
     //     await signInWithEmailAndPassword(auth, email, password)

@@ -3,8 +3,8 @@ import { I18nManager } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { IconButton } from 'react-native-paper';
 import { usePreferences } from '../hooks';
+import { Home } from '../screens/main';
 
-// import Home from '../screens/Home';
 // import Profile from '../screens/Profile';
 // import Settings from '../screens/Settings';
 // import About from '../screens/About';
@@ -88,11 +88,11 @@ export default function StackNavigation(props: any) {
 
   return (
     <Stack.Navigator screenOptions={navigatorOptions}>
-      {/* <Stack.Screen
+      <Stack.Screen
         name="home"
         component={Home}
-        options={{ title: Strings.ST1, headerLeft: () => buttonMenu() }}
-      /> */}
+        options={{ title: "BasicFit", headerLeft: () => buttonMenu() }}
+      />
       {/* <Stack.Screen
         name="profile"
         component={Profile}

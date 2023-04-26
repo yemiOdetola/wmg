@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		3750479EEE5C453712029D91 /* libPods-wmg-wmgTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0141350E13D37EB228CADC33 /* libPods-wmg-wmgTests.a */; };
+		70174E5B9EA52F9F71F0321C /* libPods-wmg-wmgTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5B69275CA87964C4757545 /* libPods-wmg-wmgTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		A1F5F49C53E005076D4DDB75 /* libPods-wmg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D32B31F5B2D1CA6D53956649 /* libPods-wmg.a */; };
+		C77D410738355C667DCFF037 /* libPods-wmg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C045BE48DD6D996C5C62EF /* libPods-wmg.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,20 +30,20 @@
 		00E356EE1AD99517003FC87E /* wmgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wmgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* wmgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wmgTests.m; sourceTree = "<group>"; };
-		0141350E13D37EB228CADC33 /* libPods-wmg-wmgTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wmg-wmgTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05C045BE48DD6D996C5C62EF /* libPods-wmg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wmg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E5B69275CA87964C4757545 /* libPods-wmg-wmgTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wmg-wmgTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* wmg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = wmg/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = wmg/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wmg/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = wmg/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = wmg/main.m; sourceTree = "<group>"; };
-		4D350E37E5C1B4D7A18F7AE1 /* Pods-wmg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg.debug.xcconfig"; path = "Target Support Files/Pods-wmg/Pods-wmg.debug.xcconfig"; sourceTree = "<group>"; };
-		716F5FE41D6C1F6BB98EFCCB /* Pods-wmg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg.release.xcconfig"; path = "Target Support Files/Pods-wmg/Pods-wmg.release.xcconfig"; sourceTree = "<group>"; };
-		73C4789AE734E89A5D428099 /* Pods-wmg-wmgTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg-wmgTests.release.xcconfig"; path = "Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests.release.xcconfig"; sourceTree = "<group>"; };
+		1B2930F656BDEC30283FF109 /* Pods-wmg-wmgTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg-wmgTests.release.xcconfig"; path = "Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests.release.xcconfig"; sourceTree = "<group>"; };
+		4023FCF5D0BB1AF91B111220 /* Pods-wmg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg.release.xcconfig"; path = "Target Support Files/Pods-wmg/Pods-wmg.release.xcconfig"; sourceTree = "<group>"; };
+		7FFE9324261744110E8EF62C /* Pods-wmg-wmgTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg-wmgTests.debug.xcconfig"; path = "Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = wmg/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1CA26BA29F582E5000945F9 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
-		B425A86E9F88B9133F954E82 /* Pods-wmg-wmgTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg-wmgTests.debug.xcconfig"; path = "Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D32B31F5B2D1CA6D53956649 /* libPods-wmg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wmg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFA8897E47265A196E9B6D3E /* Pods-wmg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmg.debug.xcconfig"; path = "Target Support Files/Pods-wmg/Pods-wmg.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3750479EEE5C453712029D91 /* libPods-wmg-wmgTests.a in Frameworks */,
+				70174E5B9EA52F9F71F0321C /* libPods-wmg-wmgTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1F5F49C53E005076D4DDB75 /* libPods-wmg.a in Frameworks */,
+				C77D410738355C667DCFF037 /* libPods-wmg.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				D32B31F5B2D1CA6D53956649 /* libPods-wmg.a */,
-				0141350E13D37EB228CADC33 /* libPods-wmg-wmgTests.a */,
+				05C045BE48DD6D996C5C62EF /* libPods-wmg.a */,
+				0E5B69275CA87964C4757545 /* libPods-wmg-wmgTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,10 +150,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4D350E37E5C1B4D7A18F7AE1 /* Pods-wmg.debug.xcconfig */,
-				716F5FE41D6C1F6BB98EFCCB /* Pods-wmg.release.xcconfig */,
-				B425A86E9F88B9133F954E82 /* Pods-wmg-wmgTests.debug.xcconfig */,
-				73C4789AE734E89A5D428099 /* Pods-wmg-wmgTests.release.xcconfig */,
+				DFA8897E47265A196E9B6D3E /* Pods-wmg.debug.xcconfig */,
+				4023FCF5D0BB1AF91B111220 /* Pods-wmg.release.xcconfig */,
+				7FFE9324261744110E8EF62C /* Pods-wmg-wmgTests.debug.xcconfig */,
+				1B2930F656BDEC30283FF109 /* Pods-wmg-wmgTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -165,12 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "wmgTests" */;
 			buildPhases = (
-				F722E39EA3DA8B094B848F15 /* [CP] Check Pods Manifest.lock */,
+				F788C6896834C3DAFC6F908E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				47807664BBAD160934789DF4 /* [CP] Embed Pods Frameworks */,
-				1A57975813E7F793E9B93930 /* [CP] Copy Pods Resources */,
+				E23FF294984A73491EED2722 /* [CP] Embed Pods Frameworks */,
+				B96CFA29B8C92BCEDDC34506 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,14 +186,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "wmg" */;
 			buildPhases = (
-				CFD2AA3683933A0C84844B1B /* [CP] Check Pods Manifest.lock */,
+				197012838184AB489AAC1BE5 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6446B4741C79A0B88B4E2424 /* [CP] Embed Pods Frameworks */,
-				4983C1FF79DB73A16E49FB0B /* [CP] Copy Pods Resources */,
+				4958EBF3E29CA68D2D21E9DD /* [CP] Embed Pods Frameworks */,
+				3B5EB886CD01A92C64A749D2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,75 +276,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		1A57975813E7F793E9B93930 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		47807664BBAD160934789DF4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4983C1FF79DB73A16E49FB0B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6446B4741C79A0B88B4E2424 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CFD2AA3683933A0C84844B1B /* [CP] Check Pods Manifest.lock */ = {
+		197012838184AB489AAC1BE5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,7 +298,75 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F722E39EA3DA8B094B848F15 /* [CP] Check Pods Manifest.lock */ = {
+		3B5EB886CD01A92C64A749D2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4958EBF3E29CA68D2D21E9DD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg/Pods-wmg-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B96CFA29B8C92BCEDDC34506 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E23FF294984A73491EED2722 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wmg-wmgTests/Pods-wmg-wmgTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F788C6896834C3DAFC6F908E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -440,7 +440,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B425A86E9F88B9133F954E82 /* Pods-wmg-wmgTests.debug.xcconfig */;
+			baseConfigurationReference = 7FFE9324261744110E8EF62C /* Pods-wmg-wmgTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -467,7 +467,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73C4789AE734E89A5D428099 /* Pods-wmg-wmgTests.release.xcconfig */;
+			baseConfigurationReference = 1B2930F656BDEC30283FF109 /* Pods-wmg-wmgTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -491,7 +491,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D350E37E5C1B4D7A18F7AE1 /* Pods-wmg.debug.xcconfig */;
+			baseConfigurationReference = DFA8897E47265A196E9B6D3E /* Pods-wmg.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -518,7 +518,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 716F5FE41D6C1F6BB98EFCCB /* Pods-wmg.release.xcconfig */;
+			baseConfigurationReference = 4023FCF5D0BB1AF91B111220 /* Pods-wmg.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

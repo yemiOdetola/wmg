@@ -31,7 +31,7 @@ LogBox.ignoreAllLogs();
 const App = () => {
 
   const [theme, setTheme] = useState(config.THEMEMODE);
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [isReady, setIsReady] = useState(true);
   const [loaded, setLoaded] = useState(true);
   const [language, setLanguage] = useState(config.DEFAULTLANG);

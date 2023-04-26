@@ -100,7 +100,7 @@ export default function ModalNavigation(props: any) {
         return navigatorOptions;
       }}>
       <RootStack.Screen
-        name="Main"
+        name="main"
         component={StackNavigation}
         options={{ headerShown: false }}
       />

@@ -16,6 +16,10 @@ export default StyleSheet.create({
     // paddingHorizontal: 20,
     flex: 1,
   },
+  HomeScreen: {
+    width: '100%',
+    flex: 1,
+  },
   AuthTitle: {
     width: '100%',
     maxHeight: '100%',
