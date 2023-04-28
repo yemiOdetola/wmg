@@ -3,7 +3,9 @@ import { I18nManager } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { IconButton } from 'react-native-paper';
 import { usePreferences } from '../hooks';
-import { Home } from '../screens/main';
+import { Home } from '../screens/home';
+import { Workouts } from '../screens/workout';
+import { Store } from '../screens/store';
 
 // import Profile from '../screens/Profile';
 // import Settings from '../screens/Settings';
@@ -113,11 +115,17 @@ export default function StackNavigation(props: any) {
         component={Terms}
         options={{ title: Strings.ST8, headerLeft: () => buttonBack() }}
       /> */}
-      {/* <Stack.Screen
+      <Stack.Screen
         name="workouts"
         component={Workouts}
-        options={{ title: Strings.ST5, headerLeft: () => buttonBack() }}
-      /> */}
+        options={{ title: "Workouts", headerLeft: () => buttonBack() }}
+      />
+
+      <Stack.Screen
+        name="store"
+        component={Store}
+        options={{ title: "Store", headerLeft: () => buttonBack() }}
+      />
       {/* <Stack.Screen
         name="exercises"
         component={Exercises}

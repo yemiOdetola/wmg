@@ -6,6 +6,7 @@ import StackNavigation from './StackNavigation';
 
 import { usePreferences } from '../hooks';
 import { colors } from '../utils';
+import { WorkoutDetails } from '../screens/workout';
 
 
 // import ExerciseDetails from '../screens/ExerciseDetails';
@@ -104,19 +105,19 @@ export default function ModalNavigation(props: any) {
         component={StackNavigation}
         options={{ headerShown: false }}
       />
-      {/* <RootStack.Screen
-        name="exercisedetails"
-        component={ExerciseDetails}
-        options={{ title: Strings.ST80, headerLeft: () => buttonClose() }}
-      /> */}
-      {/* <RootStack.Screen
+      <RootStack.Screen
         name="workoutdetails"
         component={WorkoutDetails}
         options={{
           headerTransparent: true,
-          title: null,
+          title: '',
           headerLeft: () => buttonCloseLight(),
         }}
+      />
+      {/* <RootStack.Screen
+        name="exercisedetails"
+        component={ExerciseDetails}
+        options={{ title: Strings.ST80, headerLeft: () => buttonClose() }}
       /> */}
       {/* <RootStack.Screen
         name="dietdetails"

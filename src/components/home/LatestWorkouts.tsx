@@ -7,8 +7,8 @@ import { InnerLoading } from '../shared';
 import { getLatestWorkouts } from "../../utils/api";
 import { Paragraph, Text } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
+import LevelRate from '../shared/LevelRate';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LevelRate from './LevelRate';
 
 export default function LatestWorkouts() {
 
