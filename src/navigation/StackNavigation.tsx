@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { IconButton } from 'react-native-paper';
 import { usePreferences } from '../hooks';
 import { Home } from '../screens/home';
-import { Workouts } from '../screens/workout';
+import { SingleGoal, Workouts } from '../screens/workout';
 import { Store } from '../screens/store';
 import { Settings } from '../screens/settings';
 import { Profile } from '../screens/profile';
@@ -109,6 +109,21 @@ export default function StackNavigation(props: any) {
         component={Listing}
         options={{ title: "Listing", headerLeft: () => buttonBack() }}
       />
+      <Stack.Screen
+        name="singlegoal"
+        component={SingleGoal}
+        options={{ title: '', headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="workouts"
+        component={Workouts}
+        options={{ title: "Workouts", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="store"
+        component={Store}
+        options={{ title: "Store", headerLeft: () => buttonBack() }}
+      />
       {/* <Stack.Screen
         name="about"
         component={About}
@@ -119,17 +134,6 @@ export default function StackNavigation(props: any) {
         component={Terms}
         options={{ title: Strings.ST8, headerLeft: () => buttonBack() }}
       /> */}
-      <Stack.Screen
-        name="workouts"
-        component={Workouts}
-        options={{ title: "Workouts", headerLeft: () => buttonBack() }}
-      />
-
-      <Stack.Screen
-        name="store"
-        component={Store}
-        options={{ title: "Store", headerLeft: () => buttonBack() }}
-      />
       {/* <Stack.Screen
         name="exercises"
         component={Exercises}
@@ -174,11 +178,6 @@ export default function StackNavigation(props: any) {
         name="posts"
         component={Posts}
         options={{ title: Strings.ST29, headerLeft: () => buttonBack() }}
-      /> */}
-      {/* <Stack.Screen
-        name="singlegoal"
-        component={SingleGoal}
-        options={{ title: null, headerLeft: () => buttonBack() }}
       /> */}
       {/* <Stack.Screen
         name="singlelevel"
