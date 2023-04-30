@@ -4,3 +4,5 @@ export {default as Heading} from './Heading';
 export {default as LevelRate} from './LevelRate';
 export {default as LoadMoreButton} from './LoadMoreButton';
 export {default as NoContentFound} from './NoContentFound';
+export {default as CustomModal} from './CustomModal';
+export {default as CustomButton} from './CustomButton';

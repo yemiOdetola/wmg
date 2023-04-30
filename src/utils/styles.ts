@@ -41,6 +41,10 @@ export default StyleSheet.create({
     marginHorizontal: 20,
   },
 
+  memberBadge: {
+    color: '#d5d4d7',
+  },
+
   AuthInput: {
     marginBottom: 10,
     padding: 0,

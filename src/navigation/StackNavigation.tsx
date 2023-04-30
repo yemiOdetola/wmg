@@ -6,9 +6,11 @@ import { usePreferences } from '../hooks';
 import { Home } from '../screens/home';
 import { Workouts } from '../screens/workout';
 import { Store } from '../screens/store';
+import { Settings } from '../screens/settings';
+import { Profile } from '../screens/profile';
+import { Listing } from '../screens/listing'
 
 // import Profile from '../screens/Profile';
-// import Settings from '../screens/Settings';
 // import About from '../screens/About';
 // import Terms from '../screens/Terms';
 // import Workouts from '../screens/Workouts';
@@ -59,7 +61,6 @@ export default function StackNavigation(props: any) {
     return (
       <IconButton
         icon={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
-        style={{ marginLeft: 15 }}
         size={24}
         onPress={() => navigation.goBack()}
       />
@@ -71,7 +72,6 @@ export default function StackNavigation(props: any) {
       <IconButton
         icon="magnify"
         size={24}
-        style={{ marginLeft: 15 }}
         onPress={() => navigation.goBack()}
       />
     );
@@ -82,7 +82,6 @@ export default function StackNavigation(props: any) {
       <IconButton
         icon="menu"
         size={24}
-        style={{ marginLeft: 15 }}
         onPress={() => navigation.openDrawer()}
       />
     );
@@ -95,16 +94,21 @@ export default function StackNavigation(props: any) {
         component={Home}
         options={{ title: "BasicFit", headerLeft: () => buttonMenu() }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="profile"
         component={Profile}
-        options={{ title: Strings.ST6, headerLeft: () => buttonBack() }}
-      /> */}
-      {/* <Stack.Screen
+        options={{ title: "User Profile", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
         name="settings"
         component={Settings}
-        options={{ title: Strings.ST108, headerLeft: () => buttonBack() }}
-      /> */}
+        options={{ title: "Settings", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="listing"
+        component={Listing}
+        options={{ title: "Listing", headerLeft: () => buttonBack() }}
+      />
       {/* <Stack.Screen
         name="about"
         component={About}
@@ -165,11 +169,6 @@ export default function StackNavigation(props: any) {
         name="products"
         component={Products}
         options={{ title: Strings.ST45, headerLeft: () => buttonBack() }}
-      /> */}
-      {/* <Stack.Screen
-        name="blog"
-        component={Blog}
-        options={{ title: Strings.ST29, headerLeft: () => buttonBack() }}
       /> */}
       {/* <Stack.Screen
         name="posts"

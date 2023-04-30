@@ -67,11 +67,11 @@ export default function DrawerContent(props: any) {
 					/>
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={() => onChangeScreen("blog")} activeOpacity={0.8}>
+				<TouchableOpacity onPress={() => onChangeScreen("listing")} activeOpacity={0.8}>
 					<List.Item
 						titleStyle={styles.DrawerTitleMenu}
 						style={styles.DrawerMenuItem}
-						title="Blog"
+						title="Listing"
 						left={props => <Icon {...props} style={styles.DrawerIconMenu} name="rss" />}
 						right={props => <Icon {...props} style={styles.DrawerIconRightMenu} name="chevron-right" />}
 					/>

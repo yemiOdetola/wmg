@@ -28,7 +28,6 @@ export default function ModalNavigation(props: any) {
     return (
       <IconButton
         icon={'window-close'}
-        style={{ marginLeft: 15 }}
         size={24}
         onPress={() => props.navigation.goBack()}
       />
@@ -40,7 +39,6 @@ export default function ModalNavigation(props: any) {
       <IconButton
         icon={'window-close'}
         iconColor={'#fff'}
-        style={{ marginLeft: 15 }}
         size={24}
         onPress={() => props.navigation.goBack()}
       />
@@ -52,7 +50,6 @@ export default function ModalNavigation(props: any) {
       <IconButton
         icon={'window-close'}
         iconColor={colors.PRIMARY}
-        style={{ marginLeft: 15 }}
         size={24}
         onPress={() => props.navigation.goBack()}
       />
@@ -63,7 +60,6 @@ export default function ModalNavigation(props: any) {
     return (
       <IconButton
         icon={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
-        style={{ marginLeft: 15 }}
         size={24}
         onPress={() => props.navigation.goBack()}
       />
