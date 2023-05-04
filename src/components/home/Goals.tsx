@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
 import { map } from 'lodash';
 import Loading from '../shared/InnerLoading';
 import { getGoals } from "../../utils/api";

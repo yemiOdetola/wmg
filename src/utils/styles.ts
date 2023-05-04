@@ -9,17 +9,21 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const PrimaryColor = colors.PRIMARY;
 
 export default StyleSheet.create({
+  
   //////////////////////// LOGIN/SIGNUP
+
   AuthPage: {
     width: '100%',
     // paddingVertical: 30,
     // paddingHorizontal: 20,
     flex: 1,
   },
+
   HomeScreen: {
     width: '100%',
     flex: 1,
   },
+
   AuthTitle: {
     width: '100%',
     maxHeight: '100%',
@@ -53,8 +57,7 @@ export default StyleSheet.create({
 
   AuthButton: {
     marginTop: 15,
-    borderRadius: 0,
-    // elevation: 0,
+    borderRadius: 8,
   },
 
   AuthButtonContent: {
