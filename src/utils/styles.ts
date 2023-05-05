@@ -9,13 +9,14 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const PrimaryColor = colors.PRIMARY;
 
 export default StyleSheet.create({
-  
   //////////////////////// LOGIN/SIGNUP
 
+  masonryContainer: {
+    width: screenWidth,
+    flexDirection: 'row',
+  },
   AuthPage: {
     width: '100%',
-    // paddingVertical: 30,
-    // paddingHorizontal: 20,
     flex: 1,
   },
 

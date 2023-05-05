@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Heading } from '../../components/shared';
