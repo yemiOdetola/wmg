@@ -14,11 +14,18 @@ const featureMenu = [
   { id: 4, title: 'Weeee', buttonLabel: 'Waaaaa', buttonURL: 'weeoe', style: "button.f4" },
 ]
 
+const greetings = ["Hello, ", "Hi, ", "Goodday, ", "Greetings, ", "Salutations, ", "Yo! ", "Welcome, ", "Hey, ", "Hiya, "]
+
 export default function Home(props: any) {
 
   const onChangeScreen = (screen: string) => {
     props.navigation.navigate(screen);
   };
+
+  const randomizeGreeting = () => {
+    return greetings[Math.floor(Math.random() * greetings.length)];
+
+  }
 
   return (
     <ScrollView
@@ -28,6 +35,9 @@ export default function Home(props: any) {
       <SafeAreaView>
 
         <View style={styles.HomeScreen}>
+          <View style={homeStyles.welcome}>
+            <Text style={homeStyles.stylesText}>{randomizeGreeting()} <Text style={homeStyles.username}>Opeyemi</Text></Text>
+          </View>
           <View style={homeStyles.buttonGroup}>
             <TouchableOpacity style={[homeStyles.button, homeStyles.f1]}>
               <View style={[homeStyles.icon, homeStyles.icon1]}>
@@ -61,7 +71,7 @@ export default function Home(props: any) {
             </TouchableOpacity>
             <TouchableOpacity style={[homeStyles.button, homeStyles.f2]}>
               <View style={[homeStyles.icon, homeStyles.icon2]}>
-                <Icon {...props} style={homeStyles.featureIcon} name="delta" />
+                <Icon {...props} style={homeStyles.featureIcon} name="dots-triangle" />
               </View>
               <Text style={homeStyles.title}>Leaderboard</Text>
               <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>

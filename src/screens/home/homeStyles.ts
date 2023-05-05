@@ -9,6 +9,18 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const PrimaryColor = colors.PRIMARY;
 
 export default StyleSheet.create({
+  welcome: {
+    margin: 20,
+    marginBottom: 4,
+  },
+  stylesText: {
+    fontSize: 32,
+    fontWeight: '800',
+  },
+  username: {
+    color: colors.PRIMARY,
+    fontWeight: '600',
+  },
   buttonGroup: {
     flexDirection: 'row',
     flexWrap: 'wrap',
