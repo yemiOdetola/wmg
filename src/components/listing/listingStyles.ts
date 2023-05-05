@@ -14,10 +14,13 @@ export default StyleSheet.create({
   },
   itemContainer: {
     flexDirection: 'row',
-    borderRadius: 8,
+    // borderRadius: 8,
     padding: 6,
-    borderWidth: 0.5,
-    borderColor: '#8d99ae',
+    paddingBottom: 20,
+    // borderWidth: 0.5,
+    // borderColor: '#403d39',
+    borderBottomColor: '#403d39',
+    borderBottomWidth: 0.5,
     marginBottom: 14,
   },
   avatar: {
@@ -69,7 +72,7 @@ export default StyleSheet.create({
   metaIcon: {
     marginTop: 22,
     fontSize: 18,
-    color: "#403d39",
+    color: '#403d39',
     marginRight: 4,
   },
   metaText: {
