@@ -69,7 +69,7 @@ export default StyleSheet.create({
   metaIcon: {
     marginTop: 22,
     fontSize: 18,
-    color: "#8d99ae",
+    color: "#403d39",
     marginRight: 4,
   },
   metaText: {
