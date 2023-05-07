@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Image, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { FlatList, Image, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar, List } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { FlatGrid } from 'react-native-super-grid';
 import { map } from "lodash";
 import { InnerLoading } from '../shared';
 import { usePreferences } from '../../hooks';
 import { getLatestPosts } from "../../utils/api";
 import listingStyles from './listingStyles';
+
+
+const idsx = {
+  date: "2018-03-02 09:06:25",
+  size: 12,
+  category: 'electronics',
+  image: "https://picsum.photos/200/300",
+  rating: 4.5,
+  location: 'Sparklight extension, ojodu berger, Lagos state',
+
+
+  "description": "<p>At the core of every movement is just that: your core. And while lots of times “core” and “abs” become synonymous, it's not 100% correct to use them interchangeably. Your rectus abdominus, transverse abdominus and obliques do comprise your midsection, but those aren't the only muscles involved. Your back, hips and glutes also provide that stable base you need for stepping forward and backward, jumping side-to-side or turning all about. So to get a serious core workout you need to work them all.</p><p>“Core strength and stability not only enhances physical and athletic performance, but also helps maintain and correct posture and form, and prevent injury,” says Andia Winslow, a Daily Burn Audio Workouts trainer. “Those who have an awareness of their core and ability to engage it properly also have enhanced proprioception — or a sense of the positions of their extremities, without actually seeing them.”</p>",
+  "featured": 0,
+  "id": 9,
+  "tag": "Tips",
+  "title": "5 Ways to Torch Your Core in Every Workout"
+};
+
 
 export default function LatestPosts() {
   const { theme } = usePreferences();
@@ -49,28 +66,15 @@ export default function LatestPosts() {
   }, []);
 
 
-  console.log('JJSJKKSSKJSSKJ', posts);
 
-
-  const onChangeScreen = (id: number, title: string) => {
-    navigation.navigate('postdetails', { id, title });
+  const onChangeScreen = (screen: string) => {
+    navigation.navigate(screen);
   };
 
-  const idsx = {
-    date: "2018-03-02 09:06:25",
-    size: 12,
-    category: 'electronics',
-    image: "https://picsum.photos/200/300",
-    rating: 4.5,
-    location: 'Sparklight extension, ojodu berger, Lagos state',
-
-
-    "description": "<p>At the core of every movement is just that: your core. And while lots of times “core” and “abs” become synonymous, it's not 100% correct to use them interchangeably. Your rectus abdominus, transverse abdominus and obliques do comprise your midsection, but those aren't the only muscles involved. Your back, hips and glutes also provide that stable base you need for stepping forward and backward, jumping side-to-side or turning all about. So to get a serious core workout you need to work them all.</p><p>“Core strength and stability not only enhances physical and athletic performance, but also helps maintain and correct posture and form, and prevent injury,” says Andia Winslow, a Daily Burn Audio Workouts trainer. “Those who have an awareness of their core and ability to engage it properly also have enhanced proprioception — or a sense of the positions of their extremities, without actually seeing them.”</p>",
-    "featured": 0,
-    "id": 9,
-    "tag": "Tips",
-    "title": "5 Ways to Torch Your Core in Every Workout"
+  const onClickItem = (id: number = 15, title: string = '15kg Stuffed Peppers') => {
+    navigation.navigate('dietdetails', { id, title });
   };
+
 
   if (!isLoaded) {
     return (
@@ -81,32 +85,34 @@ export default function LatestPosts() {
   const renderGridItems = (item: any) => {
     console.log('item', item);
     return (
-      <View style={listingStyles.itemContainer}>
-        <View style={listingStyles.avatar}>
-          <Image style={listingStyles.avatarImg} source={{ uri: "https://picsum.photos/200/200" }} />
-        </View>
-        <View style={listingStyles.details}>
-          {/* <View style={[listingStyles.category, { backgroundColor: item.code }]}>
+      <TouchableOpacity onPress={() => onClickItem(item.id, item.title)}>
+        <View style={listingStyles.itemContainer}>
+          <View style={listingStyles.avatar}>
+            <Image style={listingStyles.avatarImg} source={{ uri: "https://picsum.photos/200/200" }} />
+          </View>
+          <View style={listingStyles.details}>
+            {/* <View style={[listingStyles.category, { backgroundColor: item.code }]}>
             <Text style={listingStyles.categoryText}>Electronics</Text>
           </View> */}
-          <Text style={[listingStyles.categoryText, { color: item.code }]}>Electronics</Text>
-          <Text style={[listingStyles.title, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>HP 15' laptops (dead) </Text>
-          <Text style={[listingStyles.location, { color: theme == 'dark' ? '#e5e5e5' : '#8d99ae', }]}>Sparklight extension, ojodu berger, Lagos state</Text>
-          <View style={listingStyles.meta}>
-            <View style={listingStyles.stat}>
-              <View style={listingStyles.eachStat}>
-                <Icon name="weight-kilogram" style={listingStyles.metaIcon} />
-                <Text style={[listingStyles.metaText, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>12kg</Text>
+            <Text style={[listingStyles.categoryText, { color: item.code }]}>Electronics</Text>
+            <Text style={[listingStyles.title, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>HP 15' laptops (dead) </Text>
+            <Text style={[listingStyles.location, { color: theme == 'dark' ? '#e5e5e5' : '#8d99ae', }]}>Sparklight extension, ojodu berger, Lagos state</Text>
+            <View style={listingStyles.meta}>
+              <View style={listingStyles.stat}>
+                <View style={listingStyles.eachStat}>
+                  <Icon name="weight-kilogram" style={listingStyles.metaIcon} />
+                  <Text style={[listingStyles.metaText, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>12kg</Text>
+                </View>
+                <View style={listingStyles.eachStat}>
+                  <Icon name="beaker-plus-outline" style={listingStyles.metaIcon} />
+                  <Text style={[listingStyles.metaText, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>875 pcs</Text>
+                </View>
               </View>
-              <View style={listingStyles.eachStat}>
-                <Icon name="beaker-plus-outline" style={listingStyles.metaIcon} />
-                <Text style={[listingStyles.metaText, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>875 pcs</Text>
-              </View>
+              <Text style={[listingStyles.price, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>{currency}2500</Text>
             </View>
-            <Text style={[listingStyles.price, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>{currency}2500</Text>
           </View>
-        </View>
-      </View >
+        </View >
+      </TouchableOpacity>
     )
   }
 

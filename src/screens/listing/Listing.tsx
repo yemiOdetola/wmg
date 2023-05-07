@@ -20,11 +20,11 @@ export default function Listings(props: any) {
       <SafeAreaView>
 
         <View style={styles.HomeScreen}>
+          <Heading title="Tags" button={() => onChangeScreen('tags')} />
+          <PostTags />
           <Posts />
           <FeaturedPosts />
 
-          <Heading title="Tags" button={() => onChangeScreen('tags')} />
-          <PostTags />
 
           <Heading title="Posts" button={() => onChangeScreen('posts')} />
           <LatestPosts />

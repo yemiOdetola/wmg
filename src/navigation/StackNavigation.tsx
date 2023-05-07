@@ -9,6 +9,7 @@ import { Store } from '../screens/store';
 import { Settings } from '../screens/settings';
 import { Profile } from '../screens/profile';
 import { Listing } from '../screens/listing'
+import { Diets } from '../screens/diet'
 
 // import Profile from '../screens/Profile';
 // import About from '../screens/About';
@@ -124,6 +125,16 @@ export default function StackNavigation(props: any) {
         component={Store}
         options={{ title: "Store", headerLeft: () => buttonBack() }}
       />
+      <Stack.Screen
+        name="diets"
+        component={Diets}
+        options={{ title: "Diets", headerLeft: () => buttonBack() }}
+      />
+      {/* <Stack.Screen
+        name="about"
+        component={About}
+        options={{ title: Strings.ST110, headerLeft: () => buttonBack() }}
+      /> */}
       {/* <Stack.Screen
         name="about"
         component={About}
@@ -143,11 +154,6 @@ export default function StackNavigation(props: any) {
         name="equipments"
         component={Equipments}
         options={{ title: Strings.ST56, headerLeft: () => buttonBack() }}
-      /> */}
-      {/* <Stack.Screen
-        name="diets"
-        component={Diets}
-        options={{ title: Strings.ST27, headerLeft: () => buttonBack() }}
       /> */}
       {/* <Stack.Screen
         name="goals"

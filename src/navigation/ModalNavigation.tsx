@@ -7,6 +7,8 @@ import StackNavigation from './StackNavigation';
 import { usePreferences } from '../hooks';
 import { colors } from '../utils';
 import { WorkoutDetails } from '../screens/workout';
+import { DietDetails } from '../screens/diet'
+import { ListingDetails } from '../screens/listing';
 
 
 // import ExerciseDetails from '../screens/ExerciseDetails';
@@ -115,15 +117,24 @@ export default function ModalNavigation(props: any) {
         component={ExerciseDetails}
         options={{ title: Strings.ST80, headerLeft: () => buttonClose() }}
       /> */}
-      {/* <RootStack.Screen
+      <RootStack.Screen
         name="dietdetails"
         component={DietDetails}
         options={{
           headerTransparent: true,
-          title: null,
-          headerLeft: () => buttonCloseLight(),
+          title: "",
+          headerLeft: () => ButtonClose(),
         }}
-      /> */}
+      />
+      <RootStack.Screen
+        name="listingDetails"
+        component={ListingDetails}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerLeft: () => ButtonClose(),
+        }}
+      />
       {/* <RootStack.Screen
         name="productdetails"
         component={ProductDetails}
