@@ -10,6 +10,7 @@ import { Settings } from '../screens/settings';
 import { Profile } from '../screens/profile';
 import { Listing } from '../screens/listing'
 import { Diets } from '../screens/diet'
+import { Exercises, SingleExercise } from '../screens/exercises'
 
 // import Profile from '../screens/Profile';
 // import About from '../screens/About';
@@ -23,7 +24,6 @@ import { Diets } from '../screens/diet'
 // import SingleLevel from '../screens/SingleLevel';
 // import SearchWorkout from '../screens/SearchWorkout';
 // import Exercises from '../screens/Exercises';
-// import Equipments from '../screens/Equipments';
 // import SingleEquipment from '../screens/SingleEquipment';
 // import SingleMuscle from '../screens/SingleMuscle';
 // import Diets from '../screens/Diets';
@@ -130,6 +130,11 @@ export default function StackNavigation(props: any) {
         component={Diets}
         options={{ title: "Diets", headerLeft: () => buttonBack() }}
       />
+      <Stack.Screen
+        name="exercises"
+        component={Exercises}
+        options={{ title: "Exercises", headerLeft: () => buttonBack() }}
+      />
       {/* <Stack.Screen
         name="about"
         component={About}
@@ -144,11 +149,6 @@ export default function StackNavigation(props: any) {
         name="terms"
         component={Terms}
         options={{ title: Strings.ST8, headerLeft: () => buttonBack() }}
-      /> */}
-      {/* <Stack.Screen
-        name="exercises"
-        component={Exercises}
-        options={{ title: Strings.ST21, headerLeft: () => buttonBack() }}
       /> */}
       {/* <Stack.Screen
         name="equipments"
@@ -195,11 +195,11 @@ export default function StackNavigation(props: any) {
         component={SingleEquipment}
         options={{ title: null, headerLeft: () => buttonBack() }}
       /> */}
-      {/* <Stack.Screen
-        name="singlemuscle"
-        component={SingleMuscle}
-        options={{ title: null, headerLeft: () => buttonBack() }}
-      /> */}
+      <Stack.Screen
+        name="singleExercise"
+        component={SingleExercise}
+        options={{ title: "", headerLeft: () => buttonBack() }}
+      />
       {/* <Stack.Screen
         name="singlecategory"
         component={SingleCategory}

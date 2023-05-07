@@ -9,6 +9,7 @@ import { colors } from '../utils';
 import { WorkoutDetails } from '../screens/workout';
 import { DietDetails } from '../screens/diet'
 import { ListingDetails } from '../screens/listing';
+import { ExerciseDetails } from '../screens/exercises';
 
 
 // import ExerciseDetails from '../screens/ExerciseDetails';
@@ -112,11 +113,11 @@ export default function ModalNavigation(props: any) {
           headerLeft: () => ButtonClose(),
         }}
       />
-      {/* <RootStack.Screen
+      <RootStack.Screen
         name="exercisedetails"
         component={ExerciseDetails}
-        options={{ title: Strings.ST80, headerLeft: () => buttonClose() }}
-      /> */}
+        options={{ title: "Exercise details", headerLeft: () => ButtonClose() }}
+      />
       <RootStack.Screen
         name="dietdetails"
         component={DietDetails}
