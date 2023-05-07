@@ -895,4 +895,8 @@ export default StyleSheet.create({
     top: 13,
     position: 'absolute',
   },
+  headerOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });

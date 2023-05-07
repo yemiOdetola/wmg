@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, SafeAreaView, ImageBackground, ScrollView, useWindowDimensions } from 'react-native';
+import { View, SafeAreaView, ImageBackground, ScrollView, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { Text, IconButton, Card } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { Col, Grid } from 'react-native-easy-grid';
@@ -46,7 +46,7 @@ export default function ListingDetails(props: any) {
     renderBookMark(id);
   }, []);
 
-  const saveBookmark = (id: number, title: string, image: any) => {
+  const saveBookmark = (id: number, title: string, image: any = "https://picsum.photos/200/300") => {
 
     let data = { id, title, image };
     setBookmark(true);
@@ -65,25 +65,29 @@ export default function ListingDetails(props: any) {
       }
 
     });
-
   };
 
   const renderButtonFav = () => {
     if (!isBookmark) {
       return (
-        <IconButton icon="heart-outline" iconColor={'#fff'} size={24} style={{ marginRight: 15 }}
-          onPress={() => saveBookmark(item.id, item.title, item.image)} />
+        <TouchableOpacity onPress={() => saveBookmark(item.id, item.title, item.image)} style={styles.headerOption}>
+          <IconButton icon="dump-truck" iconColor={'#fff'} size={20} style={{ marginRight: 2 }}
+            onPress={() => saveBookmark(item.id, item.title, item.image)} />
+          <Text>Accept Pickup</Text>
+        </TouchableOpacity>
       )
     } else {
       return (
-        <IconButton icon="heart" iconColor={"#ff0000"} size={24} style={{ marginRight: 15 }}
-          onPress={() => removeBookmark(item.id)} />
+        <TouchableOpacity onPress={() => removeBookmark(item.id)} style={styles.headerOption}>
+          <IconButton icon="cancel" iconColor={"#ff0000"} size={20} style={{ marginRight: 2 }}
+            onPress={() => removeBookmark(item.id)} />
+          <Text>Remove Pickup</Text>
+        </TouchableOpacity>
       )
     }
   }
 
   useEffect(() => {
-
     props.navigation.setOptions({
       headerRight: () => renderButtonFav()
     });

@@ -109,7 +109,7 @@ export default function ModalNavigation(props: any) {
         options={{
           headerTransparent: true,
           title: '',
-          headerLeft: () => buttonCloseLight(),
+          headerLeft: () => ButtonClose(),
         }}
       />
       {/* <RootStack.Screen
@@ -141,7 +141,7 @@ export default function ModalNavigation(props: any) {
         options={{
           headerTransparent: true,
           title: null,
-          headerLeft: () => buttonCloseLight(),
+          headerLeft: () => ButtonClose(),
         }}
       /> */}
       {/* <RootStack.Screen
@@ -150,7 +150,7 @@ export default function ModalNavigation(props: any) {
         options={{
           headerTransparent: true,
           title: null,
-          headerLeft: () => buttonCloseLight(),
+          headerLeft: () => ButtonClose(),
         }}
       /> */}
       {/* <RootStack.Screen

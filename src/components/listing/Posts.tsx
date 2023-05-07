@@ -72,7 +72,7 @@ export default function LatestPosts() {
   };
 
   const onClickItem = (id: number = 15, title: string = '15kg Stuffed Peppers') => {
-    navigation.navigate('dietdetails', { id, title });
+    navigation.navigate('listingDetails', { id, title });
   };
 
 
