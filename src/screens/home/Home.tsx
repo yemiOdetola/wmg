@@ -49,7 +49,7 @@ export default function Home(props: any) {
                 <Text style={homeStyles.actionText}>Request Pickup</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f3]}>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f3]} onPress={() => onChangeScreen('mapmain')}>
               <View style={[homeStyles.icon, homeStyles.icon3]}>
                 <Icon {...props} style={homeStyles.featureIcon} name="calendar-month" />
               </View>

@@ -11,6 +11,7 @@ import { Profile } from '../screens/profile';
 import { Listing } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
+import { MapMain } from '../screens/map';
 
 // import Profile from '../screens/Profile';
 // import About from '../screens/About';
@@ -135,6 +136,16 @@ export default function StackNavigation(props: any) {
         component={Exercises}
         options={{ title: "Exercises", headerLeft: () => buttonBack() }}
       />
+      <Stack.Screen
+        name="singleExercise"
+        component={SingleExercise}
+        options={{ title: "", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="mapmain"
+        component={MapMain}
+        options={{ title: "", headerLeft: () => buttonBack() }}
+      />
       {/* <Stack.Screen
         name="about"
         component={About}
@@ -195,11 +206,6 @@ export default function StackNavigation(props: any) {
         component={SingleEquipment}
         options={{ title: null, headerLeft: () => buttonBack() }}
       /> */}
-      <Stack.Screen
-        name="singleExercise"
-        component={SingleExercise}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      />
       {/* <Stack.Screen
         name="singlecategory"
         component={SingleCategory}
