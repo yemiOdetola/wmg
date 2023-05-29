@@ -6,6 +6,7 @@ import { Heading } from '../../components/shared';
 import { LatestDiets, Levels, Goals, ExercisesLibrary, LatestWorkouts } from '../../components/home';
 import { styles } from '../../utils';
 import homeStyles from './homeStyles'
+import { Posts } from '../../components/listing';
 
 const featureMenu = [
   { id: 1, title: 'Weeee', buttonLabel: 'Waaaaa', buttonURL: 'weeoe', style: "button.f1" },
@@ -13,6 +14,7 @@ const featureMenu = [
   { id: 3, title: 'Weeee', buttonLabel: 'Waaaaa', buttonURL: 'weeoe', style: "button.f3" },
   { id: 4, title: 'Weeee', buttonLabel: 'Waaaaa', buttonURL: 'weeoe', style: "button.f4" },
 ]
+
 
 const greetings = ["Hello, ", "Hi, ", "Goodday, ", "Greetings, ", "Salutations, ", "Yo! ", "Welcome, ", "Hey, ", "Hiya, "]
 
@@ -24,7 +26,6 @@ export default function Home(props: any) {
 
   const randomizeGreeting = () => {
     return greetings[Math.floor(Math.random() * greetings.length)];
-
   }
 
   return (
@@ -80,8 +81,8 @@ export default function Home(props: any) {
               </View>
             </TouchableOpacity>
           </View>
-
-          <Heading title="Latest Workouts" button={() => onChangeScreen('workouts')} />
+          <Posts />
+          {/* <Heading title="Latest Workouts" button={() => onChangeScreen('workouts')} />
           <LatestWorkouts />
 
           <Heading title="Workout By Goal" button={() => onChangeScreen('goals')} />
@@ -92,7 +93,7 @@ export default function Home(props: any) {
           <ExercisesLibrary />
 
           <Heading title="Latest Diets" button={() => onChangeScreen('diets')} />
-          <LatestDiets />
+          <LatestDiets /> */}
 
         </View>
       </SafeAreaView>

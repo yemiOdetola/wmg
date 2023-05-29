@@ -94,7 +94,7 @@ export default function StackNavigation(props: any) {
       <Stack.Screen
         name="home"
         component={Home}
-        options={{ title: "BasicFit", headerLeft: () => buttonMenu() }}
+        options={{ title: "MSW", headerLeft: () => buttonMenu() }}
       />
       <Stack.Screen
         name="profile"

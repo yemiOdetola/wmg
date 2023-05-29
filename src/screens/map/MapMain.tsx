@@ -1,11 +1,188 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Platform, View, PermissionsAndroid, Linking, Alert, ToastAndroid } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import mapStyles from './mapStyles'
 
-
+const darkStyle = [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#212121"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#212121"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.locality",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#bdbdbd"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#181818"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1b1b1b"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#2c2c2c"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8a8a8a"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#373737"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#3c3c3c"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#4e4e4e"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#000000"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#3d3d3d"
+      }
+    ]
+  }
+]
 export default function MapMain() {
   const [locationPerm, setLocationPerm] = useState(false);
   const [modal, showModal] = useState(false);
@@ -17,160 +194,104 @@ export default function MapMain() {
   const [observing, setObserving] = useState(false);
   const [foregroundService, setForegroundService] = useState(false);
   const [useLocationManager, setUseLocationManager] = useState(false);
-  const [location, setLocation] = useState<GeoPosition | null>(null);
+  const [location, setLocation] = useState<any>({
+    latitude: 6.5244,
+    longitude: 3.3792,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
-  const mapRef: any = useRef();
-  const interRef: any = useRef();
-  const myMarker: any = useRef();
   const watchId = useRef<number | null>(null);
+  const mapRef: any = useRef<any>();
+
+  // useEffect(() => {
+  //   return () => {
+  //     getLocation();
+  //   };
+  // }, []);
 
   useEffect(() => {
-    return () => {
-      // stopLocationUpdates();
-    };
+    requestLocationPermission();
   }, []);
 
-  const hasPermissionIOS = async () => {
-    const openSetting = () => {
-      Linking.openSettings().catch(() => {
-        Alert.alert('Unable to open settings');
+  useEffect(() => {
+    console.log('LOCATION', location);
+  }, [location]);
+
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Permission',
+            message: 'This app requires access to your location.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          getCurrentLocation();
+        } else {
+          console.log('Location permission denied');
+        }
+      } catch (error) {
+        console.log('Error requesting location permission:', error);
+      }
+    } else {
+      Geolocation.requestAuthorization('whenInUse').then((result) => {
+        if (result === 'granted') {
+          getCurrentLocation();
+        } else {
+          console.log('Location permission denied');
+        }
+      }).catch((error) => {
+        console.log('Error requesting location permission:', error);
       });
-    };
-    const status = await Geolocation.requestAuthorization('whenInUse');
-
-    if (status === 'granted') {
-      return true;
     }
-
-    if (status === 'denied') {
-      Alert.alert('Location permission denied');
-    }
-
-    if (status === 'disabled') {
-      Alert.alert(
-        `Turn on Location Services to allow us to determine your location.`,
-        '',
-        [
-          { text: 'Go to Settings', onPress: openSetting },
-          { text: "Don't Use Location", onPress: () => { } },
-        ],
-      );
-    }
-    return false;
   };
 
-  const hasLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
-      const hasPermission = await hasPermissionIOS();
-      return hasPermission;
-    }
-
-    if (Platform.OS === 'android' && Platform.Version < 23) {
-      return true;
-    }
-
-    const hasPermission = await PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-
-    if (hasPermission) {
-      return true;
-    }
-
-    const status = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-
-    if (status === PermissionsAndroid.RESULTS.GRANTED) {
-      return true;
-    }
-
-    if (status === PermissionsAndroid.RESULTS.DENIED) {
-      ToastAndroid.show(
-        'Location permission denied by user.',
-        ToastAndroid.LONG,
-      );
-    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-      ToastAndroid.show(
-        'Location permission revoked by user.',
-        ToastAndroid.LONG,
-      );
-    }
-
-    return false;
-  };
-
-  const getLocation = async () => {
-    const hasPermission = await hasLocationPermission();
-
-    if (!hasPermission) {
-      return;
-    }
-
+  const getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
-      position => {
-        setLocation(position);
-        console.log(position);
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude, longitude });
       },
-      error => {
-        Alert.alert(`Code ${error.code}`, error.message);
-        setLocation(null);
-        console.log(error);
+      (error) => {
+        console.log('Error getting current location:', error);
       },
-      {
-        accuracy: {
-          android: 'high',
-          ios: 'best',
-        },
-        enableHighAccuracy: highAccuracy,
-        timeout: 15000,
-        maximumAge: 10000,
-        distanceFilter: 0,
-        forceRequestLocation: forceLocation,
-        forceLocationManager: useLocationManager,
-        showLocationDialog: locationDialog,
-      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   };
 
-  const getLocationUpdates = async () => {
-    const hasPermission = await hasLocationPermission();
-
-    if (!hasPermission) {
+  const navTo = (loc: any, delay = null) => {
+    if (!loc) {
       return;
     }
 
-    // if (Platform.OS === 'android' && foregroundService) {
-    //   await startForegroundService();
-    // }
+    const newCamera = {
+      center: { latitude: loc.coords.latitude, longitude: loc.coords.longitude },
+      zoom: 17,
+      heading: 0,
+      pitch: 0,
+      altitude: 5
+    }
+    if (delay) {
+      setTimeout(() => {
+        if (mapRef.current) {
+          mapRef.current.animateCamera(newCamera, { duration: 1000 });
+        }
+      }, delay)
+    } else {
+      if (mapRef.current) {
+        mapRef.current.animateCamera(newCamera, { duration: 1000 });
+      }
+    }
 
-    setObserving(true);
+    AsyncStorage.setItem('location', JSON.stringify({ latitude: loc.coords.latitude, longitude: loc.coords.longitude }));
 
-    watchId.current = Geolocation.watchPosition(
-      position => {
-        setLocation(position);
-        console.log(position);
-      },
-      error => {
-        setLocation(null);
-        console.log(error);
-      },
-      {
-        accuracy: {
-          android: 'high',
-          ios: 'best',
-        },
-        enableHighAccuracy: highAccuracy,
-        distanceFilter: 0,
-        interval: 5000,
-        fastestInterval: 2000,
-        forceRequestLocation: forceLocation,
-        forceLocationManager: useLocationManager,
-        showLocationDialog: locationDialog,
-        useSignificantChanges: significantChanges,
-      },
-    );
-  };
+  }
 
   return (
     <View style={mapStyles.container}>
@@ -178,13 +299,11 @@ export default function MapMain() {
       <MapView
         style={mapStyles.map}
         //specify our coordinates.
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+        initialRegion={location}
+        onRegionChangeComplete={(region) => setLocation(region)}
+      >
+        <Marker coordinate={location} />
+      </MapView>
     </View>
   )
 }
