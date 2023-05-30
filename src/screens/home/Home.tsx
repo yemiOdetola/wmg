@@ -15,7 +15,6 @@ const featureMenu = [
   { id: 4, title: 'Weeee', buttonLabel: 'Waaaaa', buttonURL: 'weeoe', style: "button.f4" },
 ]
 
-
 const greetings = ["Hello, ", "Hi, ", "Goodday, ", "Greetings, ", "Salutations, ", "Yo! ", "Welcome, ", "Hey, ", "Hiya, "]
 
 export default function Home(props: any) {
@@ -45,7 +44,7 @@ export default function Home(props: any) {
                 <Icon {...props} style={homeStyles.featureIcon} name="bus-stop" />
               </View>
               <Text style={homeStyles.title}>New Request</Text>
-              <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
+              <Text style={homeStyles.subtitle}>I challenge you to dynamically change these based on the user type.</Text>
               <View style={[homeStyles.action, homeStyles.action1]}>
                 <Text style={homeStyles.actionText}>Request Pickup</Text>
               </View>

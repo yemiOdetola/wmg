@@ -47,7 +47,6 @@ export default function ListingDetails(props: any) {
   }, []);
 
   const saveBookmark = (id: number, title: string, image: any = "https://picsum.photos/200/300") => {
-
     let data = { id, title, image };
     setBookmark(true);
     setDietBookmark(data).then(token => {
@@ -67,7 +66,7 @@ export default function ListingDetails(props: any) {
     });
   };
 
-  const renderButtonFav = () => {
+  const renderOptionsButton = () => {
     if (!isBookmark) {
       return (
         <TouchableOpacity onPress={() => saveBookmark(item.id, item.title, item.image)} style={styles.headerOption}>
@@ -89,7 +88,7 @@ export default function ListingDetails(props: any) {
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerRight: () => renderButtonFav()
+      headerRight: () => renderOptionsButton()
     });
 
   }, [isBookmark, item]);
@@ -103,55 +102,43 @@ export default function ListingDetails(props: any) {
 
   if (!isLoaded) {
     return (
-
       <View style={{ marginTop: 50 }}>
         <InnerLoading />
       </View>
-
     );
   }
 
   return (
 
-    <ScrollView
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-    >
-
+    <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
       <SafeAreaView>
-
         <View>
-
-          <ImageBackground source={{ uri: item.image }} style={styles.Header2Image} resizeMode={'cover'}>
+          <ImageBackground source={{ uri: "https://unsplash.com/photos/qph7tJfcDys" }} style={styles.Header2Image} resizeMode={'cover'}>
             <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={styles.Header2Gradient}>
-
-              <Text style={styles.Header2Category}>{item.category}</Text>
-              <Text style={styles.Header2Title}>{item.title}</Text>
-              <Text style={styles.Header2SubTitle}>{"Servings" + ' ' + item.servings + ' | ' + "Prep Time:" + ' ' + item.time}</Text>
-
+              <Text style={styles.Header2Category}>Category</Text>
+              <Text style={styles.Header2Title}>Hand Tied Scraps Bundle</Text>
+              <Text style={styles.Header2SubTitle}>Non-negotiable</Text>
             </LinearGradient>
           </ImageBackground>
-
           <Grid style={styles.DietGrid}>
-
             <Col style={styles.DietGridCol}>
-              <Text style={styles.DietGridTitle}>{item.calories}</Text>
-              <Text style={styles.DietGridSubTitle}>Calories</Text>
+              <Text style={styles.DietGridTitle}>n/A</Text>
+              <Text style={styles.DietGridSubTitle}>Category</Text>
             </Col>
 
             <Col style={styles.DietGridCol}>
-              <Text style={styles.DietGridTitle}>{item.protein}</Text>
-              <Text style={styles.DietGridSubTitle}>Protein</Text>
+              <Text style={styles.DietGridTitle}>{item.calories}kg</Text>
+              <Text style={styles.DietGridSubTitle}>Weight</Text>
             </Col>
 
             <Col style={styles.DietGridCol}>
-              <Text style={styles.DietGridTitle}>{item.fat}</Text>
-              <Text style={styles.DietGridSubTitle}>Fat</Text>
+              <Text style={styles.DietGridTitle}>No</Text>
+              <Text style={styles.DietGridSubTitle}>Processed</Text>
             </Col>
 
             <Col style={styles.DietGridCol}>
-              <Text style={styles.DietGridTitle}>{item.carbs}</Text>
-              <Text style={styles.DietGridSubTitle}>Carbs</Text>
+              <Text style={styles.DietGridTitle}>2500</Text>
+              <Text style={styles.DietGridSubTitle}>Price</Text>
             </Col>
 
           </Grid>
@@ -160,27 +147,33 @@ export default function ListingDetails(props: any) {
             <Card style={{ marginBottom: 15, borderWidth: 0 }} mode={'outlined'}>
               <Card.Title title="Summary" />
               <Card.Content>
-                <HTMLView source={{ html: item.description ? item.description : `<p></p>` }}
-                  contentWidth={width} tagsStyles={theme === "light" ? HTMLStyles : HTMLStylesDark} />
+                <Text>Material: Clean Recycled PP with no foreign contamination
+
+                  Contains antistat agent that reduces static charge build-up in products.
+
+                  Safe to use in contact with
+                  foodstuff, pharmaceuticals, and drinking water.
+                </Text>
+                {/* <HTMLView source={{ html: item.description ? item.description : `<p></p>` }}
+                  contentWidth={width} tagsStyles={theme === "light" ? HTMLStyles : HTMLStylesDark} /> */}
               </Card.Content>
             </Card>
 
             <Card style={{ marginBottom: 15, borderWidth: 0 }} mode={'outlined'}>
-              <Card.Title title="Ingredients" />
+              <Card.Title title="Additional Information" />
               <Card.Content>
-                <HTMLView source={{ html: item.ingredients ? item.ingredients : `<p></p>` }} contentWidth={width}
-                  tagsStyles={theme === "light" ? HTMLStyles : HTMLStylesDark} />
+                <Text>No extra info</Text>
+                {/* <HTMLView source={{ html: item.instructions ? item.instructions : `<p></p>` }} contentWidth={width}
+                  tagsStyles={theme === "light" ? HTMLStyles : HTMLStylesDark} /> */}
               </Card.Content>
             </Card>
 
             <Card style={{ marginBottom: 15, borderWidth: 0 }} mode={'outlined'}>
-              <Card.Title title="Instructions" />
+              <Card.Title title="Meet your seller" />
               <Card.Content>
-                <HTMLView source={{ html: item.instructions ? item.instructions : `<p></p>` }} contentWidth={width}
-                  tagsStyles={theme === "light" ? HTMLStyles : HTMLStylesDark} />
+                <Text>Household's INFORMATION</Text>
               </Card.Content>
             </Card>
-
           </View>
 
         </View>

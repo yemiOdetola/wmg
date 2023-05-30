@@ -201,14 +201,7 @@ export default function MapMain() {
     longitudeDelta: 0.0421,
   });
 
-  const watchId = useRef<number | null>(null);
   const mapRef: any = useRef<any>();
-
-  // useEffect(() => {
-  //   return () => {
-  //     getLocation();
-  //   };
-  // }, []);
 
   useEffect(() => {
     requestLocationPermission();
@@ -295,10 +288,8 @@ export default function MapMain() {
 
   return (
     <View style={mapStyles.container}>
-      {/*Render our MapView*/}
       <MapView
         style={mapStyles.map}
-        //specify our coordinates.
         initialRegion={location}
         onRegionChangeComplete={(region) => setLocation(region)}
       >

@@ -869,7 +869,7 @@ export default StyleSheet.create({
   },
 
   DietGridSubTitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'rgba(0,0,0,0.5)',
   },
 
