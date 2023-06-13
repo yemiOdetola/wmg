@@ -1,58 +1,42 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Alert, TouchableOpacity, Image } from 'react-native';
 import { Text, TextInput, Button } from 'react-native-paper';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { styles } from '../../utils';
-// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { usePreferences } from '../../hooks';
+import { loginDummy } from '../../redux/actions/auth';
 
 // const auth = getAuth();
 
-export default function Login(props: any) {
+export default function Login({ navigation }: any) {
   const { theme, toggleTheme } = usePreferences();
+  const dispatch: any = useDispatch();
 
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { loading } = useSelector(
+    (state: any) => ({
+      loading: state.ui.loading
+    }),
+    shallowEqual
+  );
+
   const onChangeScreen = (screen: string) => {
-    console.log('string:::', screen);
-    props.navigation.navigate(screen);
+    navigation.navigate(screen);
   };
 
   const login = async () => {
-
-    setLoading(true);
-    props.navigation.navigate('Main');
-
-    // if (email, password) {
-    //     await signInWithEmailAndPassword(auth, email, password)
-    //         .then(() => {
-    //         })
-    //         .catch((error) => {
-    //             const errorCode = error.code;
-    //             const errorMessage = error.message;
-    //             if (errorCode === 'auth/wrong-password') {
-
-    //                 setLoading(false);
-    //                 Alert.alert(Strings.ST113);
-
-    //             }
-    //             else if (errorCode === 'auth/user-not-found') {
-
-    //                 setLoading(false);
-    //                 Alert.alert(Strings.ST37);
-
-    //             }
-    //             else {
-    //                 setLoading(false);
-    //                 Alert.alert(Strings.ST33);
-    //             }
-
-    //         });
-    // } else {
-    //     setLoading(false);
-    //     Alert.alert(Strings.ST33);
-    // }
+    const payload = {
+      name: 'Odetola Azeez Opeyemi',
+      email: 'yemiotola@gmail.com',
+      role: 'admin',
+      avatar: 'https://avatars.dicebear.com/api/avataaars/0390.svg',
+    };
+    dispatch(loginDummy(payload)).then((res: any) => {
+      console.log('RESSSSSSSSSSSSSSSSSI', res);
+      navigation.navigate('Main');
+    })
   }
 
   return (
@@ -61,9 +45,23 @@ export default function Login(props: any) {
     <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
       {/* <Image source={theme === "dark" ? require('../../assets/logo-white.png') : require('../../assets/logo.png')} resizeMode={"contain"} style={styles.AuthLogo} /> */}
       <View style={styles.AuthContent}>
-        <TextInput label="Name" onChangeText={text => setEmail(text.trim())} mode="outlined" autoCapitalize="none" style={styles.AuthInput} />
-        <TextInput label="Password" onChangeText={text => setPassword(text)} mode="outlined" secureTextEntry={true} style={styles.AuthInput} />
-        <TouchableOpacity activeOpacity={0.7} onPress={() => onChangeScreen('forgotPassword')}>
+        <TextInput
+          label="Email address"
+          value={email}
+          onChangeText={text => setEmail(text.trim())}
+          mode="outlined"
+          autoCapitalize="none"
+          style={styles.AuthInput}
+        />
+        <TextInput
+          label="Password"
+          value={password}
+          onChangeText={text => setPassword(text)}
+          mode="outlined"
+          secureTextEntry={true}
+          style={styles.AuthInput}
+        />
+        <TouchableOpacity onPress={() => onChangeScreen('forgotPassword')}>
           <Text style={styles.ForgotPass}>Forgot Password?</Text>
         </TouchableOpacity>
         <Button mode="contained" onPress={() => login()} dark={theme === "dark" ? false : true}

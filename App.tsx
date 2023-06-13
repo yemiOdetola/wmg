@@ -3,16 +3,19 @@ import React, { useState, useEffect, useMemo } from 'react';
 // import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import SplashScreen from 'react-native-splash-screen'
 import { LogBox, StatusBar } from 'react-native';
+import { Provider, shallowEqual, useSelector } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider as PaperProvider, MD2LightTheme as DefaultThemePaper, MD2DarkTheme as DarkThemePaper } from 'react-native-paper';
 import { NavigationContainer, DefaultTheme as DefaultThemeNav, DarkTheme as DarkThemeNav } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Toast from 'react-native-toast-message';
 import { Loading } from './src/components/shared';
 import { Preferences } from './src/context';
 import DrawerNavigation from './src/navigation/DrawerNavigation';
 import GuestNavigation from './src/navigation/GuestNavigation';
-import { colors } from './src/utils';
-import { config } from './src/utils';
+import { colors, config } from './src/utils';
+import store from './src/redux/root.store';
+import { NavigationControl } from './src/navigation/NavigationControl';
 
 DarkThemePaper.colors.primary = colors.PRIMARY;
 DarkThemePaper.colors.accent = colors.PRIMARY;
@@ -25,8 +28,6 @@ DefaultThemeNav.colors.background = "#fff";
 
 LogBox.ignoreAllLogs();
 
-// const auth = getAuth();
-
 
 const App = () => {
 
@@ -34,36 +35,16 @@ const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [isReady, setIsReady] = useState(true);
   const [loaded, setLoaded] = useState(true);
-  const [language, setLanguage] = useState(config.DEFAULTLANG);
-
-  console.log('isLogged', isLogged);
+  const [language, setLanguage] = useState(config.DEFAULTLANG)
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
     AsyncStorage.setItem('themeSetting', theme);
   }
 
-  const preference = useMemo(
-    () => ({
-      toggleTheme, theme
-    }),
-    [theme],
-  );
-
-  // useEffect(() => {
-  //   async function checkUser() {
-  //     onAuthStateChanged(auth, (user) => {
-  //       if (user !== null) {
-  //         setIsLogged(true);
-  //         setLoaded(true);
-  //       } else {
-  //         setIsLogged(false);
-  //         setLoaded(true);
-  //       }
-  //     })
-  //   }
-  //   checkUser();
-  // }, []);
+  const preference = useMemo(() => ({
+    toggleTheme, theme
+  }), [theme],);
 
 
   useEffect(() => {
@@ -100,15 +81,20 @@ const App = () => {
 
   if (loaded && isReady) {
     return (
-      <Preferences.Provider value={preference}>
-        <PaperProvider
-          theme={theme === "dark" ? DarkThemePaper : DefaultThemePaper} settings={{ icon: props => <MaterialIcons {...props} />, }}>
-          <StatusBar translucent backgroundColor="transparent" barStyle={theme === "dark" ? "light-content" : "dark-content"} />
-          <NavigationContainer theme={theme === "dark" ? DarkThemeNav : DefaultThemeNav}>
-            {isLogged ? <DrawerNavigation /> : <GuestNavigation />}
-          </NavigationContainer>
-        </PaperProvider>
-      </Preferences.Provider>
+      <>
+        <Provider store={store}>
+          <Preferences.Provider value={preference}>
+            <PaperProvider
+              theme={theme === "dark" ? DarkThemePaper : DefaultThemePaper} settings={{ icon: props => <MaterialIcons {...props} />, }}>
+              <StatusBar translucent backgroundColor="transparent" barStyle={theme === "dark" ? "light-content" : "dark-content"} />
+              <NavigationContainer theme={theme === "dark" ? DarkThemeNav : DefaultThemeNav}>
+                <NavigationControl />
+              </NavigationContainer>
+            </PaperProvider>
+          </Preferences.Provider >
+          <Toast />
+        </Provider>
+      </>
     );
   }
 

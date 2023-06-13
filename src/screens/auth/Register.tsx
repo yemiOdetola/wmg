@@ -183,7 +183,7 @@ export default function Register(props: any) {
           value={preference}
         >
           {preferences.map((pref, index) => (
-            <TouchableOpacity style={[styles.row, styles.itemCenter]} onPress={() => setPreference(pref)}>
+            <TouchableOpacity key={index} style={[styles.row, styles.itemCenter]} onPress={() => setPreference(pref)}>
               <RadioButton
                 key={`pref-${index}`}
                 value={pref}
