@@ -75,7 +75,13 @@ export default function Register(props: any) {
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
             <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}> Create Your Account</Text>
           </View>
-          <Divider />
+          {/* <Divider /> */}
+          <View style={[styles.row, styles.my10, styles.itemCenter]}>
+            <Text style={{ marginRight: 8 }}>Register as:</Text>
+            <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
+            <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
+          </View>
+          {/* <Divider /> */}
           <TextInput
             label="Name"
             value={name}
@@ -91,11 +97,6 @@ export default function Register(props: any) {
             autoCapitalize="none"
             style={styles.AuthInput}
           />
-          <View style={[styles.row, styles.my10, styles.itemCenter]}>
-            <Text style={{ marginRight: 8 }}>Register as:</Text>
-            <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
-            <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
-          </View>
           {userType === 'recycler'
             ? <Fragment>
               <TextInput

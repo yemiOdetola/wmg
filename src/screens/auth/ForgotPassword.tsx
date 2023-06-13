@@ -54,7 +54,7 @@ export default function ForgotPassword(props: any) {
       <View style={styles.AuthPage}>
         <View style={styles.AuthContent}>
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
-            <IconButton icon="cloud-lock-outline" size={24} />
+            {/* <IconButton icon="cloud-lock-outline" size={24} /> */}
             <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}>We'll send you an email with a reset link</Text>
           </View>
 
