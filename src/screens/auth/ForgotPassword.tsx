@@ -54,11 +54,16 @@ export default function ForgotPassword(props: any) {
       <View style={styles.AuthPage}>
         <View style={styles.AuthContent}>
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
-            <IconButton icon="cloud-lock-outline" size={80} />
+            <IconButton icon="cloud-lock-outline" size={24} />
             <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}>We'll send you an email with a reset link</Text>
           </View>
 
-          <TextInput label="Email" onChangeText={text => setEmail(text)} mode="flat" autoCapitalize="none" style={styles.AuthInput} />
+          <TextInput
+            label="Email"
+            onChangeText={text => setEmail(text)}
+            mode="outlined"
+            autoCapitalize="none"
+            style={styles.AuthInput} />
 
           <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => resetPassword()}
             style={styles.AuthButton} contentStyle={styles.AuthButtonContent}>

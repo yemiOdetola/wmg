@@ -59,11 +59,10 @@ export default function Login(props: any) {
 
 
     <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
-      <Image source={theme === "dark" ? require('../../assets/logo-white.png') : require('../../assets/logo.png')} resizeMode={"contain"} style={styles.AuthLogo} />
-
+      {/* <Image source={theme === "dark" ? require('../../assets/logo-white.png') : require('../../assets/logo.png')} resizeMode={"contain"} style={styles.AuthLogo} /> */}
       <View style={styles.AuthContent}>
-        <TextInput label="Name" onChangeText={text => setEmail(text.trim())} mode="flat" autoCapitalize="none" style={styles.AuthInput} />
-        <TextInput label="Email" onChangeText={text => setPassword(text)} mode="flat" secureTextEntry={true} style={styles.AuthInput} />
+        <TextInput label="Name" onChangeText={text => setEmail(text.trim())} mode="outlined" autoCapitalize="none" style={styles.AuthInput} />
+        <TextInput label="Password" onChangeText={text => setPassword(text)} mode="outlined" secureTextEntry={true} style={styles.AuthInput} />
         <TouchableOpacity activeOpacity={0.7} onPress={() => onChangeScreen('forgotPassword')}>
           <Text style={styles.ForgotPass}>Forgot Password?</Text>
         </TouchableOpacity>

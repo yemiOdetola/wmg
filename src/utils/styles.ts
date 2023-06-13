@@ -9,6 +9,63 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const PrimaryColor = colors.PRIMARY;
 
 export default StyleSheet.create({
+  // ************************GENERIC****************
+  row: {
+    flexDirection: 'row',
+  },
+  itemCenter: {
+    alignItems: 'center',
+  },
+  mb8: {
+    marginBottom: 8,
+  },
+  mb10: {
+    marginBottom: 10,
+  },
+  mb16: {
+    marginBottom: 16,
+  },
+  mb20: {
+    marginBottom: 20,
+  },
+  mb24: {
+    marginBottom: 24,
+  },
+  mb32: {
+    marginBottom: 32,
+  },
+  my8: {
+    marginVertical: 8,
+  },
+  my10: {
+    marginVertical: 10,
+  },
+  my16: {
+    marginVertical: 16,
+  },
+  chip: {
+    marginRight: 10,
+    borderRadius: 6,
+  },
+  dropdownPlaceholder: {
+    height: 56,
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#777',
+    borderRadius: 4,
+    justifyContent: 'center',
+    paddingLeft: 16,
+    marginVertical: 8,
+  },
+  modalContainerStyle: {
+    width: '80%',
+    alignSelf: 'center',
+    borderRadius: 2,
+    backgroundColor: 'white',
+    padding: 20,
+  },
+
+  
   //////////////////////// LOGIN/SIGNUP
 
   masonryContainer: {
@@ -51,18 +108,28 @@ export default StyleSheet.create({
   },
 
   AuthInput: {
-    marginBottom: 10,
+    marginVertical: 8,
     padding: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
+    borderRadius: 2,
+    borderColor: '#d4d5d7',
   },
 
   AuthButton: {
     marginTop: 15,
-    borderRadius: 8,
+    borderRadius: 4,
+    backgroundColor: '#5341C4', // TODO: change when you change your theme.
   },
 
   AuthButtonContent: {
     paddingVertical: 10,
+    fontWeight: '600',
+  },
+  authButtonLabel: {
+    color: '#FFF',
+    fontWeight: '600',
+    textTransform: 'lowercase',
+    fontSize: 16,
   },
 
   AuthButtonLabel: {

@@ -31,10 +31,12 @@ LogBox.ignoreAllLogs();
 const App = () => {
 
   const [theme, setTheme] = useState(config.THEMEMODE);
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [isReady, setIsReady] = useState(true);
   const [loaded, setLoaded] = useState(true);
   const [language, setLanguage] = useState(config.DEFAULTLANG);
+
+  console.log('isLogged', isLogged);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -99,7 +101,8 @@ const App = () => {
   if (loaded && isReady) {
     return (
       <Preferences.Provider value={preference}>
-        <PaperProvider theme={theme === "dark" ? DarkThemePaper : DefaultThemePaper} settings={{ icon: props => <MaterialIcons {...props} />, }}>
+        <PaperProvider
+          theme={theme === "dark" ? DarkThemePaper : DefaultThemePaper} settings={{ icon: props => <MaterialIcons {...props} />, }}>
           <StatusBar translucent backgroundColor="transparent" barStyle={theme === "dark" ? "light-content" : "dark-content"} />
           <NavigationContainer theme={theme === "dark" ? DarkThemeNav : DefaultThemeNav}>
             {isLogged ? <DrawerNavigation /> : <GuestNavigation />}

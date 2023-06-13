@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, Alert, TouchableOpacity } from 'react-native';
-import { Text, TextInput, Button, Checkbox, IconButton } from 'react-native-paper';
+import React, { Fragment, useState } from 'react';
+import { SafeAreaView, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, TextInput, Button, Checkbox, Chip, Divider, RadioButton, Modal } from 'react-native-paper';
 import { styles } from '../../utils';
 import { colors } from '../../utils';
 import { usePreferences } from '../../hooks'
@@ -10,12 +10,19 @@ import { usePreferences } from '../../hooks'
 
 export default function Register(props: any) {
   const { theme } = usePreferences();
-
+  const [preferences] = useState(['Distance', 'Quantity of waste', 'Accessibility', 'Price', 'Availability']);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [preference, setPreference] = useState('');
+  const [company, setCompany] = useState('');
+  const [phone, setPhone] = useState('');
+  const [threshold, setThreshold] = useState('');
+  const [radius, setRadius] = useState('');
   const [password, setPassword] = useState('');
   const [checked, setChecked] = useState(false);
+  const [userType, setUserType] = useState<any>('household');
+  const [preferenceModalVisible, setPreferenceModalVisible] = React.useState(false);
 
   const onChangeScreen = (screen: string) => {
     props.navigation.navigate(screen);
@@ -52,29 +59,110 @@ export default function Register(props: any) {
     // }
   }
 
+  const selectUserType = (type: string) => {
+    setUserType(type || 'household')
+  }
+
+  const showModal = () => {
+    setPreferenceModalVisible(true)
+  };
+  const hideModal = () => setPreferenceModalVisible(false);
+
   return (
-
     <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
-      <View style={styles.AuthPage}>
-
+      <ScrollView style={styles.AuthPage}>
         <View style={styles.AuthContent}>
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
-            {/* <IconButton icon="account-plus" size={80} /> */}
-            <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}>Please enter info to create account</Text>
+            <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}> Create Your Account</Text>
           </View>
+          <Divider />
+          <TextInput
+            label="Name"
+            value={name}
+            onChangeText={text => setName(text)}
+            mode="outlined"
+            style={styles.AuthInput}
+          />
+          <TextInput
+            label="Email Address"
+            value={email}
+            onChangeText={text => setEmail(text.trim())}
+            mode="outlined"
+            autoCapitalize="none"
+            style={styles.AuthInput}
+          />
+          <View style={[styles.row, styles.my10, styles.itemCenter]}>
+            <Text style={{ marginRight: 8 }}>Register as:</Text>
+            <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
+            <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
+          </View>
+          {userType === 'recycler'
+            ? <Fragment>
+              <TextInput
+                label="Recycling company"
+                value={company}
+                onChangeText={text => setCompany(text.trim())}
+                mode="outlined"
+                autoCapitalize="none"
+                style={styles.AuthInput}
+              />
+              <TextInput
+                label="Threshold (kg)"
+                value={threshold}
+                onChangeText={text => setThreshold(text.trim())}
+                mode="outlined"
+                keyboardType="numeric"
+                autoCapitalize="none"
+                style={styles.AuthInput}
+              />
+              <TouchableOpacity style={styles.dropdownPlaceholder} onPress={showModal}>
+                <Text>{preference ? `Preference: ${preference}` : "Pickup preference"}</Text>
+              </TouchableOpacity>
 
-          <TextInput label="Username" onChangeText={text => setName(text)} mode="flat" style={styles.AuthInput} />
-          <TextInput label="Email Address" onChangeText={text => setEmail(text.trim())} mode="flat" autoCapitalize="none" style={styles.AuthInput} />
-          <TextInput label="Password" onChangeText={text => setPassword(text.trim())} mode="flat" secureTextEntry={true} style={styles.AuthInput} />
+              {preference.toLowerCase() == 'distance' ?
+                <TextInput
+                  label="Distance (in km)"
+                  value={radius}
+                  onChangeText={text => setRadius(text.trim())}
+                  mode="outlined"
+                  keyboardType="numeric"
+                  autoCapitalize="none"
+                  style={styles.AuthInput}
+                />
+                : null}
+            </Fragment>
+            : null}
+
+          <TextInput
+            label="Phone number"
+            value={phone}
+            onChangeText={text => setPhone(text.trim())}
+            mode="outlined"
+            keyboardType="name-phone-pad"
+            autoCapitalize="none"
+            style={styles.AuthInput}
+          />
+          <TextInput
+            secureTextEntry
+            label="Password"
+            value={password}
+            onChangeText={text => setPassword(text.trim())}
+            mode="outlined"
+            style={styles.AuthInput}
+          />
           <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-            <Checkbox.Android color={colors.PRIMARY} uncheckedColor={"#b9b9b9"} status={checked ? 'checked' : 'unchecked'}
+            <Checkbox.Android
+              color={colors.PRIMARY}
+              uncheckedColor={"#b9b9b9"}
+              status={checked ? 'checked' : 'unchecked'}
               onPress={() => { setChecked(!checked); }}
             />
             <TouchableOpacity activeOpacity={0.8} onPress={() => onChangeScreen("terms")}>
               <Text style={styles.AuthCheckBoxLabel}>I Agree to Privacy & Terms</Text>
             </TouchableOpacity>
           </View>
-          <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => register()} style={styles.AuthButton} contentStyle={styles.AuthButtonContent}>
+          <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => register()}
+            style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
             {!loading ? "Continue" : "Please wait..."}
           </Button>
 
@@ -87,7 +175,26 @@ export default function Register(props: any) {
           </View>
 
         </View>
-      </View>
+      </ScrollView>
+      <Modal visible={preferenceModalVisible} onDismiss={hideModal} contentContainerStyle={styles.modalContainerStyle}>
+        <RadioButton.Group
+          onValueChange={value => setPreference(value)}
+          value={preference}
+        >
+          {preferences.map((pref, index) => (
+            <TouchableOpacity style={[styles.row, styles.itemCenter]} onPress={() => setPreference(pref)}>
+              <RadioButton
+                key={`pref-${index}`}
+                value={pref}
+                color="#000"
+                status={preference === pref ? 'checked' : 'unchecked'}
+              />
+              <Text>{pref}</Text>
+            </TouchableOpacity>
+          ))}
+        </RadioButton.Group>
+        <Button onPress={hideModal}>OK</Button>
+      </Modal>
     </SafeAreaView>
 
   );
