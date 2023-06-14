@@ -1,5 +1,5 @@
 const ColorsApp = {
-  PRIMARY: '#9E77ED',
+  PRIMARY: '#5341C4',
   SECONDARY: '#191818',
   PRIMARY300: '#D6BBFB',
   PRIMARY400: '#667085',

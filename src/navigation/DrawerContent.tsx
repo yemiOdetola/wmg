@@ -27,46 +27,6 @@ export default function DrawerContent(props: any) {
 			</TouchableOpacity>
 
 			<View style={{ flex: 1 }}>
-				{/* <TouchableOpacity onPress={() => onChangeScreen("workouts")} activeOpacity={0.8}>
-					<List.Item
-						titleStyle={styles.DrawerTitleMenu}
-						style={styles.DrawerMenuItem}
-						title="Workouts"
-						left={props => <Icon {...props} style={styles.DrawerIconMenu} name="calendar-month-outline" />}
-						right={props => <Icon {...props} style={styles.DrawerIconRightMenu} name="chevron-right" />}
-					/>
-				</TouchableOpacity> */}
-
-				{/* <TouchableOpacity onPress={() => onChangeScreen("exercises")} activeOpacity={0.8}>
-					<List.Item
-						titleStyle={styles.DrawerTitleMenu}
-						style={styles.DrawerMenuItem}
-						title="Exercises"
-						left={props => <Icon {...props} style={styles.DrawerIconMenu} name="dumbbell" />}
-						right={props => <Icon {...props} style={styles.DrawerIconRightMenu} name="chevron-right" />}
-					/>
-				</TouchableOpacity> */}
-{/* 
-				<TouchableOpacity onPress={() => onChangeScreen("diets")} activeOpacity={0.8}>
-					<List.Item
-						titleStyle={styles.DrawerTitleMenu}
-						style={styles.DrawerMenuItem}
-						title="Diets"
-						left={props => <Icon {...props} style={styles.DrawerIconMenu} name="fruit-watermelon" />}
-						right={props => <Icon {...props} style={styles.DrawerIconRightMenu} name="chevron-right" />}
-					/>
-				</TouchableOpacity> */}
-
-				{/* <TouchableOpacity onPress={() => onChangeScreen("store")} activeOpacity={0.8}>
-					<List.Item
-						titleStyle={styles.DrawerTitleMenu}
-						style={styles.DrawerMenuItem}
-						title="Store"
-						left={props => <Icon {...props} style={styles.DrawerIconMenu} name="cart-outline" />}
-						right={props => <Icon {...props} style={styles.DrawerIconRightMenu} name="chevron-right" />}
-					/>
-				</TouchableOpacity> */}
-
 				<TouchableOpacity onPress={() => onChangeScreen("listing")} activeOpacity={0.8}>
 					<List.Item
 						titleStyle={styles.DrawerTitleMenu}

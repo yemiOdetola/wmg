@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { SafeAreaView, View, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView, View, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Text, TextInput, Button, Checkbox, Chip, Divider, RadioButton, Modal } from 'react-native-paper';
 import { styles } from '../../utils';
 import { colors } from '../../utils';
@@ -71,7 +71,8 @@ export default function Register(props: any) {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
       <ScrollView style={styles.AuthPage}>
-        <View style={styles.AuthContent}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.AuthContent}>
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
             <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}> Create Your Account</Text>
           </View>
@@ -86,14 +87,14 @@ export default function Register(props: any) {
             label="Name"
             value={name}
             onChangeText={text => setName(text)}
-            mode="outlined"
+            mode="flat"
             style={styles.AuthInput}
           />
           <TextInput
             label="Email Address"
             value={email}
             onChangeText={text => setEmail(text.trim())}
-            mode="outlined"
+            mode="flat"
             autoCapitalize="none"
             style={styles.AuthInput}
           />
@@ -103,7 +104,7 @@ export default function Register(props: any) {
                 label="Recycling company"
                 value={company}
                 onChangeText={text => setCompany(text.trim())}
-                mode="outlined"
+                mode="flat"
                 autoCapitalize="none"
                 style={styles.AuthInput}
               />
@@ -111,13 +112,13 @@ export default function Register(props: any) {
                 label="Threshold (kg)"
                 value={threshold}
                 onChangeText={text => setThreshold(text.trim())}
-                mode="outlined"
+                mode="flat"
                 keyboardType="numeric"
                 autoCapitalize="none"
                 style={styles.AuthInput}
               />
               <TouchableOpacity style={styles.dropdownPlaceholder} onPress={showModal}>
-                <Text>{preference ? `Preference: ${preference}` : "Pickup preference"}</Text>
+                <Text style={styles.ddLabel}>{preference ? `Preference: ${preference}` : "Pickup preference"}</Text>
               </TouchableOpacity>
 
               {preference.toLowerCase() == 'distance' ?
@@ -125,7 +126,7 @@ export default function Register(props: any) {
                   label="Distance (in km)"
                   value={radius}
                   onChangeText={text => setRadius(text.trim())}
-                  mode="outlined"
+                  mode="flat"
                   keyboardType="numeric"
                   autoCapitalize="none"
                   style={styles.AuthInput}
@@ -138,7 +139,7 @@ export default function Register(props: any) {
             label="Phone number"
             value={phone}
             onChangeText={text => setPhone(text.trim())}
-            mode="outlined"
+            mode="flat"
             keyboardType="name-phone-pad"
             autoCapitalize="none"
             style={styles.AuthInput}
@@ -148,7 +149,7 @@ export default function Register(props: any) {
             label="Password"
             value={password}
             onChangeText={text => setPassword(text.trim())}
-            mode="outlined"
+            mode="flat"
             style={styles.AuthInput}
           />
           <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
@@ -175,7 +176,7 @@ export default function Register(props: any) {
             </TouchableOpacity>
           </View>
 
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
       <Modal visible={preferenceModalVisible} onDismiss={hideModal} contentContainerStyle={styles.modalContainerStyle}>
         <RadioButton.Group
@@ -183,7 +184,7 @@ export default function Register(props: any) {
           value={preference}
         >
           {preferences.map((pref, index) => (
-            <TouchableOpacity key={index} style={[styles.row, styles.itemCenter]} onPress={() => setPreference(pref)}>
+            <TouchableOpacity key={index} style={[styles.modalItem, styles.row, styles.itemCenter]} onPress={() => setPreference(pref)}>
               <RadioButton
                 key={`pref-${index}`}
                 value={pref}

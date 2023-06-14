@@ -38,8 +38,6 @@ export default function GuestNavigation(props: any) {
 		headerBackTitleVisible: false,
 		headerTitleAlign: 'center',
 		gestureEnabled: true,
-		/*cardOverlayEnabled: true,
-		...TransitionPresets.ModalPresentationIOS*/
 	}
 
 	return (

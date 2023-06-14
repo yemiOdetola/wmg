@@ -16,6 +16,12 @@ export default StyleSheet.create({
   itemCenter: {
     alignItems: 'center',
   },
+  itemsBaseline: {
+    alignItems: 'baseline',
+  },
+  capitalize: {
+    textTransform: 'capitalize',
+  },
   mb8: {
     marginBottom: 8,
   },
@@ -34,6 +40,9 @@ export default StyleSheet.create({
   mb32: {
     marginBottom: 32,
   },
+  my4: {
+    marginVertical: 4,
+  },
   my8: {
     marginVertical: 8,
   },
@@ -48,14 +57,25 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
   dropdownPlaceholder: {
-    height: 56,
+    height: 64,
     width: '100%',
     borderWidth: 1,
-    borderColor: '#777',
-    borderRadius: 4,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1.2,
+    borderColor: '#f1f1f1',
+    borderRadius: 2,
     justifyContent: 'center',
     paddingLeft: 16,
     marginVertical: 8,
+  },
+  ddLabel: {
+    fontSize: 16,
+    color: '#555',
+    textTransform: 'capitalize',
+  },
+  ddlight: {
+    height: 64,
+    borderColor: '#f1f1f1',
   },
   modalContainerStyle: {
     width: '80%',
@@ -64,8 +84,12 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
   },
+  modalItem: {
+    marginBottom: 10,
+    borderBottomColor: '#f1f1f1',
+    borderBottomWidth: 1,
+  },
 
-  
   //////////////////////// LOGIN/SIGNUP
 
   masonryContainer: {
@@ -108,11 +132,13 @@ export default StyleSheet.create({
   },
 
   AuthInput: {
-    marginVertical: 8,
+    marginVertical: 10,
     padding: 0,
     backgroundColor: 'white',
-    borderRadius: 2,
-    borderColor: '#d4d5d7',
+    borderRadius: 0,
+    borderWidth: 1,
+    borderBottomWidth: 0,
+    borderColor: '#f1f1f1',
   },
 
   AuthButton: {

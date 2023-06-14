@@ -12,6 +12,7 @@ import { Listing } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
 import { MapMain } from '../screens/map';
+import { RequestPickup } from '../screens/request';
 
 // import Profile from '../screens/Profile';
 // import About from '../screens/About';
@@ -144,6 +145,11 @@ export default function StackNavigation(props: any) {
       <Stack.Screen
         name="mapmain"
         component={MapMain}
+        options={{ title: "", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="requestPickup"
+        component={RequestPickup}
         options={{ title: "", headerLeft: () => buttonBack() }}
       />
     </Stack.Navigator>
