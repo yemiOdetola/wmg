@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as Types from './types';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,7 +23,7 @@ const updateAsyncStorageWithUserLogin = async (values: any) => {
   }
 };
 
-export const loginDummy = payload => dispatch => {
+export const loginDummy = (payload: any) => (dispatch: any) => {
   dispatch(Loading(true));
   return axios.get('https://google.com').then(() => {
     dispatch(Loading(false));

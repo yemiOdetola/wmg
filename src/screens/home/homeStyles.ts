@@ -45,6 +45,7 @@ export default StyleSheet.create({
   creditVal: {
     fontSize: 15,
     fontWeight: '600',
+    color: '#000',
   },
   value: {
     fontSize: 28,

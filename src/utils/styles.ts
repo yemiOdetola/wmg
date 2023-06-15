@@ -10,6 +10,15 @@ const PrimaryColor = colors.PRIMARY;
 
 export default StyleSheet.create({
   // ************************GENERIC****************
+  imageContainer: {
+    marginVertical: 24,
+    alignItems: 'center',
+  },
+  image: {
+    width: screenWidth * 0.8,
+    height: screenWidth * 0.4,
+    alignSelf: 'center',
+  },
   row: {
     flexDirection: 'row',
   },
@@ -60,8 +69,8 @@ export default StyleSheet.create({
     height: 64,
     width: '100%',
     borderWidth: 1,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1.2,
+    borderBottomColor: '#aeaeae',
+    borderBottomWidth: 1,
     borderColor: '#f1f1f1',
     borderRadius: 2,
     justifyContent: 'center',
@@ -81,11 +90,10 @@ export default StyleSheet.create({
     width: '80%',
     alignSelf: 'center',
     borderRadius: 2,
-    backgroundColor: 'white',
     padding: 20,
   },
   modalItem: {
-    marginBottom: 10,
+    paddingVertical: 12,
     borderBottomColor: '#f1f1f1',
     borderBottomWidth: 1,
   },
@@ -134,7 +142,6 @@ export default StyleSheet.create({
   AuthInput: {
     marginVertical: 10,
     padding: 0,
-    backgroundColor: 'white',
     borderRadius: 0,
     borderWidth: 1,
     borderBottomWidth: 0,

@@ -6,3 +6,4 @@ export {default as LoadMoreButton} from './LoadMoreButton';
 export {default as NoContentFound} from './NoContentFound';
 export {default as CustomModal} from './CustomModal';
 export {default as CustomButton} from './CustomButton';
+export {default as Input} from './Input';

@@ -35,6 +35,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The location will be used to direct the driver to a radius of pickup as listed by the user. For the user, the map will help pickups locate them easily</string>
 	<key>UIAppFonts</key>
