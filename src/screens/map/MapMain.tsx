@@ -1,189 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Platform, View, PermissionsAndroid, Linking, Alert, ToastAndroid } from "react-native";
+import { Platform, View, PermissionsAndroid, Linking, Alert, ToastAndroid, Animated } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import mapStyles from './mapStyles'
+import { mapViewConfig } from './mapViewConfig';
+import { usePreferences } from '../../hooks';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const darkStyle = [
-  {
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#212121"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#212121"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.country",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.locality",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#bdbdbd"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#181818"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#1b1b1b"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
-        "color": "#2c2c2c"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#8a8a8a"
-      }
-    ]
-  },
-  {
-    "featureType": "road.arterial",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#373737"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#3c3c3c"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway.controlled_access",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#4e4e4e"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#000000"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#3d3d3d"
-      }
-    ]
-  }
+const markers = [
+  { "latitude": 37.4220262, "longitude": -122.0840891 },
+  { "latitude": 6.512996025012338, "latitudeDelta": 0.08336767617148677, "longitude": 3.3602561987936497, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.512994026339028, "latitudeDelta": 0.0833676765034852, "longitude": 3.3602561987936497, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.512994026339028, "latitudeDelta": 0.0833676765034852, "longitude": 3.3602561987936497, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.497873501997666, "latitudeDelta": 0.08337018534972529, "longitude": 3.3541625551879406, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.505940991779954, "latitudeDelta": 0.08336884748826456, "longitude": 3.3383613266050816, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.52310154857041, "latitudeDelta": 0.08336599619293672, "longitude": 3.32557724788785, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.526911594850771, "latitudeDelta": 0.08336536212395451, "longitude": 3.3194048143923283, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.526909596232937, "latitudeDelta": 0.08336536245665283, "longitude": 3.3194048143923283, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.526907597615103, "latitudeDelta": 0.08336536278937778, "longitude": 3.3194048143923283, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.539486407152286, "latitudeDelta": 0.08336326680402095, "longitude": 3.3180620335042477, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.551416380858428, "latitudeDelta": 0.08336127522063741, "longitude": 3.3223713375627995, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.550052056109019, "latitudeDelta": 0.08336150316329505, "longitude": 3.350300509482622, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.474559402168891, "latitudeDelta": 0.08337404232211743, "longitude": 3.3438135869801044, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.525662124045536, "latitudeDelta": 0.08336557010187562, "longitude": 3.375804964452982, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.533973328041524, "latitudeDelta": 0.08336418593349837, "longitude": 3.3576195873320103, "longitudeDelta": 0.043651945888996124 },
+  { "latitude": 6.553423223837399, "latitudeDelta": 0.08336093984423787, "longitude": 3.358385358005762, "longitudeDelta": 0.043651945888996124 },
 ]
+
 export default function MapMain() {
+  const { theme }: any = usePreferences();
+  const mapRef: any = useRef<any>();
+  const anim = useRef(new Animated.Value(1));
   const [locationPerm, setLocationPerm] = useState(false);
   const [modal, showModal] = useState(false);
   const [modalMode, showModalMode] = useState('');
@@ -201,12 +49,25 @@ export default function MapMain() {
     longitudeDelta: 0.0421,
   });
 
-  const mapRef: any = useRef<any>();
-
   useEffect(() => {
-    requestLocationPermission();
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(anim.current, {
+          toValue: 1.1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(anim.current, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
   }, []);
 
+
+  console.log('THEME: ', theme);
   useEffect(() => {
     console.log('LOCATION', location);
   }, [location]);
@@ -259,10 +120,7 @@ export default function MapMain() {
   };
 
   const navTo = (loc: any, delay = null) => {
-    if (!loc) {
-      return;
-    }
-
+    if (!loc) return;
     const newCamera = {
       center: { latitude: loc.coords.latitude, longitude: loc.coords.longitude },
       zoom: 17,
@@ -272,28 +130,36 @@ export default function MapMain() {
     }
     if (delay) {
       setTimeout(() => {
-        if (mapRef.current) {
-          mapRef.current.animateCamera(newCamera, { duration: 1000 });
-        }
+        if (mapRef.current) mapRef.current.animateCamera(newCamera, { duration: 1000 });
+
       }, delay)
     } else {
-      if (mapRef.current) {
-        mapRef.current.animateCamera(newCamera, { duration: 1000 });
-      }
+      if (mapRef.current) mapRef.current.animateCamera(newCamera, { duration: 1000 });
     }
-
     AsyncStorage.setItem('location', JSON.stringify({ latitude: loc.coords.latitude, longitude: loc.coords.longitude }));
-
   }
 
+  const CustomMarker = () => {
+    return (
+      <Animated.View style={{ transform: [{ scale: anim.current }] }}>
+        <Icon name="trash-can" size={24} color="red" />
+      </Animated.View>
+    )
+  }
   return (
     <View style={mapStyles.container}>
       <MapView
         style={mapStyles.map}
+        customMapStyle={mapViewConfig}
+        userInterfaceStyle={theme == 'dark' ? 'dark' : 'light'}
         initialRegion={location}
         onRegionChangeComplete={(region) => setLocation(region)}
       >
-        <Marker coordinate={location} />
+        {markers.map((marker, index) => (
+          <Marker coordinate={marker} key={`marker-${index}`}>
+            <CustomMarker />
+          </Marker>
+        ))}
       </MapView>
     </View>
   )

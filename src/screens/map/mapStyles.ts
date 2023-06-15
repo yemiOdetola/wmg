@@ -18,4 +18,9 @@ export default StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  customMarker: {
+    
+  },
+  // customMarker: {},
+  // customMarker: {},
 });
