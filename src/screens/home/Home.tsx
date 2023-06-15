@@ -48,7 +48,7 @@ export default function Home({ navigation }: any) {
             </View>
           </View>
           <View style={homeStyles.buttonGroup}>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f1]}>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f1]} onPress={() => navigation.navigate('requestPickup')}>
               <View style={[homeStyles.icon, homeStyles.icon1]}>
                 <Icon style={homeStyles.featureIcon} name="bus-stop" />
               </View>
