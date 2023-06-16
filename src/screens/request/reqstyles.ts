@@ -18,4 +18,7 @@ export default StyleSheet.create({
     width: screenWidth * .75,
     lineHeight: 20
   },
+  timeStamp: {
+    alignSelf: 'flex-end',
+  },
 });

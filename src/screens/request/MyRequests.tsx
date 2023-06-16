@@ -88,13 +88,13 @@ export default function MyRequests(props: any) {
                   <View key={index} style={styles.py14}>
                     <View style={[styles.row, styles.itemCenter, styles.mb8]}>
                       <Text style={reqstyles.lable}>Offer: </Text>
-                      <Text style={reqstyles.value}>{el.offer ? `₦${el.offer?.toLocaleString()}` : 'not available'}</Text>
+                      <Text style={reqstyles.value}>{el.offer ? `₦${el.offer?.toLocaleString()}` : 'ACCEPTED'}</Text>
                     </View>
                     <View style={[styles.row, styles.mb8]}>
                       <Text style={reqstyles.lable}>Message: </Text>
                       <Text style={reqstyles.value}>{el.message || 'n/A'}</Text>
                     </View>
-                    <Text>{new Date(el.timestamp).toLocaleString()}</Text>
+                    <Text style={reqstyles.timeStamp}>{new Date(el.timestamp).toLocaleString()}</Text>
                   </View>
                   <Divider />
                 </>
