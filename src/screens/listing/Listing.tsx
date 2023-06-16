@@ -16,19 +16,10 @@ export default function Listings(props: any) {
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
     >
-
       <SafeAreaView>
-
         <View style={styles.HomeScreen}>
-          <Heading title="Tags" button={() => onChangeScreen('tags')} />
           <PostTags />
           <Posts />
-          <FeaturedPosts />
-
-
-          <Heading title="Posts" button={() => onChangeScreen('posts')} />
-          <LatestPosts />
-
         </View>
       </SafeAreaView>
     </ScrollView>

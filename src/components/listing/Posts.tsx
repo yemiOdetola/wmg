@@ -65,8 +65,6 @@ export default function LatestPosts() {
     });
   }, []);
 
-
-
   const onChangeScreen = (screen: string) => {
     navigation.navigate(screen);
   };
@@ -91,9 +89,6 @@ export default function LatestPosts() {
             <Image style={listingStyles.avatarImg} source={{ uri: "https://picsum.photos/200/200" }} />
           </View>
           <View style={listingStyles.details}>
-            {/* <View style={[listingStyles.category, { backgroundColor: item.code }]}>
-            <Text style={listingStyles.categoryText}>Electronics</Text>
-          </View> */}
             <Text style={[listingStyles.categoryText, { color: item.code }]}>Electronics</Text>
             <Text style={[listingStyles.title, { color: theme == 'dark' ? '#f1f1f1' : '#555555', }]}>HP 15' laptops (dead) </Text>
             <Text style={[listingStyles.location, { color: theme == 'dark' ? '#e5e5e5' : '#8d99ae', }]}>Sparklight extension, ojodu berger, Lagos state</Text>

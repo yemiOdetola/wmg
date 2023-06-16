@@ -127,7 +127,7 @@ export default function ModalNavigation(props: any) {
           headerLeft: () => ButtonClose(),
         }}
       />
-      <RootStack.Screen
+      {/* <RootStack.Screen
         name="listingDetails"
         component={ListingDetails}
         options={{
@@ -135,7 +135,7 @@ export default function ModalNavigation(props: any) {
           title: "",
           headerLeft: () => ButtonClose(),
         }}
-      />
+      /> */}
       {/* <RootStack.Screen
         name="productdetails"
         component={ProductDetails}

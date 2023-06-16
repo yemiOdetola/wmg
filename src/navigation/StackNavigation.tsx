@@ -8,7 +8,7 @@ import { SingleGoal, Workouts } from '../screens/workout';
 import { Store } from '../screens/store';
 import { Settings } from '../screens/settings';
 import { Profile } from '../screens/profile';
-import { Listing } from '../screens/listing'
+import { Listing, ListingDetails } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
 import { MapMain } from '../screens/map';
@@ -156,6 +156,15 @@ export default function StackNavigation(props: any) {
         name="myRequests"
         component={MyRequests}
         options={{ title: "", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="listingDetails"
+        component={ListingDetails}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerLeft: () => buttonBack(),
+        }}
       />
     </Stack.Navigator>
   );
