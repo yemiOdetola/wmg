@@ -163,7 +163,6 @@ export default function MapMain() {
       </MapView>
       <Modal visible={showDetails} onDismiss={() => setShowDetails(false)}
         contentContainerStyle={[styles.modalContainerStyle, { backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'white' }]}>
-        {/* <Text>{JSON.stringify(listingDetails)}</Text> */}
         <View style={[styles.row, styles.itemCenter, styles.my8]}>
           <Icon name="tag-outline" color={colors.PRIMARY} size={20} style={{ marginRight: 8 }} />
           <View>
@@ -178,9 +177,9 @@ export default function MapMain() {
             <Text style={mapStyles.value}>22.5kg</Text>
           </View>
         </View>
-        <View style={[styles.row, styles.itemCenter]}>
-          <Button onPress={() => setShowDetails(false)}>Close</Button>
+        <View style={[styles.row, styles.itemCenter, styles.justifyEnd]}>
           <Button onPress={() => setShowDetails(false)}>Details</Button>
+          <Button onPress={() => setShowDetails(false)}>Close</Button>
         </View>
       </Modal>
     </View>

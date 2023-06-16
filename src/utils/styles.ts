@@ -25,6 +25,9 @@ export default StyleSheet.create({
   itemCenter: {
     alignItems: 'center',
   },
+  justifyEnd: {
+    justifyContent: 'flex-end',
+  },
   itemsBaseline: {
     alignItems: 'baseline',
   },
