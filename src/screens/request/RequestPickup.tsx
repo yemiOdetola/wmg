@@ -55,7 +55,7 @@ if (Platform.OS === 'ios') {
   });
 }
 
-export default function Home(props: any) {
+export default function RequestPickup(props: any) {
   const { theme } = usePreferences();
   const dispatch: any = useDispatch();
 
@@ -117,14 +117,14 @@ export default function Home(props: any) {
           value={description}
           onChangeText={(text: any) => setDescription(text)}
           multiline
-          numberOfLines={3}
+          numberOfLines={2}
         />
         <Input
           label="Instruction"
           value={instruction}
           onChangeText={(text: any) => setInstruction(text)}
           multiline
-          numberOfLines={3}
+          numberOfLines={2}
         />
         <Input
           label="Weight(in kg)"

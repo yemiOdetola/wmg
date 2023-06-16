@@ -68,7 +68,7 @@ export default function Home({ navigation }: any) {
                 <Text style={homeStyles.actionText}>Track collector</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f4]}>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f4]} onPress={() => onChangeScreen('myRequests')}>
               <View style={[homeStyles.icon, homeStyles.icon4]}>
                 <Icon style={homeStyles.featureIcon} name="database-cog-outline" />
               </View>

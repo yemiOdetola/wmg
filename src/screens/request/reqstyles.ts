@@ -8,4 +8,14 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 
 const PrimaryColor = colors.PRIMARY;
 
-export default StyleSheet.create({});
+export default StyleSheet.create({
+  lable: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  value: {
+    fontSize: 14,
+    width: screenWidth * .75,
+    lineHeight: 20
+  },
+});

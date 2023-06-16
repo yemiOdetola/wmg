@@ -139,13 +139,14 @@ export default function MapMain() {
   const CustomMarker = (marker: any) => {
     return (
       <Animated.View style={{ transform: [{ scale: anim.current }], padding: 24 }}>
+        <Icon name="recycle" size={28} color={colors.PRIMARY} />
         {/* <Icon name="archive-marker-outline" size={28} color="red" /> */}
-        <Icon name="archive-marker" size={28} color="red" />
+        {/* <Icon name="archive-marker" size={28} color="red" /> */}
         {/* <Icon name="delete-circle-outline" size={28} color="red" /> */}
-
       </Animated.View>
     )
   }
+
   return (
     <View style={mapStyles.container}>
       <MapView

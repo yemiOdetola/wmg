@@ -64,6 +64,12 @@ export default StyleSheet.create({
   my16: {
     marginVertical: 16,
   },
+  py10: {
+    paddingVertical: 10,
+  },
+  py14: {
+    paddingVertical: 14,
+  },
   chip: {
     marginRight: 10,
     borderRadius: 6,
