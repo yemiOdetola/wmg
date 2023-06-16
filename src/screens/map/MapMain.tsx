@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Platform, View, PermissionsAndroid, Linking, Alert, ToastAndroid, Animated } from "react-native";
+import { Platform, View, PermissionsAndroid, Animated, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button, RadioButton, Modal, Text } from 'react-native-paper';
 import mapStyles from './mapStyles'
 import { mapViewConfig } from './mapViewConfig';
 import { usePreferences } from '../../hooks';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { colors, styles } from '../../utils';
 
 const markers = [
   { "latitude": 37.4220262, "longitude": -122.0840891 },
@@ -32,16 +34,8 @@ export default function MapMain() {
   const { theme }: any = usePreferences();
   const mapRef: any = useRef<any>();
   const anim = useRef(new Animated.Value(1));
-  const [locationPerm, setLocationPerm] = useState(false);
-  const [modal, showModal] = useState(false);
-  const [modalMode, showModalMode] = useState('');
-  const [forceLocation, setForceLocation] = useState(true);
-  const [highAccuracy, setHighAccuracy] = useState(true);
-  const [locationDialog, setLocationDialog] = useState(true);
-  const [significantChanges, setSignificantChanges] = useState(false);
-  const [observing, setObserving] = useState(false);
-  const [foregroundService, setForegroundService] = useState(false);
-  const [useLocationManager, setUseLocationManager] = useState(false);
+  const [showDetails, setShowDetails] = useState(false)
+  const [listingDetails, setListingDetails] = useState('');
   const [location, setLocation] = useState<any>({
     latitude: 6.5244,
     longitude: 3.3792,
@@ -67,7 +61,6 @@ export default function MapMain() {
   }, []);
 
 
-  console.log('THEME: ', theme);
   useEffect(() => {
     console.log('LOCATION', location);
   }, [location]);
@@ -139,10 +132,17 @@ export default function MapMain() {
     AsyncStorage.setItem('location', JSON.stringify({ latitude: loc.coords.latitude, longitude: loc.coords.longitude }));
   }
 
-  const CustomMarker = () => {
+  const showListingDetails = (marker: any) => {
+    setListingDetails(marker);
+    setShowDetails(true);
+  }
+  const CustomMarker = (marker: any) => {
     return (
-      <Animated.View style={{ transform: [{ scale: anim.current }] }}>
-        <Icon name="trash-can" size={24} color="red" />
+      <Animated.View style={{ transform: [{ scale: anim.current }], padding: 24 }}>
+        {/* <Icon name="archive-marker-outline" size={28} color="red" /> */}
+        <Icon name="archive-marker" size={28} color="red" />
+        {/* <Icon name="delete-circle-outline" size={28} color="red" /> */}
+
       </Animated.View>
     )
   }
@@ -156,11 +156,33 @@ export default function MapMain() {
         onRegionChangeComplete={(region) => setLocation(region)}
       >
         {markers.map((marker, index) => (
-          <Marker coordinate={marker} key={`marker-${index}`}>
+          <Marker coordinate={marker} key={`marker-${index}`} onPress={() => showListingDetails(marker)}>
             <CustomMarker />
           </Marker>
         ))}
       </MapView>
+      <Modal visible={showDetails} onDismiss={() => setShowDetails(false)}
+        contentContainerStyle={[styles.modalContainerStyle, { backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'white' }]}>
+        {/* <Text>{JSON.stringify(listingDetails)}</Text> */}
+        <View style={[styles.row, styles.itemCenter, styles.my8]}>
+          <Icon name="tag-outline" color={colors.PRIMARY} size={20} style={{ marginRight: 8 }} />
+          <View>
+            <Text style={mapStyles.lable}>Price</Text>
+            <Text style={mapStyles.value}>{Number(2500).toLocaleString()}</Text>
+          </View>
+        </View>
+        <View style={[styles.row, styles.itemCenter, styles.my8]}>
+          <Icon name="details" color={colors.PRIMARY} size={20} style={{ marginRight: 8 }} />
+          <View>
+            <Text style={mapStyles.lable}>Weight</Text>
+            <Text style={mapStyles.value}>22.5kg</Text>
+          </View>
+        </View>
+        <View style={[styles.row, styles.itemCenter]}>
+          <Button onPress={() => setShowDetails(false)}>Close</Button>
+          <Button onPress={() => setShowDetails(false)}>Details</Button>
+        </View>
+      </Modal>
     </View>
   )
 }

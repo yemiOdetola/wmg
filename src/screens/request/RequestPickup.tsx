@@ -1,12 +1,11 @@
-import React, { Fragment, useState } from 'react';
-import { View, ScrollView, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Platform, Image, Alert } from 'react-native';
-import { Checkbox, Chip, Text, Button, TextInput, Modal, RadioButton, Dialog } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, SafeAreaView, TouchableOpacity, Platform, Image, } from 'react-native';
+import { Text, Button, Modal, RadioButton, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'react-native-image-picker';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Input } from '../../components/shared';
 import { colors, styles } from '../../utils';
-import reqstyles from './reqstyles';
 import { usePreferences } from '../../hooks';
 import { createListingTest } from '../../redux/actions/listing';
 import Toast from 'react-native-toast-message';

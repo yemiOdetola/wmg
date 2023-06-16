@@ -18,9 +18,18 @@ export default StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  customMarker: {
-    
+  customMarker: {},
+  lable: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#555',
   },
-  // customMarker: {},
+  value: {
+    fontSize: 16,
+    color: '#000',
+  },
+  // label: {},
+  // label: {},
+  // label: {},
   // customMarker: {},
 });
