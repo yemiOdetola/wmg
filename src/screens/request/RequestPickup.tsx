@@ -117,7 +117,7 @@ export default function RequestPickup(props: any) {
           value={description}
           onChangeText={(text: any) => setDescription(text)}
           multiline
-          numberOfLines={2}
+          numberOfLines={3}
         />
         <Input
           label="Instruction"
@@ -129,6 +129,7 @@ export default function RequestPickup(props: any) {
         <Input
           label="Weight(in kg)"
           value={weight}
+          keyboardType="number-pad"
           onChangeText={(text: any) => setWeight(text)}
         />
         <TouchableOpacity
@@ -163,43 +164,44 @@ export default function RequestPickup(props: any) {
         <Input
           label="Price(NGN)"
           value={price}
+          keyboardType="number-pad"
           onChangeText={(text: any) => setPrice(text.trim())}
         />
         <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => setDialogState(true)}
           style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
           {!loading ? "Continue" : "Please wait..."}
         </Button>
-        <Modal visible={categoriesModalState} onDismiss={hideModal}
-          contentContainerStyle={[styles.modalContainerStyle, { backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'white' }]}>
-          <RadioButton.Group
-            onValueChange={value => setCategory(value)}
-            value={category}
-          >
-            {categories.map((cat, index) => (
-              <TouchableOpacity key={index} style={[styles.modalItem, styles.row, styles.itemCenter]} onPress={() => setCategory(cat)}>
-                <RadioButton
-                  key={`cat-${index}`}
-                  value={cat}
-                  color={colors.PRIMARY}
-                  status={category === cat ? 'checked' : 'unchecked'}
-                />
-                <Text style={styles.capitalize}>{cat}</Text>
-              </TouchableOpacity>
-            ))}
-          </RadioButton.Group>
-          <Button onPress={hideModal}>OK</Button>
-        </Modal>
-        <Dialog visible={dialogState} onDismiss={() => setDialogState(false)}>
-          <Dialog.Title style={{ fontSize: 18 }}>Do you wish to continue?</Dialog.Title>
-          <Dialog.Content>
-            <Text variant="bodyMedium">This request will have your address as the pickup location</Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={() => setDialogState(false)}>Cancel</Button>
-            <Button onPress={createListing}>OK</Button>
-          </Dialog.Actions>
-        </Dialog>
       </SafeAreaView>
+      <Modal visible={categoriesModalState} onDismiss={hideModal}
+        contentContainerStyle={[styles.modalContainerStyle, { backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'white' }]}>
+        <RadioButton.Group
+          onValueChange={value => setCategory(value)}
+          value={category}
+        >
+          {categories.map((cat, index) => (
+            <TouchableOpacity key={index} style={[styles.modalItem, styles.row, styles.itemCenter]} onPress={() => setCategory(cat)}>
+              <RadioButton
+                key={`cat-${index}`}
+                value={cat}
+                color={colors.PRIMARY}
+                status={category === cat ? 'checked' : 'unchecked'}
+              />
+              <Text style={styles.capitalize}>{cat}</Text>
+            </TouchableOpacity>
+          ))}
+        </RadioButton.Group>
+        <Button onPress={hideModal}>OK</Button>
+      </Modal>
+      <Dialog visible={dialogState} onDismiss={() => setDialogState(false)}>
+        <Dialog.Title style={{ fontSize: 18 }}>Do you wish to continue?</Dialog.Title>
+        <Dialog.Content>
+          <Text variant="bodyMedium">This request will have your address as the pickup location</Text>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={() => setDialogState(false)}>Cancel</Button>
+          <Button onPress={createListing}>OK</Button>
+        </Dialog.Actions>
+      </Dialog>
     </KeyboardAwareScrollView>
   );
 }
