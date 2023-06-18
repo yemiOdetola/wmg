@@ -31,8 +31,29 @@ export default StyleSheet.create({
   itemsBaseline: {
     alignItems: 'baseline',
   },
+  itemTopline: {
+    alignItems: 'flex-start',
+  },
   capitalize: {
     textTransform: 'capitalize',
+  },
+  mt8: {
+    marginTop: 8,
+  },
+  mt10: {
+    marginTop: 10,
+  },
+  mt16: {
+    marginTop: 16,
+  },
+  mt20: {
+    marginTop: 20,
+  },
+  mt24: {
+    marginTop: 24,
+  },
+  mt32: {
+    marginTop: 32,
   },
   mb8: {
     marginBottom: 8,

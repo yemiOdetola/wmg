@@ -19,12 +19,8 @@ export default function Home({ navigation }: any) {
   }
 
   return (
-    <ScrollView
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-    >
-      <SafeAreaView>
-
+    <SafeAreaView>
+      <ScrollView>
         <View style={styles.HomeScreen}>
           <View style={homeStyles.headerGroup}>
             <View style={homeStyles.welcome}>
@@ -78,17 +74,17 @@ export default function Home({ navigation }: any) {
                 <Text style={homeStyles.actionText}>View requests</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f5]}>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f5]} onPress={() => navigation.navigate('schedulePickup')}>
               <View style={[homeStyles.icon, homeStyles.icon2]}>
                 <Icon style={homeStyles.featureIcon} name="dots-triangle" />
               </View>
-              <Text style={homeStyles.title}>Leaderboard</Text>
+              <Text style={homeStyles.title}>Schedule Pickup</Text>
               <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
               <View style={[homeStyles.action, homeStyles.action2]}>
                 <Text style={homeStyles.actionText}>Participation to win</Text>
               </View>
             </TouchableOpacity>
-            {/* <TouchableOpacity style={[homeStyles.button, homeStyles.f5]}>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f5]}>
               <View style={[homeStyles.icon, homeStyles.icon2]}>
                 <Icon style={homeStyles.featureIcon} name="dots-triangle" />
               </View>
@@ -107,12 +103,11 @@ export default function Home({ navigation }: any) {
               <View style={[homeStyles.action, homeStyles.action2]}>
                 <Text style={homeStyles.actionText}>Participation to win</Text>
               </View>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
-      </SafeAreaView>
-    </ScrollView>
-
+      </ScrollView>
+    </SafeAreaView>
   );
 
 }

@@ -12,34 +12,7 @@ import { Listing, ListingDetails } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
 import { MapMain } from '../screens/map';
-import { RequestPickup, MyRequests } from '../screens/request';
-
-// import Profile from '../screens/Profile';
-// import About from '../screens/About';
-// import Terms from '../screens/Terms';
-// import Workouts from '../screens/Workouts';
-// import Goals from '../screens/Goals';
-// import Languages from '../languages';
-// import LanguageContext from '../languages/LanguageContext';
-// import Levels from '../screens/Levels';
-// import SingleGoal from '../screens/SingleGoal';
-// import SingleLevel from '../screens/SingleLevel';
-// import SearchWorkout from '../screens/SearchWorkout';
-// import Exercises from '../screens/Exercises';
-// import SingleEquipment from '../screens/SingleEquipment';
-// import SingleMuscle from '../screens/SingleMuscle';
-// import Diets from '../screens/Diets';
-// import Categories from '../screens/Categories';
-// import SingleCategory from '../screens/SingleCategory';
-// import Store from '../screens/Store';
-// import Products from '../screens/Products';
-// import Blog from '../screens/Blog';
-// import Posts from '../screens/Posts';
-// import SingleType from '../screens/SingleType';
-// import SingleTag from '../screens/SingleTag';
-// import Favorites from '../screens/Favorites';
-// import CustomWorkouts from '../screens/CustomWorkouts';
-// import CustomDiets from '../screens/CustomDiets';
+import { RequestPickup, MyRequests, PickupSchedule } from '../screens/request';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,8 +30,6 @@ export default function StackNavigation(props: any) {
     },
     headerTitleAlign: 'center',
   };
-
-  // ******************************** Buttons
 
   const buttonBack = () => {
     return (
@@ -165,6 +136,11 @@ export default function StackNavigation(props: any) {
           title: "",
           headerLeft: () => buttonBack(),
         }}
+      />
+      <Stack.Screen
+        name="schedulePickup"
+        component={PickupSchedule}
+        options={{ title: "", headerLeft: () => buttonBack() }}
       />
     </Stack.Navigator>
   );
