@@ -886,6 +886,14 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
 
+  RangeLabel: {
+    position: 'relative',
+    top: 14,
+    fontSize: 16,
+    paddingLeft: 6,
+    fontWeight: '500',
+  },
+
   ExerciseColSubTitle: {
     fontSize: 18,
   },

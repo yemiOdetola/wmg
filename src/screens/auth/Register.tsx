@@ -1,11 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, Alert } from 'react-native';
 import { Text, TextInput, Button, Checkbox, Chip, RadioButton, Modal } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import RangeSlider from 'rn-range-slider';
 import { Input } from '../../components/shared';
 import { styles, colors } from '../../utils';
 import { usePreferences } from '../../hooks'
-import Toast from 'react-native-toast-message';
+import { Thumb, Rail, RailSelected, Label } from './meta';
+
 
 const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
 
@@ -21,8 +23,8 @@ export default function Register(props: any) {
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
   const [threshold, setThreshold] = useState('');
-  const [radius, setRadius] = useState('');
   const [password, setPassword] = useState('');
+  const [distanceValue, setDistanceValue] = useState('');
   const [checked, setChecked] = useState(false);
   const [category, setCategory] = useState<any>([]);
   const [userType, setUserType] = useState<any>('household');
@@ -57,13 +59,20 @@ export default function Register(props: any) {
       setCategory(cloneCat);
     } else {
       Alert.alert('You can only select 3 categories')
-      // Toast.show({ text1: 'You are only allowed to select 3 categories' })
     }
   }
 
   const hideModal = () => setPreferenceModalVisible(false);
   const hideSecModal = () => setSecPreferenceModalVisible(false);
   const hideTetModal = () => setTetPreferenceModalVisible(false);
+
+  const renderThumb = useCallback(() => <Thumb />, []);
+  const renderRail = useCallback(() => <Rail />, []);
+  const renderRailSelected = useCallback(() => <RailSelected />, []);
+  const renderLabel = useCallback((value: any) => {
+    setDistanceValue(value)
+    return <Label text={value} />
+  }, []);
 
   return (
     <>
@@ -83,6 +92,7 @@ export default function Register(props: any) {
             <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
           </View>
           {/* <Divider /> */}
+          {userType === 'recycler' ? <Text style={styles.formSubTitle}>Basic info</Text> : null}
           <Input
             label="Name"
             value={name}
@@ -96,6 +106,23 @@ export default function Register(props: any) {
             onChangeText={(text: string) => setEmail(text.trim())}
             mode="flat"
             autoCapitalize="none"
+            style={styles.AuthInput}
+          />
+          <Input
+            label="Phone number"
+            value={phone}
+            onChangeText={(text: string) => setPhone(text.trim())}
+            mode="flat"
+            keyboardType="name-phone-pad"
+            autoCapitalize="none"
+            style={styles.AuthInput}
+          />
+          <Input
+            secureTextEntry
+            label="Password"
+            value={password}
+            onChangeText={(text: string) => setPassword(text.trim())}
+            mode="flat"
             style={styles.AuthInput}
           />
           {userType === 'recycler'
@@ -134,6 +161,30 @@ export default function Register(props: any) {
               </TouchableOpacity>
 
               {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
+                // <Input
+                //   label="Distance (in km)"
+                //   value={radius}
+                //   onChangeText={(text: string) => setRadius(text.trim())}
+                //   mode="flat"
+                //   keyboardType="numeric"
+                //   autoCapitalize="none"
+                //   style={styles.AuthInput}
+                // />
+                <>
+                  <Text style={styles.RangeLabel}>Targeted distance coverage: {distanceValue}km</Text>
+                  <RangeSlider
+                    disableRange
+                    min={0}
+                    max={200}
+                    step={2}
+                    renderThumb={renderThumb}
+                    renderRail={renderRail}
+                    renderRailSelected={renderRailSelected}
+                    renderLabel={renderLabel}
+                  />
+                </>
+                : null}
+              {/* {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
                 <Input
                   label="Distance (in km)"
                   value={radius}
@@ -143,42 +194,13 @@ export default function Register(props: any) {
                   autoCapitalize="none"
                   style={styles.AuthInput}
                 />
-                : null}
-              {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
-                <Input
-                  label="Distance (in km)"
-                  value={radius}
-                  onChangeText={(text: string) => setRadius(text.trim())}
-                  mode="flat"
-                  keyboardType="numeric"
-                  autoCapitalize="none"
-                  style={styles.AuthInput}
-                />
-                : null}
+                : null} */}
             </Fragment>
             : null}
-
-          <Input
-            label="Phone number"
-            value={phone}
-            onChangeText={(text: string) => setPhone(text.trim())}
-            mode="flat"
-            keyboardType="name-phone-pad"
-            autoCapitalize="none"
-            style={styles.AuthInput}
-          />
-          <Input
-            secureTextEntry
-            label="Password"
-            value={password}
-            onChangeText={(text: string) => setPassword(text.trim())}
-            mode="flat"
-            style={styles.AuthInput}
-          />
           <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
             <Checkbox
               color={colors.PRIMARY}
-              uncheckedColor={"#b9b9b9"}
+              uncheckedColor="red"
               status={checked ? 'checked' : 'unchecked'}
               onPress={() => { setChecked(!checked); }}
             />
