@@ -96,21 +96,28 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
   dropdownPlaceholder: {
-    height: 64,
+    height: 52,
     width: '100%',
     borderWidth: 1,
-    borderBottomColor: '#aeaeae',
-    borderBottomWidth: 1,
     borderColor: '#f1f1f1',
-    borderRadius: 2,
+    // borderBottomWidth: 1,
+    // borderColor: '#f1f1f1',
+    borderRadius: 0,
     justifyContent: 'center',
     paddingLeft: 16,
     marginVertical: 8,
   },
   ddLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#555',
+    fontWeight: '500',
     textTransform: 'capitalize',
+  },
+  formSubTitle: {
+    fontWeight: '300',
+    marginVertical: 20,
+    paddingLeft: 16,
+    fontSize: 20,
   },
   ddlight: {
     height: 64,
@@ -176,6 +183,8 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderBottomWidth: 0,
     borderColor: '#f1f1f1',
+    fontSize: 14,
+    fontWeight: '500',
   },
 
   AuthButton: {

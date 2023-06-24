@@ -10,8 +10,8 @@ export const NavigationControl = () => {
 
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
-      <AppStack.Screen name='Main' component={DrawerNavigation} />
       <AppStack.Screen name='Guest' component={GuestNavigation} />
+      <AppStack.Screen name='Main' component={DrawerNavigation} />
     </AppStack.Navigator>
   )
 }

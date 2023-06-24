@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Alert, TouchableOpacity, Image } from 'react-native';
 import { Text, TextInput, Button } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Input } from '../../components/shared';
 import { styles } from '../../utils';
 import { usePreferences } from '../../hooks';
 import { loginDummy } from '../../redux/actions/auth';
@@ -45,18 +46,18 @@ export default function Login({ navigation }: any) {
     <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
       {/* <Image source={theme === "dark" ? require('../../assets/logo-white.png') : require('../../assets/logo.png')} resizeMode={"contain"} style={styles.AuthLogo} /> */}
       <View style={styles.AuthContent}>
-        <TextInput
+        <Input
           label="Email address"
           value={email}
-          onChangeText={text => setEmail(text.trim())}
+          onChangeText={(text: string) => setEmail(text.trim())}
           mode="outlined"
           autoCapitalize="none"
           style={styles.AuthInput}
         />
-        <TextInput
+        <Input
           label="Password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text: string) => setPassword(text)}
           mode="outlined"
           secureTextEntry={true}
           style={styles.AuthInput}
