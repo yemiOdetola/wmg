@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DrawerNavigation from './DrawerNavigation'
 import GuestNavigation from './GuestNavigation'
 
-const AppStack = createNativeStackNavigator()
+const AppStack = createNativeStackNavigator();
 
 export const NavigationControl = () => {
 

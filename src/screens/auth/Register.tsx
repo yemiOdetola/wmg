@@ -2,16 +2,19 @@ import React, { Fragment, useCallback, useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, Alert } from 'react-native';
 import { Text, TextInput, Button, Checkbox, Chip, RadioButton, Modal } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useDispatch } from 'react-redux';
 import RangeSlider from 'rn-range-slider';
 import { Input } from '../../components/shared';
 import { styles, colors } from '../../utils';
 import { usePreferences } from '../../hooks'
 import { Thumb, Rail, RailSelected, Label } from './meta';
+import { loginDummy } from '../../redux/actions/auth';
 
 
 const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
 
 export default function Register(props: any) {
+  const dispatch: any = useDispatch();
   const { theme } = usePreferences();
   const [preferences] = useState(['Distance', 'Quantity', 'Price', 'Availability', 'Waste Composition']);
   const [loading, setLoading] = useState(false);
@@ -37,12 +40,16 @@ export default function Register(props: any) {
     props.navigation.navigate(screen);
   };
 
-  const register = async () => {
-    console.log('register account')
-    setTimeout(() => {
-      setLoading(false);
-    }, 300)
-  }
+  const hideModal = () => setPreferenceModalVisible(false);
+  const hideSecModal = () => setSecPreferenceModalVisible(false);
+  const hideTetModal = () => setTetPreferenceModalVisible(false);
+  const renderThumb = useCallback(() => <Thumb />, []);
+  const renderRail = useCallback(() => <Rail />, []);
+  const renderRailSelected = useCallback(() => <RailSelected />, []);
+  const renderLabel = useCallback((value: any) => {
+    setDistanceValue(value)
+    return <Label text={value} />
+  }, []);
 
   const selectUserType = (type: string) => {
     setUserType(type || 'household')
@@ -62,17 +69,20 @@ export default function Register(props: any) {
     }
   }
 
-  const hideModal = () => setPreferenceModalVisible(false);
-  const hideSecModal = () => setSecPreferenceModalVisible(false);
-  const hideTetModal = () => setTetPreferenceModalVisible(false);
 
-  const renderThumb = useCallback(() => <Thumb />, []);
-  const renderRail = useCallback(() => <Rail />, []);
-  const renderRailSelected = useCallback(() => <RailSelected />, []);
-  const renderLabel = useCallback((value: any) => {
-    setDistanceValue(value)
-    return <Label text={value} />
-  }, []);
+  const register = async () => {
+    // userBody.avatar = `https://avatars.dicebear.com/api/avataaars/0000.svg`;
+    const payload = {
+      name: 'Odetola Azeez Opeyemi',
+      email: 'yemiotola@gmail.com',
+      role: 'admin',
+      avatar: 'https://avatars.dicebear.com/api/avataaars/0390.svg',
+    };
+    dispatch(loginDummy(payload)).then((res: any) => {
+      console.log('RESSSSSSSSSSSSSSSSSI', res);
+      props.navigation.navigate('Main');
+    })
+  }
 
   return (
     <>

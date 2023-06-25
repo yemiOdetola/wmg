@@ -120,7 +120,16 @@ export default StyleSheet.create({
     backgroundColor: '#f9fafb',
   },
   f6: {
-    backgroundColor: '#f9aac0',
+    backgroundColor: '#fdffb6',
+  },
+  f7: {
+    backgroundColor: '#d8e2dc',
+  },
+  f8: {
+    backgroundColor: '#bdb2ff',
+  },
+  f9: {
+    backgroundColor: '#a2d2ff',
   },
   icon: {
     width: 36,

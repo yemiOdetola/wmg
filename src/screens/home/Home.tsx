@@ -54,14 +54,24 @@ export default function Home({ navigation }: any) {
                 <Text style={homeStyles.actionText}>Request Pickup</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f3]} onPress={() => onChangeScreen('mapmain')}>
-              <View style={[homeStyles.icon, homeStyles.icon3]}>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f2]} onPress={() => navigation.navigate('requestPickup')}>
+              <View style={[homeStyles.icon, homeStyles.icon2]}>
                 <Icon style={homeStyles.featureIcon} name="calendar-month" />
               </View>
-              <Text style={homeStyles.title}>Tracking</Text>
-              <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
+              <Text style={homeStyles.title}>New Request</Text>
+              <Text style={homeStyles.subtitle}>I challenge you to dynamically change these based on the user type.</Text>
+              <View style={[homeStyles.action, homeStyles.action2]}>
+                <Text style={homeStyles.actionText}>Request Pickup</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f3]}>
+              <View style={[homeStyles.icon, homeStyles.icon3]}>
+                <Icon style={homeStyles.featureIcon} name="dots-triangle" />
+              </View>
+              <Text style={homeStyles.title}>Leaderboard</Text>
+              <Text style={homeStyles.subtitle}>See your ranking based on your recycling efforts and participation in the system.</Text>
               <View style={[homeStyles.action, homeStyles.action3]}>
-                <Text style={homeStyles.actionText}>Track collector</Text>
+                <Text style={homeStyles.actionText}>Participation to win</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={[homeStyles.button, homeStyles.f4]} onPress={() => onChangeScreen('myRequests')}>
@@ -69,39 +79,52 @@ export default function Home({ navigation }: any) {
                 <Icon style={homeStyles.featureIcon} name="database-cog-outline" />
               </View>
               <Text style={homeStyles.title}>View Requests</Text>
-              <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
+              <Text style={homeStyles.subtitle}>Access to the history and status of previously requested pickups.</Text>
               <View style={[homeStyles.action, homeStyles.action4]}>
                 <Text style={homeStyles.actionText}>View requests</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f5]} onPress={() => navigation.navigate('schedulePickup')}>
-              <View style={[homeStyles.icon, homeStyles.icon2]}>
-                <Icon style={homeStyles.featureIcon} name="dots-triangle" />
-              </View>
-              <Text style={homeStyles.title}>Schedule Pickup</Text>
-              <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
-              <View style={[homeStyles.action, homeStyles.action2]}>
-                <Text style={homeStyles.actionText}>Participation to win</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={[homeStyles.button, homeStyles.f5]}>
-              <View style={[homeStyles.icon, homeStyles.icon2]}>
-                <Icon style={homeStyles.featureIcon} name="dots-triangle" />
-              </View>
-              <Text style={homeStyles.title}>Leaderboard</Text>
-              <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
-              <View style={[homeStyles.action, homeStyles.action2]}>
-                <Text style={homeStyles.actionText}>Participation to win</Text>
-              </View>
-            </TouchableOpacity>
+          </View>
+
+          <View style={homeStyles.buttonGroup}>
             <TouchableOpacity style={[homeStyles.button, homeStyles.f6]}>
               <View style={[homeStyles.icon, homeStyles.icon2]}>
                 <Icon style={homeStyles.featureIcon} name="dots-triangle" />
               </View>
-              <Text style={homeStyles.title}>Leaderboard</Text>
-              <Text style={homeStyles.subtitle}>I challenge you to install a different addon and see how it can be useful for you.</Text>
+              <Text style={homeStyles.title}>Track Requests</Text>
+              <Text style={homeStyles.subtitle}>Visual representation of available pickup requests; including locations and waste resources.</Text>
               <View style={[homeStyles.action, homeStyles.action2]}>
-                <Text style={homeStyles.actionText}>Participation to win</Text>
+                <Text style={homeStyles.actionText}>Track</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f7]} onPress={() => navigation.navigate('requestPickup')}>
+              <View style={[homeStyles.icon, homeStyles.icon1]}>
+                <Icon style={homeStyles.featureIcon} name="bus-stop" />
+              </View>
+              <Text style={homeStyles.title}>Leaderboard</Text>
+              <Text style={homeStyles.subtitle}>Ranking based on your ratings and participation on the platform.</Text>
+              <View style={[homeStyles.action, homeStyles.action1]}>
+                <Text style={homeStyles.actionText}>Track your progress</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f8]} onPress={() => onChangeScreen('mapmain')}>
+              <View style={[homeStyles.icon, homeStyles.icon3]}>
+                <Icon style={homeStyles.featureIcon} name="calendar-month" />
+              </View>
+              <Text style={homeStyles.title}>Schedule pickup</Text>
+              <Text style={homeStyles.subtitle}>Setup a pickup time and date. This enable households to plan ahead for the pickup</Text>
+              <View style={[homeStyles.action, homeStyles.action3]}>
+                <Text style={homeStyles.actionText}>Schedule</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={[homeStyles.button, homeStyles.f9]} onPress={() => onChangeScreen('myRequests')}>
+              <View style={[homeStyles.icon, homeStyles.icon4]}>
+                <Icon style={homeStyles.featureIcon} name="database-cog-outline" />
+              </View>
+              <Text style={homeStyles.title}>Offer Notification</Text>
+              <Text style={homeStyles.subtitle}>Information about updates related to offers sent and/or counter offer by households.</Text>
+              <View style={[homeStyles.action, homeStyles.action4]}>
+                <Text style={homeStyles.actionText}>View offer history</Text>
               </View>
             </TouchableOpacity>
           </View>
