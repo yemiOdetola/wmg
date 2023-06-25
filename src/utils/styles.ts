@@ -182,6 +182,7 @@ export default StyleSheet.create({
     borderRadius: 0,
     borderWidth: 1,
     borderBottomWidth: 0,
+    borderBottomColor: 'transparent',
     borderColor: '#f1f1f1',
     fontSize: 14,
     fontWeight: '500',

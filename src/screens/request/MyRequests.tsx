@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, SafeAreaView, TouchableOpacity, Platform, Image, ScrollView, LayoutAnimation } from 'react-native';
+import React, { Fragment, useState } from 'react';
+import { View, SafeAreaView, Platform, Image, ScrollView, LayoutAnimation } from 'react-native';
 import { Text, List, Divider } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { colors, styles } from '../../utils';
@@ -84,7 +84,7 @@ export default function MyRequests(props: any) {
               onPress={() => LayoutAnimation.easeInEaseOut()}
             >
               {listing.negotiations.map((el, index) => (
-                <>
+                <Fragment key={index}>
                   <View key={index} style={styles.py14}>
                     <View style={[styles.row, styles.itemCenter, styles.mb8]}>
                       <Text style={reqstyles.lable}>Offer: </Text>
@@ -97,7 +97,7 @@ export default function MyRequests(props: any) {
                     <Text style={reqstyles.timeStamp}>{new Date(el.timestamp).toLocaleString()}</Text>
                   </View>
                   <Divider />
-                </>
+                </Fragment>
               ))}
             </List.Accordion>
           </View>

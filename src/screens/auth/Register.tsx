@@ -85,13 +85,11 @@ export default function Register(props: any) {
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
             <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}> Create Your Account</Text>
           </View>
-          {/* <Divider /> */}
           <View style={[styles.row, styles.my10, styles.itemCenter]}>
             <Text style={{ marginRight: 8 }}>Register as:</Text>
             <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
             <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
           </View>
-          {/* <Divider /> */}
           {userType === 'recycler' ? <Text style={styles.formSubTitle}>Basic info</Text> : null}
           <Input
             label="Name"
@@ -161,15 +159,6 @@ export default function Register(props: any) {
               </TouchableOpacity>
 
               {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
-                // <Input
-                //   label="Distance (in km)"
-                //   value={radius}
-                //   onChangeText={(text: string) => setRadius(text.trim())}
-                //   mode="flat"
-                //   keyboardType="numeric"
-                //   autoCapitalize="none"
-                //   style={styles.AuthInput}
-                // />
                 <>
                   <Text style={styles.RangeLabel}>Targeted distance coverage: {distanceValue}km</Text>
                   <RangeSlider
@@ -184,17 +173,6 @@ export default function Register(props: any) {
                   />
                 </>
                 : null}
-              {/* {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
-                <Input
-                  label="Distance (in km)"
-                  value={radius}
-                  onChangeText={(text: string) => setRadius(text.trim())}
-                  mode="flat"
-                  keyboardType="numeric"
-                  autoCapitalize="none"
-                  style={styles.AuthInput}
-                />
-                : null} */}
             </Fragment>
             : null}
           <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>

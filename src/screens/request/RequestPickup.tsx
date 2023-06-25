@@ -104,9 +104,7 @@ export default function RequestPickup(props: any) {
       enableResetScrollToCoords={false}
     >
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', margin: 20 }}>
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 28 }}>
-          <Text style={{ alignSelf: 'center', fontSize: 18, textAlign: 'center' }}>Request for pickup</Text>
-        </View>
+        <Text style={[styles.formSubTitle, { alignSelf: 'center', fontSize: 22, textAlign: 'center' }]}>Request for pickup</Text>
         <Input
           label="Title"
           value={title}
@@ -148,7 +146,7 @@ export default function RequestPickup(props: any) {
             backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
           }]}
         >
-          <Text style={styles.ddLabel}>{category ? `Category: ${category}` : "Select Category"}</Text>
+          <Text style={styles.ddLabel}>{category ? `Category: ${category}` : "Choose image"}</Text>
         </TouchableOpacity>
         {imageResource?.assets &&
           imageResource?.assets.map(({ uri }: { uri: string }) => (
