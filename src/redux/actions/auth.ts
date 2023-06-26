@@ -5,7 +5,6 @@ import Toast from 'react-native-toast-message';
 import * as config from '../config.json';
 import {Loading} from './ui';
 import state from '../root.store';
-import * as NavigationService from '../../navigation/NavigationService';
 
 export const storeToken = async (token: string) => {
   try {
@@ -15,46 +14,28 @@ export const storeToken = async (token: string) => {
   }
 };
 
-const updateAsyncStorageWithUserLogin = async (values: any) => {
-  try {
-    await AsyncStorage.setItem('userLogin', values);
-  } catch (error) {
-    console.log('save userlogin error', error);
-  }
-};
-
-export const loginDummy = (payload: any) => (dispatch: any) => {
-  dispatch(Loading(true));
-  return axios.get('https://google.com').then(() => {
-    dispatch(Loading(false));
-    return payload;
-  });
-};
-
-export function signup(payload: any) {
+export function register(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));
-    axios
-      .post(`${config.base_url}/user/register`, payload)
+    return axios
+      .post(`${config.base_url}/auth/register`, payload)
       .then(res => {
-        if (res.status === 200) {
-          const values = {
-            seenSlides: true,
-          };
-          updateAsyncStorageWithUserLogin(JSON.stringify(values));
-          dispatch(Loading(false));
-        }
+        const {user, token} = res?.data;
+        storeToken(token?.access);
+        dispatch({type: Types.AUTH, user, token: token.access});
+        dispatch(Loading(false));
+        return user;
       })
       .catch(error => {
         dispatch({type: Types.AUTH, user: {}});
-        console.log('error:: ', error);
+        console.log('authh error:: ', error?.response?.data);
+
         Toast.show({
           type: 'error',
-          text1: 'Invalid details',
-          text2: 'Email address or Phone number is already used',
-          position: 'bottom',
+          text1: error.response.data.message || 'Invalid details',
         });
         dispatch(Loading(false));
+        return error?.response?.data;
       });
   };
 }

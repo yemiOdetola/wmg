@@ -2,13 +2,14 @@ import React, { Fragment, useCallback, useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, Alert } from 'react-native';
 import { Text, TextInput, Button, Checkbox, Chip, RadioButton, Modal } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useDispatch } from 'react-redux';
+import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import RangeSlider from 'rn-range-slider';
+import Toast from 'react-native-toast-message';
 import { Input } from '../../components/shared';
 import { styles, colors } from '../../utils';
 import { usePreferences } from '../../hooks'
 import { Thumb, Rail, RailSelected, Label } from './meta';
-import { loginDummy } from '../../redux/actions/auth';
+import { register } from '../../redux/actions/auth';
 
 
 const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
@@ -17,7 +18,6 @@ export default function Register(props: any) {
   const dispatch: any = useDispatch();
   const { theme } = usePreferences();
   const [preferences] = useState(['Distance', 'Quantity', 'Price', 'Availability', 'Waste Composition']);
-  const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [preference, setPreference] = useState('');
@@ -35,6 +35,15 @@ export default function Register(props: any) {
   const [categoriesModalVisible, setCategoriesModalVisible] = useState(false);
   const [secPreferenceModalVisible, setSecPreferenceModalVisible] = useState(false);
   const [tetPreferenceModalVisible, setTetPreferenceModalVisible] = useState(false);
+
+
+  const { loading } = useSelector(
+    (state: any) => ({
+      loading: state.ui.loading
+    }),
+    shallowEqual
+  );
+
 
   const onChangeScreen = (screen: string) => {
     props.navigation.navigate(screen);
@@ -70,16 +79,21 @@ export default function Register(props: any) {
   }
 
 
-  const register = async () => {
-    // userBody.avatar = `https://avatars.dicebear.com/api/avataaars/0000.svg`;
+  const generateRandomNumbers: any = () => Math.floor(Math.random() * 10000);
+  const createAccount = () => {
+    if (!name || !email || !password || !phone) {
+      return Toast.show({ type: 'warn', text1: 'All fields is compulsory' })
+    }
     const payload = {
-      name: 'Odetola Azeez Opeyemi',
-      email: 'yemiotola@gmail.com',
-      role: 'admin',
-      avatar: 'https://avatars.dicebear.com/api/avataaars/0390.svg',
+      name: name,
+      email: email,
+      phone: phone,
+      avatar: `https://avatars.dicebear.com/api/avataaars/${generateRandomNumbers() || '1805'}.svg`,
+      password: password,
+      role: "user"
     };
-    dispatch(loginDummy(payload)).then((res: any) => {
-      console.log('RESSSSSSSSSSSSSSSSSI', res);
+    dispatch(register(payload)).then((res: any) => {
+      console.log('RESGISTER HINER', res);
       props.navigation.navigate('Main');
     })
   }
@@ -196,7 +210,7 @@ export default function Register(props: any) {
               <Text style={styles.AuthCheckBoxLabel}>I Agree to Privacy & Terms</Text>
             </TouchableOpacity>
           </View>
-          <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => register()}
+          <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => createAccount()} disabled={loading}
             style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
             {!loading ? "Continue" : "Please wait..."}
           </Button>

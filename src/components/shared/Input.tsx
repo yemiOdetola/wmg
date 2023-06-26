@@ -9,6 +9,7 @@ export default function Input(props: any) {
     <TextInput
       label={props.label}
       value={props.value}
+      secureTextEntry={props.secureTextEntry}
       onChangeText={text => props.onChangeText(text)}
       mode="flat"
       placeholder={props.placeholder || ''}

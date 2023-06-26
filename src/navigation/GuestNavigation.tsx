@@ -29,7 +29,7 @@ export default function GuestNavigation(props: any) {
 			elevation: 0,
 			shadowOpacity: 0,
 		},
-		presentation: 'modal',
+		// presentation: 'modal',
 		headerTitleStyle: {
 			fontWeight: 'bold',
 			fontSize: 18,

@@ -15,7 +15,6 @@ export default function (state = initialState, action: any) {
       return {
         ...state,
         user: action?.user,
-        profile: action?.profile,
         token: action?.token,
       };
     case Types.DUMMY_USER:

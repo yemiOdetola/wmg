@@ -5,7 +5,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Input } from '../../components/shared';
 import { styles } from '../../utils';
 import { usePreferences } from '../../hooks';
-import { loginDummy } from '../../redux/actions/auth';
+import { login } from '../../redux/actions/auth';
 
 // const auth = getAuth();
 
@@ -27,16 +27,16 @@ export default function Login({ navigation }: any) {
     navigation.navigate(screen);
   };
 
-  const login = async () => {
+  const signin = async () => {
     const payload = {
       name: 'Odetola Azeez Opeyemi',
       email: 'yemiotola@gmail.com',
       role: 'admin',
       avatar: 'https://avatars.dicebear.com/api/avataaars/0390.svg',
     };
-    dispatch(loginDummy(payload)).then((res: any) => {
+    dispatch(login(payload)).then((res: any) => {
       console.log('RESSSSSSSSSSSSSSSSSI', res);
-      navigation.navigate('Main');
+      // navigation.navigate('Main');
     })
   }
 
@@ -65,7 +65,7 @@ export default function Login({ navigation }: any) {
         <TouchableOpacity onPress={() => onChangeScreen('forgotPassword')}>
           <Text style={styles.ForgotPass}>Forgot Password?</Text>
         </TouchableOpacity>
-        <Button mode="contained" onPress={() => login()} dark={theme === "dark" ? false : true}
+        <Button mode="contained" onPress={() => signin()} dark={theme === "dark" ? false : true}
           style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
           {!loading ? "Continue" : "Please Wait..."}
         </Button>

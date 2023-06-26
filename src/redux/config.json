@@ -1,4 +1,3 @@
 {
-    "base_url": "https://api.staging.finovo.rapidpay.africa/core/v1",
-    "local_url": "http://127.0.0.1:4000/core/v1"
+  "base_url": "http://127.0.0.1:3000/v1"
 }
