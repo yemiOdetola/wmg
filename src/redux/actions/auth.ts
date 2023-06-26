@@ -43,25 +43,14 @@ export function register(payload: any) {
 export function login(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));
-    axios
-      .post(`${config.base_url}/user/login`, payload)
+    return axios
+      .post(`${config.base_url}/auth/login`, payload)
       .then(res => {
-        if (res.status === 200) {
-          const {user, token} = res.data.data;
-          if (res.data?.data?.pin_unavailable) {
-            user.pin_unavailable = true;
-          }
-          dispatch({type: Types.AUTH, user, token});
-          storeToken(token);
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: 'Error occured',
-            text2: 'Please retry your request',
-            position: 'bottom',
-          });
-        }
+        const {user, token} = res?.data;
+        storeToken(token?.access);
+        dispatch({type: Types.AUTH, user, token: token.access});
         dispatch(Loading(false));
+        return user;
       })
       .catch(error => {
         dispatch({type: Types.AUTH, user: {}});
@@ -85,6 +74,15 @@ export function login(payload: any) {
         dispatch(Loading(false));
       })
       .finally(() => dispatch(Loading(false)));
+  };
+}
+
+export function clearUser(navigation: any) {
+  return (dispatch: any) => {
+    dispatch(Loading(true));
+    dispatch({type: Types.AUTH, user: {}, token: ''});
+    dispatch(Loading(false));
+    // navigation.navigate('Login');
   };
 }
 

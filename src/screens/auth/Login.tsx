@@ -29,15 +29,10 @@ export default function Login({ navigation }: any) {
 
   const signin = async () => {
     const payload = {
-      name: 'Odetola Azeez Opeyemi',
       email: 'yemiotola@gmail.com',
-      role: 'admin',
-      avatar: 'https://avatars.dicebear.com/api/avataaars/0390.svg',
+      password: password,
     };
-    dispatch(login(payload)).then((res: any) => {
-      console.log('RESSSSSSSSSSSSSSSSSI', res);
-      // navigation.navigate('Main');
-    })
+    dispatch(login(payload))
   }
 
   return (

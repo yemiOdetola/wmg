@@ -56,7 +56,7 @@ export default function StackNavigation(props: any) {
       <IconButton
         icon="menu"
         size={24}
-        onPress={() => navigation.openDrawer()}
+        onPress={() => props.navigation.openDrawer()}
       />
     );
   };

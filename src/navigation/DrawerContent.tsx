@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Heart, ShoppingCart, Account, Calendar, Dumbbell, Watermelon, Rss, Gear, ChevronRight } from '../components/shared/Icons';
 import { List } from "react-native-paper";
 import { styles } from '../utils';
 import { usePreferences } from '../hooks';

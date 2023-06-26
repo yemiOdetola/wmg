@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 // import { getAuth, signOut, EmailAuthProvider, deleteUser, reauthenticateWithCredential } from 'firebase/auth';
 import { ScrollView, View, Image, SafeAreaView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { InnerLoading, CustomButton } from '../../components/shared';
-import { styles } from '../../utils';
 import { Text, Button, Paragraph, Dialog, Portal, TextInput, Title } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
+import { InnerLoading, CustomButton } from '../../components/shared';
+import { clearUser } from '../../redux/actions/auth'
+import { styles } from '../../utils';
 
 // const auth = getAuth();
 
@@ -16,6 +18,7 @@ export default function Profile(props: any) {
     displayName: 'Driver X',
     user_verified: false,
   });
+  const dispatch: any = useDispatch();
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState('');
 
@@ -24,36 +27,17 @@ export default function Profile(props: any) {
   };
 
   const deleteAccount = () => {
-
-    // if (password) {
-    //   let credential = EmailAuthProvider.credential(
-    //     auth.currentUser.email,
-    //     password
-    //   );
-
-    //   reauthenticateWithCredential(auth.currentUser, credential).then(() => {
-    //     deleteUser(user).then(() => {
-    //       // User deleted.
-    //     }).catch((error) => {
-    //       console.log(error);
-    //       Alert.alert(Strings.ST32);
-    //     });
-
-    //   }).catch((error) => {
-    //     console.log(error);
-    //     Alert.alert(Strings.ST32);
-    //   });
-    // }
   };
 
   const hideDialog = () => setVisible(false);
 
   useEffect(() => {
-
-    // setUser(auth.currentUser);
     setIsLoaded(true);
-
   }, []);
+
+  const signout = () => {
+    dispatch(clearUser(props.navigation));
+  }
 
   if (isLoaded) {
 
@@ -78,8 +62,7 @@ export default function Profile(props: any) {
             <CustomButton Icon="heart-outline" Label="Favorites" Click={() => onChangeScreen("favorites")} />
             <CustomButton Icon="bookmark-outline" Label="About us" Click={() => onChangeScreen("about")} />
             <CustomButton Icon="file-document-outline" Label="Terms and conditions" Click={() => onChangeScreen("terms")} />
-            {/* <CustomButton Icon="logout" Label="Sign out" Click={() => signOut(auth)} /> */}
-            <CustomButton Icon="logout" Label="Sign out" Click={() => console.log('LOGOUT')} />
+            <CustomButton Icon="logout" Label="Sign out" Click={signout} />
             <CustomButton Icon="account-cancel-outline" Label="delete my account" Click={() => setVisible(true)} />
 
             <Portal>

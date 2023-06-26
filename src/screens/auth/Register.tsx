@@ -94,7 +94,7 @@ export default function Register(props: any) {
     };
     dispatch(register(payload)).then((res: any) => {
       console.log('RESGISTER HINER', res);
-      props.navigation.navigate('Main');
+      props.navigation.navigate('Home');
     })
   }
 

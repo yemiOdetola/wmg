@@ -12,6 +12,9 @@ import { Preferences } from './src/context';
 import { colors, config } from './src/utils';
 import store from './src/redux/root.store';
 import { NavigationControl } from './src/navigation/NavigationControl';
+import DrawerNavigation from './src/navigation/DrawerNavigation';
+import GuestNavigation from './src/navigation/GuestNavigation';
+import StackNavigation from './src/navigation/StackNavigation';
 
 DarkThemePaper.colors.primary = colors.PRIMARY;
 DarkThemePaper.colors.accent = colors.PRIMARY;
@@ -24,14 +27,26 @@ DefaultThemeNav.colors.background = "#fff";
 
 LogBox.ignoreAllLogs();
 
-
 const App = () => {
   const [theme, setTheme] = useState(config.THEMEMODE);
   const [loaded, setLoaded] = useState(true);
-
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     SplashScreen.hide();
+  }, []);
+
+  useEffect(() => {
+    async function checkUser() {
+      if (store.getState().auth.token) {
+        setIsLogged(true);
+      } else {
+        setIsLogged(false);
+      }
+    }
+
+    checkUser();
+
   }, []);
 
   useEffect(() => {
@@ -61,6 +76,8 @@ const App = () => {
     );
   }
 
+  console.log(':::::::', store.getState().auth.token);
+
   if (loaded) {
     return (
       <>
@@ -71,6 +88,7 @@ const App = () => {
               <StatusBar translucent backgroundColor="transparent" barStyle={theme === "dark" ? "light-content" : "dark-content"} />
               <NavigationContainer theme={theme === "dark" ? DarkThemeNav : DefaultThemeNav}>
                 <NavigationControl />
+                {/* <StackNavigation /> */}
               </NavigationContainer>
             </PaperProvider>
           </Preferences.Provider >
