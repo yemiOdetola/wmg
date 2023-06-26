@@ -445,7 +445,7 @@ export const setDietBookmark = async (item: any) => {
   }
 };
 
-export const removeDietBookmark = async (id: string) => {
+export const removeDietBookmark = async (id: number) => {
   try {
     const data = await AsyncStorage.getItem('dietsFav').then((token: any) => {
       const res: any = JSON.parse(token);

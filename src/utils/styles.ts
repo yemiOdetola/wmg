@@ -9,13 +9,148 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const PrimaryColor = colors.PRIMARY;
 
 export default StyleSheet.create({
+  // ************************GENERIC****************
+  imageContainer: {
+    marginVertical: 24,
+    alignItems: 'center',
+  },
+  image: {
+    width: screenWidth * 0.8,
+    height: screenWidth * 0.4,
+    alignSelf: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  itemCenter: {
+    alignItems: 'center',
+  },
+  justifyEnd: {
+    justifyContent: 'flex-end',
+  },
+  itemsBaseline: {
+    alignItems: 'baseline',
+  },
+  itemTopline: {
+    alignItems: 'flex-start',
+  },
+  capitalize: {
+    textTransform: 'capitalize',
+  },
+  mt8: {
+    marginTop: 8,
+  },
+  mt10: {
+    marginTop: 10,
+  },
+  mt16: {
+    marginTop: 16,
+  },
+  mt20: {
+    marginTop: 20,
+  },
+  mt24: {
+    marginTop: 24,
+  },
+  mt32: {
+    marginTop: 32,
+  },
+  mb8: {
+    marginBottom: 8,
+  },
+  mb10: {
+    marginBottom: 10,
+  },
+  mb16: {
+    marginBottom: 16,
+  },
+  mb20: {
+    marginBottom: 20,
+  },
+  mb24: {
+    marginBottom: 24,
+  },
+  mb32: {
+    marginBottom: 32,
+  },
+  my4: {
+    marginVertical: 4,
+  },
+  my8: {
+    marginVertical: 8,
+  },
+  my10: {
+    marginVertical: 10,
+  },
+  my16: {
+    marginVertical: 16,
+  },
+  py10: {
+    paddingVertical: 10,
+  },
+  py14: {
+    paddingVertical: 14,
+  },
+  chip: {
+    marginRight: 10,
+    borderRadius: 6,
+  },
+  dropdownPlaceholder: {
+    height: 52,
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#f1f1f1',
+    // borderBottomWidth: 1,
+    // borderColor: '#f1f1f1',
+    borderRadius: 0,
+    justifyContent: 'center',
+    paddingLeft: 16,
+    marginVertical: 8,
+  },
+  ddLabel: {
+    fontSize: 14,
+    color: '#555',
+    fontWeight: '500',
+    textTransform: 'capitalize',
+  },
+  formSubTitle: {
+    fontWeight: '300',
+    marginVertical: 20,
+    paddingLeft: 16,
+    fontSize: 20,
+  },
+  ddlight: {
+    height: 64,
+    borderColor: '#f1f1f1',
+  },
+  modalContainerStyle: {
+    width: '80%',
+    alignSelf: 'center',
+    borderRadius: 2,
+    padding: 20,
+  },
+  modalItem: {
+    paddingVertical: 12,
+    borderBottomColor: '#f1f1f1',
+    borderBottomWidth: 1,
+  },
+
   //////////////////////// LOGIN/SIGNUP
+
+  masonryContainer: {
+    width: screenWidth,
+    flexDirection: 'row',
+  },
   AuthPage: {
     width: '100%',
-    // paddingVertical: 30,
-    // paddingHorizontal: 20,
     flex: 1,
   },
+
+  HomeScreen: {
+    width: '100%',
+    flex: 1,
+  },
+
   AuthTitle: {
     width: '100%',
     maxHeight: '100%',
@@ -37,20 +172,37 @@ export default StyleSheet.create({
     marginHorizontal: 20,
   },
 
+  memberBadge: {
+    color: '#d5d4d7',
+  },
+
   AuthInput: {
-    marginBottom: 10,
+    marginVertical: 10,
     padding: 0,
-    backgroundColor: 'transparent',
+    borderRadius: 0,
+    borderWidth: 1,
+    borderBottomWidth: 0,
+    borderBottomColor: 'transparent',
+    borderColor: '#f1f1f1',
+    fontSize: 14,
+    fontWeight: '500',
   },
 
   AuthButton: {
     marginTop: 15,
-    borderRadius: 0,
-    // elevation: 0,
+    borderRadius: 4,
+    backgroundColor: '#5341C4', // TODO: change when you change your theme.
   },
 
   AuthButtonContent: {
     paddingVertical: 10,
+    fontWeight: '600',
+  },
+  authButtonLabel: {
+    color: '#FFF',
+    fontWeight: '600',
+    textTransform: 'lowercase',
+    fontSize: 16,
   },
 
   AuthButtonLabel: {
@@ -735,6 +887,14 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
 
+  RangeLabel: {
+    position: 'relative',
+    top: 14,
+    fontSize: 16,
+    paddingLeft: 6,
+    fontWeight: '500',
+  },
+
   ExerciseColSubTitle: {
     fontSize: 18,
   },
@@ -857,7 +1017,7 @@ export default StyleSheet.create({
   },
 
   DietGridSubTitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'rgba(0,0,0,0.5)',
   },
 
@@ -882,5 +1042,9 @@ export default StyleSheet.create({
     right: 10,
     top: 13,
     position: 'absolute',
+  },
+  headerOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

@@ -1,6 +1,6 @@
 import { I18nManager } from "react-native";
 
-export const HTMLStyles = {
+export const HTMLStyles: any = {
 
     p: { fontSize: 16, textAlign: I18nManager.isRTL ? "right" : "left" },
 

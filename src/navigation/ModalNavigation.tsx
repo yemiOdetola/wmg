@@ -6,6 +6,10 @@ import StackNavigation from './StackNavigation';
 
 import { usePreferences } from '../hooks';
 import { colors } from '../utils';
+import { WorkoutDetails } from '../screens/workout';
+import { DietDetails } from '../screens/diet'
+import { ListingDetails } from '../screens/listing';
+import { ExerciseDetails } from '../screens/exercises';
 
 
 // import ExerciseDetails from '../screens/ExerciseDetails';
@@ -27,55 +31,8 @@ export default function ModalNavigation(props: any) {
     return (
       <IconButton
         icon={'window-close'}
-        style={{ marginLeft: 15 }}
         size={24}
         onPress={() => props.navigation.goBack()}
-      />
-    );
-  };
-
-  const buttonCloseLight = () => {
-    return (
-      <IconButton
-        icon={'window-close'}
-        iconColor={'#fff'}
-        style={{ marginLeft: 15 }}
-        size={24}
-        onPress={() => props.navigation.goBack()}
-      />
-    );
-  };
-
-  const buttonCloseColor = () => {
-    return (
-      <IconButton
-        icon={'window-close'}
-        iconColor={colors.PRIMARY}
-        style={{ marginLeft: 15 }}
-        size={24}
-        onPress={() => props.navigation.goBack()}
-      />
-    );
-  };
-
-  const buttonBack = () => {
-    return (
-      <IconButton
-        icon={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
-        style={{ marginLeft: 15 }}
-        size={24}
-        onPress={() => props.navigation.goBack()}
-      />
-    );
-  };
-
-  const buttonBackToHome = () => {
-    return (
-      <IconButton
-        icon={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
-        style={{ marginLeft: 15 }}
-        size={24}
-        onPress={() => props.navigation.navigate('home')}
       />
     );
   };
@@ -100,71 +57,33 @@ export default function ModalNavigation(props: any) {
         return navigatorOptions;
       }}>
       <RootStack.Screen
-        name="Main"
+        name="main"
         component={StackNavigation}
         options={{ headerShown: false }}
       />
-      {/* <RootStack.Screen
-        name="exercisedetails"
-        component={ExerciseDetails}
-        options={{ title: Strings.ST80, headerLeft: () => buttonClose() }}
-      /> */}
-      {/* <RootStack.Screen
+      <RootStack.Screen
         name="workoutdetails"
         component={WorkoutDetails}
         options={{
           headerTransparent: true,
-          title: null,
-          headerLeft: () => buttonCloseLight(),
+          title: '',
+          headerLeft: () => ButtonClose(),
         }}
-      /> */}
-      {/* <RootStack.Screen
+      />
+      <RootStack.Screen
+        name="exercisedetails"
+        component={ExerciseDetails}
+        options={{ title: "Exercise details", headerLeft: () => ButtonClose() }}
+      />
+      <RootStack.Screen
         name="dietdetails"
         component={DietDetails}
         options={{
           headerTransparent: true,
-          title: null,
-          headerLeft: () => buttonCloseLight(),
+          title: "",
+          headerLeft: () => ButtonClose(),
         }}
-      /> */}
-      {/* <RootStack.Screen
-        name="productdetails"
-        component={ProductDetails}
-        options={{
-          headerTransparent: true,
-          title: null,
-          headerLeft: () => buttonCloseLight(),
-        }}
-      /> */}
-      {/* <RootStack.Screen
-        name="postdetails"
-        component={PostDetails}
-        options={{
-          headerTransparent: true,
-          title: null,
-          headerLeft: () => buttonCloseLight(),
-        }}
-      /> */}
-      {/* <RootStack.Screen
-        name="player"
-        component={Player}
-        options={{ headerTransparent: true, title: null }}
-      /> */}
-      {/* <RootStack.Screen
-        name="timer"
-        component={Timer}
-        options={{ headerTransparent: true, title: null, headerLeft: null }}
-      /> */}
-      {/* <RootStack.Screen
-        name="singleday"
-        component={SingleDay}
-        options={{ title: null, headerLeft: () => buttonClose() }}
-      /> */}
-      {/* <RootStack.Screen
-        name="completed"
-        component={Completed}
-        options={{ headerTransparent: true, title: null, headerLeft: null }}
-      /> */}
+      />
     </RootStack.Navigator>
   );
 }

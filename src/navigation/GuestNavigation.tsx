@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 // import About from '../screens/About';
 import usePreferences from '../hooks/usePreferences';
 import { ForgotPassword, Login, Register, Terms, About } from '../screens/auth';
+import DrawerNavigation from './DrawerNavigation';
 
 const RootStack = createNativeStackNavigator();
 
@@ -28,7 +29,7 @@ export default function GuestNavigation(props: any) {
 			elevation: 0,
 			shadowOpacity: 0,
 		},
-		presentation: 'modal',
+		// presentation: 'modal',
 		headerTitleStyle: {
 			fontWeight: 'bold',
 			fontSize: 18,
@@ -37,8 +38,6 @@ export default function GuestNavigation(props: any) {
 		headerBackTitleVisible: false,
 		headerTitleAlign: 'center',
 		gestureEnabled: true,
-		/*cardOverlayEnabled: true,
-		...TransitionPresets.ModalPresentationIOS*/
 	}
 
 	return (
@@ -60,6 +59,7 @@ export default function GuestNavigation(props: any) {
 			/>
 			<RootStack.Screen name="about" component={About} options={{ title: "About Us" }} />
 			<RootStack.Screen name="terms" component={Terms} options={{ title: 'Terms and Conditions' }} />
+			{/* <RootStack.Screen name='Main' component={DrawerNavigation} /> */}
 		</RootStack.Navigator>
 	)
 }
