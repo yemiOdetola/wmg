@@ -33,6 +33,8 @@ const App = () => {
     SplashScreen.hide();
   }, []);
 
+
+  console.log('console.log(): ', store.getState());
   useEffect(() => {
     async function checkUser() {
       if (store.getState().auth.token) {
@@ -81,7 +83,6 @@ const App = () => {
               <StatusBar translucent backgroundColor="transparent" barStyle={theme === "dark" ? "light-content" : "dark-content"} />
               <NavigationContainer theme={theme === "dark" ? DarkThemeNav : DefaultThemeNav}>
                 <NavigationControl />
-                {/* <StackNavigation /> */}
               </NavigationContainer>
             </PaperProvider>
           </Preferences.Provider >
