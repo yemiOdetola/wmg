@@ -105,8 +105,8 @@ export default function Register(props: any) {
           keyboardShouldPersistTaps={"handled"}
           enableResetScrollToCoords={false}
         >
-          <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
-            <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}> Create Your Account</Text>
+          <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 16 }}>
+            <Text style={{ alignSelf: 'center', fontSize: 20, textAlign: 'center' }}> Create Your Account</Text>
           </View>
           <View style={[styles.row, styles.my10, styles.itemCenter]}>
             <Text style={{ marginRight: 8 }}>Register as:</Text>
@@ -210,7 +210,7 @@ export default function Register(props: any) {
             </TouchableOpacity>
           </View>
           <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => createAccount()} disabled={loading}
-            style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
+            style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
             {!loading ? "Continue" : "Please wait..."}
           </Button>
           <View style={styles.AuthBottomContent}>

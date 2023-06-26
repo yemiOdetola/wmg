@@ -12,9 +12,6 @@ import { Preferences } from './src/context';
 import { colors, config } from './src/utils';
 import store from './src/redux/root.store';
 import { NavigationControl } from './src/navigation/NavigationControl';
-import DrawerNavigation from './src/navigation/DrawerNavigation';
-import GuestNavigation from './src/navigation/GuestNavigation';
-import StackNavigation from './src/navigation/StackNavigation';
 
 DarkThemePaper.colors.primary = colors.PRIMARY;
 DarkThemePaper.colors.accent = colors.PRIMARY;
@@ -44,9 +41,7 @@ const App = () => {
         setIsLogged(false);
       }
     }
-
     checkUser();
-
   }, []);
 
   useEffect(() => {
@@ -75,8 +70,6 @@ const App = () => {
       <Loading />
     );
   }
-
-  console.log(':::::::', store.getState().auth.token);
 
   if (loaded) {
     return (
