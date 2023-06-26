@@ -12,6 +12,7 @@ export default function Input(props: any) {
       secureTextEntry={props.secureTextEntry}
       onChangeText={text => props.onChangeText(text)}
       mode="flat"
+      autoCapitalize='none'
       placeholder={props.placeholder || ''}
       multiline={props.multiline}
       numberOfLines={props.numberOfLines || 1}

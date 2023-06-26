@@ -93,7 +93,6 @@ export default function Register(props: any) {
       role: "user"
     };
     dispatch(register(payload)).then((res: any) => {
-      console.log('RESGISTER HINER', res);
       props.navigation.navigate('Home');
     })
   }

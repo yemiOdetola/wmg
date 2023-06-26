@@ -29,7 +29,7 @@ export default function Login({ navigation }: any) {
 
   const signin = async () => {
     const payload = {
-      email: 'yemiotola@gmail.com',
+      email: email,
       password: password,
     };
     dispatch(login(payload))
