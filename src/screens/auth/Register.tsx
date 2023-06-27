@@ -81,7 +81,7 @@ export default function Register(props: any) {
   const generateRandomNumbers: any = () => Math.floor(Math.random() * 10000);
   const createAccount = () => {
     if (!name || !email || !password || !phone) {
-      return Toast.show({ type: 'warn', text1: 'All fields is compulsory' })
+      return Toast.show({ type: 'error', text1: 'All fields is compulsory', position: 'bottom' })
     }
     const payload: any = {
       name: name,
