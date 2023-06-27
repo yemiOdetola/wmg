@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Alert, TouchableOpacity, Image } from 'react-native';
-import { Text, TextInput, Button } from 'react-native-paper';
+import { SafeAreaView, View, TouchableOpacity } from 'react-native';
+import { Text, Button } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-toast-message';
 import { Input } from '../../components/shared';
 import { styles } from '../../utils';
 import { usePreferences } from '../../hooks';
@@ -28,6 +29,9 @@ export default function Login({ navigation }: any) {
   };
 
   const signin = async () => {
+    if (!email || !password) {
+      return Toast.show({ type: 'error', text1: 'All fields is compulsory' })
+    }
     const payload = {
       email: email,
       password: password,

@@ -31,6 +31,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  balanceRec: {
+    backgroundColor: '#073b4c',
+  },
   label: {
     opacity: 0.75,
     textTransform: 'uppercase',
@@ -73,11 +76,11 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
   credits: {
-    backgroundColor: '#f9fafb',
+    backgroundColor: '#eeeae6',
     width: '100%',
     height: 48,
     borderRadius: 2,
-    marginBottom: 12,
+    // marginBottom: 12,
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',

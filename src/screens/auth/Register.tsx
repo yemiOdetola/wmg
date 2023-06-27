@@ -36,7 +36,6 @@ export default function Register(props: any) {
   const [secPreferenceModalVisible, setSecPreferenceModalVisible] = useState(false);
   const [tetPreferenceModalVisible, setTetPreferenceModalVisible] = useState(false);
 
-
   const { loading } = useSelector(
     (state: any) => ({
       loading: state.ui.loading
@@ -82,9 +81,9 @@ export default function Register(props: any) {
   const generateRandomNumbers: any = () => Math.floor(Math.random() * 10000);
   const createAccount = () => {
     if (!name || !email || !password || !phone) {
-      return Toast.show({ type: 'warn', text1: 'All fields is compulsory' })
+      return Toast.show({ type: 'error', text1: 'All fields is compulsory', position: 'bottom' })
     }
-    const payload = {
+    const payload: any = {
       name: name,
       email: email,
       phone: phone,
@@ -92,6 +91,17 @@ export default function Register(props: any) {
       password: password,
       role: "user"
     };
+    if (userType == 'recycler') {
+      if (!company || !threshold || !categories || !preference || !secPreference || !tetPreference) {
+        return Toast.show({ type: 'error', text1: 'All fields are compulsory' });
+      }
+      payload.role = 'recycler';
+      payload.company = company;
+      payload.threshold = Number(threshold);
+      payload.category = category;
+      payload.distance = Number(distanceValue);
+      payload.preference = [preference, secPreference, tetPreference];
+    }
     dispatch(register(payload)).then((res: any) => {
       props.navigation.navigate('Home');
     })
@@ -142,7 +152,7 @@ export default function Register(props: any) {
             secureTextEntry
             label="Password"
             value={password}
-            onChangeText={(text: string) => setPassword(text.trim())}
+            onChangeText={(text: string) => setPassword(text)}
             mode="flat"
             style={styles.AuthInput}
           />
@@ -152,13 +162,13 @@ export default function Register(props: any) {
               <Input
                 label="Recycling company"
                 value={company}
-                onChangeText={(text: string) => setCompany(text.trim())}
+                onChangeText={(text: string) => setCompany(text)}
                 mode="flat"
                 autoCapitalize="none"
                 style={styles.AuthInput}
               />
               <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setCategoriesModalVisible(true)}>
-                <Text style={styles.ddLabel}>{category ? `Select Category: ${category}` : "Category"}</Text>
+                <Text style={styles.ddLabel}>{category ? `Select 3 Categories: ${category}` : "Category"}</Text>
               </TouchableOpacity>
               <Input
                 label="Minimum threshold (kg)"
@@ -183,7 +193,7 @@ export default function Register(props: any) {
 
               {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
                 <>
-                  <Text style={styles.RangeLabel}>Targeted distance coverage: {distanceValue}km</Text>
+                  <Text style={styles.RangeLabel}>Target coverage: {distanceValue}km</Text>
                   <RangeSlider
                     disableRange
                     min={0}
