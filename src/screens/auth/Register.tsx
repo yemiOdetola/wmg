@@ -109,12 +109,8 @@ export default function Register(props: any) {
 
   return (
     <>
-      <SafeAreaView style={[styles.AuthContent, { flex: 1, justifyContent: 'center' }]}>
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          keyboardShouldPersistTaps={"handled"}
-          enableResetScrollToCoords={false}
-        >
+      <SafeAreaView style={[styles.AuthPage, { flex: 1, justifyContent: 'center' }]}>
+        <View style={styles.AuthContent}>
           <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 16 }}>
             <Text style={{ alignSelf: 'center', fontSize: 20, textAlign: 'center' }}> Create Your Account</Text>
           </View>
@@ -123,114 +119,120 @@ export default function Register(props: any) {
             <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
             <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
           </View>
-          {userType === 'recycler' ? <Text style={styles.formSubTitle}>Basic info</Text> : null}
-          <Input
-            label="Name"
-            value={name}
-            onChangeText={(text: string) => setName(text)}
-            mode="flat"
-            style={styles.AuthInput}
-          />
-          <Input
-            label="Email Address"
-            value={email}
-            onChangeText={(text: string) => setEmail(text.trim())}
-            mode="flat"
-            autoCapitalize="none"
-            style={styles.AuthInput}
-          />
-          <Input
-            label="Phone number"
-            value={phone}
-            onChangeText={(text: string) => setPhone(text.trim())}
-            mode="flat"
-            keyboardType="name-phone-pad"
-            autoCapitalize="none"
-            style={styles.AuthInput}
-          />
-          <Input
-            secureTextEntry
-            label="Password"
-            value={password}
-            onChangeText={(text: string) => setPassword(text)}
-            mode="flat"
-            style={styles.AuthInput}
-          />
-          {userType === 'recycler'
-            ? <Fragment>
-              <Text style={styles.formSubTitle}>Company's info</Text>
-              <Input
-                label="Recycling company"
-                value={company}
-                onChangeText={(text: string) => setCompany(text)}
-                mode="flat"
-                autoCapitalize="none"
-                style={styles.AuthInput}
-              />
-              <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setCategoriesModalVisible(true)}>
-                <Text style={styles.ddLabel}>{category ? `Select 3 Categories: ${category}` : "Category"}</Text>
-              </TouchableOpacity>
-              <Input
-                label="Minimum threshold (kg)"
-                value={threshold}
-                onChangeText={(text: string) => setThreshold(text.trim())}
-                mode="flat"
-                keyboardType="numeric"
-                autoCapitalize="none"
-                style={styles.AuthInput}
-              />
-
-              <Text style={styles.formSubTitle}>Choose Pickup Preferences</Text>
-              <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setPreferenceModalVisible(true)}>
-                <Text style={styles.ddLabel}>{preference ? `1. Most preferred: ${preference}` : "1. Most preferred"}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setSecPreferenceModalVisible(true)}>
-                <Text style={styles.ddLabel}>{secPreference ? `2. Preferred: ${secPreference}` : "2. Preferred"}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setTetPreferenceModalVisible(true)}>
-                <Text style={styles.ddLabel}>{tetPreference ? `3. Least Preferred: ${tetPreference}` : "3. Least Preferred"}</Text>
-              </TouchableOpacity>
-
-              {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
-                <>
-                  <Text style={styles.RangeLabel}>Target coverage: {distanceValue}km</Text>
-                  <RangeSlider
-                    disableRange
-                    min={0}
-                    max={200}
-                    step={2}
-                    renderThumb={renderThumb}
-                    renderRail={renderRail}
-                    renderRailSelected={renderRailSelected}
-                    renderLabel={renderLabel}
-                  />
-                </>
-                : null}
-            </Fragment>
-            : null}
-          <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-            <Checkbox
-              color={colors.PRIMARY}
-              uncheckedColor="red"
-              status={checked ? 'checked' : 'unchecked'}
-              onPress={() => { setChecked(!checked); }}
+          <KeyboardAwareScrollView
+            enableOnAndroid={true}
+            keyboardShouldPersistTaps={"handled"}
+            enableResetScrollToCoords={false}
+          >
+            {userType === 'recycler' ? <Text style={styles.formSubTitle}>Basic info</Text> : null}
+            <Input
+              label="Name"
+              value={name}
+              onChangeText={(text: string) => setName(text)}
+              mode="flat"
+              style={styles.AuthInput}
             />
-            <TouchableOpacity activeOpacity={0.8} onPress={() => onChangeScreen("terms")}>
-              <Text style={styles.AuthCheckBoxLabel}>I Agree to Privacy & Terms</Text>
-            </TouchableOpacity>
-          </View>
-          <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => createAccount()} disabled={loading}
-            style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
-            {!loading ? "Continue" : "Please wait..."}
-          </Button>
-          <View style={styles.AuthBottomContent}>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => onChangeScreen('login')}>
-              <Text style={styles.AuthBottomText}>
-                Already have an account? <Text style={{ fontWeight: 'bold' }}>Sign in</Text>
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView >
+            <Input
+              label="Email Address"
+              value={email}
+              onChangeText={(text: string) => setEmail(text.trim())}
+              mode="flat"
+              autoCapitalize="none"
+              style={styles.AuthInput}
+            />
+            <Input
+              label="Phone number"
+              value={phone}
+              onChangeText={(text: string) => setPhone(text.trim())}
+              mode="flat"
+              keyboardType="name-phone-pad"
+              autoCapitalize="none"
+              style={styles.AuthInput}
+            />
+            <Input
+              secureTextEntry
+              label="Password"
+              value={password}
+              onChangeText={(text: string) => setPassword(text)}
+              mode="flat"
+              style={styles.AuthInput}
+            />
+            {userType === 'recycler'
+              ? <Fragment>
+                <Text style={styles.formSubTitle}>Company's info</Text>
+                <Input
+                  label="Recycling company"
+                  value={company}
+                  onChangeText={(text: string) => setCompany(text)}
+                  mode="flat"
+                  autoCapitalize="none"
+                  style={styles.AuthInput}
+                />
+                <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setCategoriesModalVisible(true)}>
+                  <Text style={styles.ddLabel}>{category ? `Select 3 Categories: ${category}` : "Category"}</Text>
+                </TouchableOpacity>
+                <Input
+                  label="Minimum threshold (kg)"
+                  value={threshold}
+                  onChangeText={(text: string) => setThreshold(text.trim())}
+                  mode="flat"
+                  keyboardType="numeric"
+                  autoCapitalize="none"
+                  style={styles.AuthInput}
+                />
+
+                <Text style={styles.formSubTitle}>Choose Pickup Preferences</Text>
+                <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setPreferenceModalVisible(true)}>
+                  <Text style={styles.ddLabel}>{preference ? `1. Most preferred: ${preference}` : "1. Most preferred"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setSecPreferenceModalVisible(true)}>
+                  <Text style={styles.ddLabel}>{secPreference ? `2. Preferred: ${secPreference}` : "2. Preferred"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setTetPreferenceModalVisible(true)}>
+                  <Text style={styles.ddLabel}>{tetPreference ? `3. Least Preferred: ${tetPreference}` : "3. Least Preferred"}</Text>
+                </TouchableOpacity>
+
+                {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
+                  <>
+                    <Text style={styles.RangeLabel}>Target coverage: {distanceValue}km</Text>
+                    <RangeSlider
+                      disableRange
+                      min={0}
+                      max={200}
+                      step={2}
+                      renderThumb={renderThumb}
+                      renderRail={renderRail}
+                      renderRailSelected={renderRailSelected}
+                      renderLabel={renderLabel}
+                    />
+                  </>
+                  : null}
+              </Fragment>
+              : null}
+            <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+              <Checkbox
+                color={colors.PRIMARY}
+                uncheckedColor="red"
+                status={checked ? 'checked' : 'unchecked'}
+                onPress={() => { setChecked(!checked); }}
+              />
+              <TouchableOpacity activeOpacity={0.8} onPress={() => onChangeScreen("terms")}>
+                <Text style={styles.AuthCheckBoxLabel}>I Agree to Privacy & Terms</Text>
+              </TouchableOpacity>
+            </View>
+            <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => createAccount()} disabled={loading}
+              style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
+              {!loading ? "Continue" : "Please wait..."}
+            </Button>
+            <View style={styles.AuthBottomContent}>
+              <TouchableOpacity activeOpacity={0.9} onPress={() => onChangeScreen('login')}>
+                <Text style={styles.AuthBottomText}>
+                  Already have an account? <Text style={{ fontWeight: 'bold' }}>Sign in</Text>
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAwareScrollView>
+        </View>
       </SafeAreaView>
       <Modal visible={preferenceModalVisible} onDismiss={hideModal}
         contentContainerStyle={[styles.modalContainerStyle, { backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'white' }]}>

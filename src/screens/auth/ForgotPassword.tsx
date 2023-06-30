@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Alert } from 'react-native';
-import { TextInput, Button, Text, IconButton } from 'react-native-paper';
+import { SafeAreaView, View } from 'react-native';
+import { TextInput, Button, Text } from 'react-native-paper';
+import { Input } from '../../components/shared'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { styles } from '../../utils';
-// import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { usePreferences } from '../../hooks';
 
 // const auth = getAuth();
@@ -23,44 +24,19 @@ export default function ForgotPassword(props: any) {
     setTimeout(() => {
       setLoading(false);
     }, 300)
-    //   if (email) {
-    //     sendPasswordResetEmail(auth, email).then(() => {
-    //       setLoading(false);
-    //       Alert.alert('Alert', Strings.ST38);
-    //       props.navigation.navigate('login');
-
-    //     }).catch((e) => {
-    //       if (e.code == 'auth/user-not-found') {
-
-    //         setLoading(false);
-    //         Alert.alert(Strings.ST37);
-
-    //       } else {
-
-    //         setLoading(false);
-    //         Alert.alert(Strings.ST104);
-    //       }
-
-    //     });
-    //   } else {
-    //     setLoading(false);
-    //     Alert.alert(Strings.ST33);
-    //   }
   };
 
   return (
-
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
-      <View style={styles.AuthPage}>
-        <View style={styles.AuthContent}>
-          <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 40 }}>
-            {/* <IconButton icon="cloud-lock-outline" size={24} /> */}
-            <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center' }}>We'll send you an email with a reset link</Text>
-          </View>
-
-          <TextInput
+    <SafeAreaView style={[styles.AuthPage, { flex: 1, justifyContent: 'center' }]}>
+      <View style={styles.AuthContent}>
+        {/* <Text style={{ marginBottom: 40, fontSize: 16, textAlign: 'center' }}>Please enter your email, we'll send a verification token.</Text> */}
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          keyboardShouldPersistTaps={"handled"}
+          enableResetScrollToCoords={false}>
+          <Input
             label="Email"
-            onChangeText={text => setEmail(text)}
+            onChangeText={(text: any) => setEmail(text)}
             mode="outlined"
             autoCapitalize="none"
             style={styles.AuthInput} />
@@ -69,10 +45,8 @@ export default function ForgotPassword(props: any) {
             style={styles.AuthButton} contentStyle={styles.AuthButtonContent}>
             {!loading ? 'Reset Password' : 'Loading...'}
           </Button>
-
-        </View>
+        </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>
-
   );
 }
