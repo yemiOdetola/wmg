@@ -44,7 +44,7 @@ export default function Login({ navigation }: any) {
     <SafeAreaView style={[styles.AuthPage, { flex: 1, justifyContent: 'center' }]}>
       <View style={styles.AuthContent}>
         <KeyboardAwareScrollView
-          enableOnAndroid={true}
+          // enableOnAndroid={true}
           keyboardShouldPersistTaps={"handled"}
           enableResetScrollToCoords={false}>
           <Input

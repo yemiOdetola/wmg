@@ -31,7 +31,7 @@ export default function ForgotPassword(props: any) {
       <View style={styles.AuthContent}>
         {/* <Text style={{ marginBottom: 40, fontSize: 16, textAlign: 'center' }}>Please enter your email, we'll send a verification token.</Text> */}
         <KeyboardAwareScrollView
-          enableOnAndroid={true}
+          // enableOnAndroid={true}
           keyboardShouldPersistTaps={"handled"}
           enableResetScrollToCoords={false}>
           <Input

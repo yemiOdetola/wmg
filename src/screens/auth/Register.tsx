@@ -120,7 +120,7 @@ export default function Register(props: any) {
             <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
           </View>
           <KeyboardAwareScrollView
-            enableOnAndroid={true}
+            // enableOnAndroid={true}
             keyboardShouldPersistTaps={"handled"}
             enableResetScrollToCoords={false}
           >

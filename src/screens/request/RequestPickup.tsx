@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, SafeAreaView, TouchableOpacity, Platform, Image, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, SafeAreaView, TouchableOpacity, Platform, Image, Alert } from 'react-native';
 import { Text, Button, Modal, RadioButton, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'react-native-image-picker';
@@ -9,6 +9,8 @@ import { colors, styles } from '../../utils';
 import { usePreferences } from '../../hooks';
 import { createListingTest } from '../../redux/actions/listing';
 import Toast from 'react-native-toast-message';
+import { utils } from '@react-native-firebase/app';
+import storage from '@react-native-firebase/storage';
 
 const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
 const includeExtra = true;
@@ -66,19 +68,27 @@ export default function RequestPickup(props: any) {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [imageResource, setImageResource] = useState<any>('');
+  const [imageUrl, setImageUrl] = useState('');
   const [categoriesModalState, setCategoriesModalVisible] = useState(false);
   const [dialogState, setDialogState] = useState(false);
 
-  const { loading } = useSelector(
+  const { loading, user } = useSelector(
     (state: any) => ({
-      loading: state.ui.loading
+      loading: state.ui.loading,
+      user: state.auth.user,
     }),
     shallowEqual
   );
 
+  useEffect(() => {
+    if (imageResource?.assets) {
+      // uploadFile();
+      uploadImage();
+    }
+  }, [imageResource])
+
   const showModal = () => setCategoriesModalVisible(true)
   const hideModal = () => setCategoriesModalVisible(false);
-
   const chooseImage = React.useCallback((type: any, options: any) => {
     if (type === 'capture') {
       ImagePicker.launchCamera(options, setImageResource);
@@ -87,8 +97,49 @@ export default function RequestPickup(props: any) {
     }
   }, []);
 
+  // const generateRandomNumbers: any = () => Math.floor(Math.random() * 1000083920);
+
+  const uploadImage = async () => {
+    const { uri } = imageResource?.assets[0];
+    let task: any;
+    if (uri) {
+      const filename = uri.substring(uri.lastIndexOf('/') + 1);
+      const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+      task = storage().ref(`/listings/${filename}`).putFile(uploadUri);
+    }
+    try {
+      await task;
+      task.then(async () => {
+        const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
+        console.log('URL now', url);
+        setImageUrl(url);
+      }).then((ele: any) => {
+        createListing();
+      })
+    } catch (e) {
+      console.error(e);
+    }
+    setImageResource('')
+  };
+
   const createListing = () => {
-    const payload = {}
+    if (!imageUrl) {
+      return Alert.alert('Please upload an image');
+    }
+    if (!title || !description || !instruction || !weight || !price || !category || !title || !title || !title) {
+      return Alert.alert('All fields are compulsory');
+    }
+    const payload = {
+      title: title,
+      description: description,
+      instruction: instruction,
+      image: imageUrl,
+      weight: weight,
+      price: price,
+      user: user.id,
+      location: null,
+      category: category,
+    }
     dispatch(createListingTest(payload)).then((res: any) => {
       Toast.show({
         text1: 'Pickup request has been created'
@@ -98,13 +149,9 @@ export default function RequestPickup(props: any) {
 
 
   return (
-    <KeyboardAwareScrollView
-      enableOnAndroid={true}
-      keyboardShouldPersistTaps={"handled"}
-      enableResetScrollToCoords={false}
-    >
+    <KeyboardAwareScrollView>
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', margin: 20 }}>
-        <Text style={[styles.formSubTitle, { alignSelf: 'center', fontSize: 22, textAlign: 'center' }]}>Request for pickup</Text>
+        <Text style={[styles.formSubTitle, { alignSelf: 'center', fontSize: 18, fontWeight: '300', textAlign: 'center' }]}>Enter pickup details to continue</Text>
         <Input
           label="Title"
           value={title}
@@ -146,7 +193,7 @@ export default function RequestPickup(props: any) {
             backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
           }]}
         >
-          <Text style={styles.ddLabel}>{category ? `Category: ${category}` : "Choose image"}</Text>
+          <Text style={styles.ddLabel}>{"Choose image"}</Text>
         </TouchableOpacity>
         {imageResource?.assets &&
           imageResource?.assets.map(({ uri }: { uri: string }) => (
