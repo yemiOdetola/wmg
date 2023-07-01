@@ -172,6 +172,7 @@ export default function RequestPickup(props: any) {
       setWeight('')
       setPrice('')
       setCategory('')
+      console.log('got CLEANED!');
       Toast.show({ text1: 'Pickup request has been created', position: 'bottom' });
     })
   }
