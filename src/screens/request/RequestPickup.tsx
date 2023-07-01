@@ -4,13 +4,15 @@ import { Text, Button, Modal, RadioButton, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'react-native-image-picker';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { Input } from '../../components/shared';
-import { colors, styles } from '../../utils';
-import { usePreferences } from '../../hooks';
-import { createListingTest } from '../../redux/actions/listing';
 import Toast from 'react-native-toast-message';
 import { utils } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Input } from '../../components/shared';
+import { colors, styles } from '../../utils';
+import { usePreferences } from '../../hooks';
+import { createListing } from '../../redux/actions/listing';
+import { Loading } from '../../redux/actions/ui';
 
 const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
 const includeExtra = true;
@@ -60,7 +62,6 @@ if (Platform.OS === 'ios') {
 export default function RequestPickup(props: any) {
   const { theme } = usePreferences();
   const dispatch: any = useDispatch();
-
   const [title, setTitle] = useState('');
   const [instruction, setInstruction] = useState('');
   const [description, setDescription] = useState('');
@@ -71,6 +72,12 @@ export default function RequestPickup(props: any) {
   const [imageUrl, setImageUrl] = useState('');
   const [categoriesModalState, setCategoriesModalVisible] = useState(false);
   const [dialogState, setDialogState] = useState(false);
+  const [location, setLocation] = useState<any>({
+    latitude: 6.5244,
+    longitude: 3.3792,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
   const { loading, user } = useSelector(
     (state: any) => ({
@@ -81,11 +88,16 @@ export default function RequestPickup(props: any) {
   );
 
   useEffect(() => {
-    if (imageResource?.assets) {
-      // uploadFile();
-      uploadImage();
-    }
-  }, [imageResource])
+    const daat: any = getLocation();
+    setTimeout(() => {
+      console.log('attention', daat?._z)
+      daat.then((coords: any) => {
+        console.log('coords', coords);
+        setLocation(coords);
+      })
+      // console.log(JSON.parse(daat))
+    }, 3000)
+  }, [])
 
   const showModal = () => setCategoriesModalVisible(true)
   const hideModal = () => setCategoriesModalVisible(false);
@@ -97,33 +109,46 @@ export default function RequestPickup(props: any) {
     }
   }, []);
 
+  const getLocation = async () => {
+    const coords: any = await AsyncStorage.getItem('coords');
+    console.log('coords', coords);
+    return JSON.parse(coords);
+  }
+
   // const generateRandomNumbers: any = () => Math.floor(Math.random() * 1000083920);
 
   const uploadImage = async () => {
-    const { uri } = imageResource?.assets[0];
-    let task: any;
-    if (uri) {
-      const filename = uri.substring(uri.lastIndexOf('/') + 1);
-      const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-      task = storage().ref(`/listings/${filename}`).putFile(uploadUri);
+    if (imageResource?.assets) {
+      dispatch(Loading(true));
+      const { uri } = imageResource?.assets[0];
+      let task: any;
+      if (uri) {
+        const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        task = storage().ref(`/listings/${filename}`).putFile(uploadUri);
+      }
+      try {
+        await task;
+        task.then(async () => {
+          const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
+          console.log('URL now', url);
+          setImageUrl(url);
+          setTimeout(() => {
+            createListingRequest(url);
+          }, 100)
+        })
+      } catch (e) {
+        dispatch(Loading(false));
+        console.error(e);
+      }
+    } else {
+      dispatch(Loading(false));
+      Alert.alert('Please upload an image');
     }
-    try {
-      await task;
-      task.then(async () => {
-        const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
-        console.log('URL now', url);
-        setImageUrl(url);
-      }).then((ele: any) => {
-        createListing();
-      })
-    } catch (e) {
-      console.error(e);
-    }
-    setImageResource('')
   };
 
-  const createListing = () => {
-    if (!imageUrl) {
+  const createListingRequest = (url: string) => {
+    if (!url) {
       return Alert.alert('Please upload an image');
     }
     if (!title || !description || !instruction || !weight || !price || !category || !title || !title || !title) {
@@ -133,17 +158,20 @@ export default function RequestPickup(props: any) {
       title: title,
       description: description,
       instruction: instruction,
-      image: imageUrl,
+      image: url,
       weight: weight,
       price: price,
       user: user.id,
-      location: null,
+      location: {
+        coordinates: [location?.longitude, location?.latitude]
+      },
       category: category,
     }
-    dispatch(createListingTest(payload)).then((res: any) => {
-      Toast.show({
-        text1: 'Pickup request has been created'
-      });
+    // console.log(payload);
+    dispatch(createListing(payload)).then((res: any) => {
+      setImageResource('');
+      console.log('VIEW RES: ', res);
+      Toast.show({ text1: 'Pickup request has been created', position: 'bottom' });
     })
   }
 
@@ -212,9 +240,13 @@ export default function RequestPickup(props: any) {
           keyboardType="number-pad"
           onChangeText={(text: any) => setPrice(text.trim())}
         />
-        <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => setDialogState(true)}
+        {/* <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => uploadImage()}
           style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
           {!loading ? "Continue" : "Please wait..."}
+        </Button> */}
+        <Button mode="contained" onPress={() => uploadImage()} dark={theme === "dark" ? false : true}
+          style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
+          {!loading ? "Continue" : "Please Wait..."}
         </Button>
       </SafeAreaView>
       <Modal visible={categoriesModalState} onDismiss={hideModal}
@@ -237,16 +269,16 @@ export default function RequestPickup(props: any) {
         </RadioButton.Group>
         <Button onPress={hideModal}>OK</Button>
       </Modal>
-      <Dialog visible={dialogState} onDismiss={() => setDialogState(false)}>
+      {/* <Dialog visible={dialogState} onDismiss={() => setDialogState(false)}>
         <Dialog.Title style={{ fontSize: 18 }}>Do you wish to continue?</Dialog.Title>
         <Dialog.Content>
           <Text variant="bodyMedium">This request will have your address as the pickup location</Text>
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={() => setDialogState(false)}>Cancel</Button>
-          <Button onPress={createListing}>OK</Button>
+          <Button onPress={uploadImage}>OK</Button>
         </Dialog.Actions>
-      </Dialog>
+      </Dialog> */}
     </KeyboardAwareScrollView>
   );
 }

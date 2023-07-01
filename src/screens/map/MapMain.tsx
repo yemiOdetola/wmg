@@ -44,6 +44,7 @@ export default function MapMain() {
   });
 
   useEffect(() => {
+    requestLocationPermission();
     Animated.loop(
       Animated.sequence([
         Animated.timing(anim.current, {
@@ -67,6 +68,7 @@ export default function MapMain() {
 
   const requestLocationPermission = async () => {
     if (Platform.OS === 'android') {
+      console.log('PermissionsAndroid.RESULTS.GRANTED: ', PermissionsAndroid.RESULTS);
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,

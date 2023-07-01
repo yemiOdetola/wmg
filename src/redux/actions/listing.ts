@@ -6,6 +6,10 @@ import * as config from '../config.json';
 import {Loading} from './ui';
 import state from '../root.store';
 
+const headers = {
+  Authorization: `Bearer ${state.getState().auth.token}`,
+};
+
 export const createListingTest = (payload: any) => (dispatch: any) => {
   dispatch(Loading(true));
   return axios.get('https://google.com').then(() => {
@@ -17,12 +21,11 @@ export const createListingTest = (payload: any) => (dispatch: any) => {
 export function createListing(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));
-    axios
-      .post(`${config.base_url}/listing`, payload)
+    return axios
+      .post(`${config.base_url}/listing`, payload, {headers})
       .then(res => {
-        if (res.status === 200) {
-          dispatch(Loading(false));
-        }
+        dispatch(Loading(false));
+        return res?.data;
       })
       .catch(error => {
         dispatch({type: Types.AUTH, user: {}});

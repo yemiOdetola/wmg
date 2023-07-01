@@ -30,6 +30,12 @@ const App = () => {
   const [theme, setTheme] = useState(config.THEMEMODE);
   const [loaded, setLoaded] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
+  const [location, setLocation] = useState<any>({
+    latitude: 6.5244,
+    longitude: 3.3792,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
   useEffect(() => {
     SplashScreen.hide();
