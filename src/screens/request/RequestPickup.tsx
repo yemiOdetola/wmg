@@ -131,11 +131,8 @@ export default function RequestPickup(props: any) {
         await task;
         task.then(async () => {
           const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
-          console.log('URL now', url);
           setImageUrl(url);
-          setTimeout(() => {
-            createListingRequest(url);
-          }, 100)
+          createListingRequest(url);
         })
       } catch (e) {
         dispatch(Loading(false));
@@ -161,16 +158,20 @@ export default function RequestPickup(props: any) {
       image: url,
       weight: weight,
       price: price,
+      category: category,
       user: user.id,
       location: {
         coordinates: [location?.longitude, location?.latitude]
       },
-      category: category,
     }
-    // console.log(payload);
     dispatch(createListing(payload)).then((res: any) => {
       setImageResource('');
-      console.log('VIEW RES: ', res);
+      setTitle('');
+      setDescription('')
+      setInstruction('')
+      setWeight('')
+      setPrice('')
+      setCategory('')
       Toast.show({ text1: 'Pickup request has been created', position: 'bottom' });
     })
   }
@@ -244,7 +245,7 @@ export default function RequestPickup(props: any) {
           style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
           {!loading ? "Continue" : "Please wait..."}
         </Button> */}
-        <Button mode="contained" onPress={() => uploadImage()} dark={theme === "dark" ? false : true}
+        <Button disabled={loading} mode="contained" onPress={() => uploadImage()} dark={theme === "dark" ? false : true}
           style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
           {!loading ? "Continue" : "Please Wait..."}
         </Button>
