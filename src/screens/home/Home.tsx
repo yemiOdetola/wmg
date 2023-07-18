@@ -109,21 +109,23 @@ export default function Home({ navigation }: any) {
           </View>
           {user.role == 'user' ?
             <>
-              <View style={homeStyles.balance}>
-                <View>
-                  <Text style={homeStyles.label}>Bin weight</Text>
-                  <View style={[styles.row, styles.itemsBaseline, styles.my4]}>
-                    <Text style={homeStyles.value}>{Number(12).toFixed(2)}</Text>
-                    <Text style={homeStyles.extra}>KG</Text>
+              <View style={styles.mx20}>
+                <View style={homeStyles.balance}>
+                  <View>
+                    <Text style={homeStyles.label}>Bin weight</Text>
+                    <View style={[styles.row, styles.itemsBaseline, styles.my4]}>
+                      <Text style={homeStyles.value}>{Number(12).toFixed(2)}</Text>
+                      <Text style={homeStyles.extra}>KG</Text>
+                    </View>
                   </View>
+                  <TouchableOpacity style={homeStyles.req} onPress={() => navigation.navigate('requestPickup')}>
+                    <Text style={homeStyles.reqTxt}>Req Pickup</Text>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={homeStyles.req} onPress={() => navigation.navigate('requestPickup')}>
-                  <Text style={homeStyles.reqTxt}>Req Pickup</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={homeStyles.credits}>
-                <Text style={[homeStyles.creditLabel]}>Available credits</Text>
-                <Text style={[homeStyles.creditVal]}>{Number(0).toFixed(1)}</Text>
+                <View style={homeStyles.credits}>
+                  <Text style={[homeStyles.creditLabel]}>Available credits</Text>
+                  <Text style={[homeStyles.creditVal]}>{Number(0).toFixed(1)}</Text>
+                </View>
               </View>
               <View style={homeStyles.buttonGroup}>
                 <TouchableOpacity style={[homeStyles.button, homeStyles.f1]} onPress={() => navigation.navigate('requestPickup')}>
@@ -136,7 +138,7 @@ export default function Home({ navigation }: any) {
                     <Text style={homeStyles.actionText}>Request Pickup</Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[homeStyles.button, homeStyles.f2]} onPress={() => navigation.navigate('mapmain')}>
+                <TouchableOpacity style={[homeStyles.button, homeStyles.f2]} onPress={() => navigation.navigate('profile')}>
                   <View style={[homeStyles.icon, homeStyles.icon2]}>
                     <Icon style={homeStyles.featureIcon} name="calendar-month" />
                   </View>

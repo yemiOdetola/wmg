@@ -91,6 +91,12 @@ export default StyleSheet.create({
   py14: {
     paddingVertical: 14,
   },
+  mx10: {
+    marginHorizontal: 10,
+  },
+  mx20: {
+    marginHorizontal: 20,
+  },
   chip: {
     marginRight: 10,
     borderRadius: 6,

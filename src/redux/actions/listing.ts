@@ -22,18 +22,38 @@ export function createListing(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));
     return axios
-      .post(`${config.base_url}/listing`, payload, {headers})
+      .post(`${config.base_url}/listing/`, payload, {headers})
       .then(res => {
         dispatch(Loading(false));
         return res?.data;
       })
       .catch(error => {
-        dispatch({type: Types.AUTH, user: {}});
-        console.log('error:: ', error);
         Toast.show({
           type: 'error',
-          text1: 'Invalid details',
-          text2: 'Email address or Phone number is already used',
+          text1: error?.message || 'Some error occured',
+          position: 'bottom',
+        });
+        dispatch(Loading(false));
+      });
+  };
+}
+
+export function fetchMyRequests(payload: any) {
+  return (dispatch: any) => {
+    dispatch(Loading(true));
+    return axios
+      .post(`${config.base_url}/listing/my-listing`, payload, {headers})
+      .then(res => {
+        const data = res?.data;
+        dispatch({type: Types.MY_REQUESTS, data});
+        dispatch(Loading(false));
+        dispatch({});
+        return res;
+      })
+      .catch(error => {
+        Toast.show({
+          type: 'error',
+          text1: error?.message || 'Some error occured',
           position: 'bottom',
         });
         dispatch(Loading(false));

@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { View, SafeAreaView, Platform, Image, ScrollView, LayoutAnimation } from 'react-native';
 import { Text, List, Divider } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { colors, styles } from '../../utils';
 import { usePreferences } from '../../hooks';
-import { createListingTest } from '../../redux/actions/listing';
+import { fetchMyRequests } from '../../redux/actions/listing';
 import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import reqstyles from './reqstyles';
+// import { Loading, NoContentFound } from '../../components/shared';
 
 const mylistings = [
   {
@@ -57,18 +58,26 @@ const listing = {
 
 export default function MyRequests(props: any) {
   const { theme } = usePreferences();
+  const { navigation }: any = props;
   const dispatch: any = useDispatch();
   const [expanded, setExpanded] = React.useState(true);
 
   const handlePress = () => setExpanded(!expanded);
 
-  const { loading } = useSelector(
+  const { loading, user, myListing } = useSelector(
     (state: any) => ({
-      loading: state.ui.loading
+      loading: state.ui.loading,
+      user: state.auth.user,
+      myListing: state.listing.myListing
     }),
     shallowEqual
   );
 
+  useEffect(() => {
+    dispatch(fetchMyRequests({ userId: user.id })).then((res: any) => { })
+  }, [])
+
+  console.log('mylsisosid', myListing);
 
   return (
     <ScrollView>
@@ -102,6 +111,41 @@ export default function MyRequests(props: any) {
             </List.Accordion>
           </View>
         </List.Section>
+        {/* {loading ? <Loading /> : null}
+        {!loading && myListing && myListing.length == 0 ? <NoContentFound /> : null} */}
+        {/* {!loading && myListing && myListing.length > 0 ?
+          myListing.map((listing: any) => (
+            <List.Section title={`${new Date(listing.createdAt).toLocaleString()}`}>
+              <View style={styles.mb10}>
+                <List.Accordion
+                  title={<Text>{listing.title}</Text>}
+                  left={props => listing.status === 'accepted'
+                    ? <Icon {...props} name="progress-check" size={20} color="#12B76A" />
+                    : <Icon {...props} name="progress-alert" size={20} color="#F79009" />
+                  }
+                  onPress={() => LayoutAnimation.easeInEaseOut()}
+                >
+                  {listing?.negotiationHistory.length > 0 && listing?.negotiationHistory.map((el: any, index: number) => (
+                    <Fragment key={index}>
+                      <View key={index} style={styles.py14}>
+                        <View style={[styles.row, styles.itemCenter, styles.mb8]}>
+                          <Text style={reqstyles.lable}>Offer: </Text>
+                          <Text style={reqstyles.value}>{el.offer ? `₦${el.offer?.toLocaleString()}` : 'ACCEPTED'}</Text>
+                        </View>
+                        <View style={[styles.row, styles.mb8]}>
+                          <Text style={reqstyles.lable}>Message: </Text>
+                          <Text style={reqstyles.value}>{el.message || 'n/A'}</Text>
+                        </View>
+                        <Text style={reqstyles.timeStamp}>{new Date(el.timestamp).toLocaleString()}</Text>
+                      </View>
+                      <Divider />
+                    </Fragment>
+                  ))}
+                </List.Accordion>
+              </View>
+            </List.Section>
+          ))
+          : null} */}
 
       </SafeAreaView>
     </ScrollView>

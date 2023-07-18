@@ -56,7 +56,7 @@ export default function StackNavigation(props: any) {
       <IconButton
         icon="menu"
         size={24}
-        onPress={() => props.navigation.openDrawer()}
+        onPress={() => navigation.openDrawer()}
       />
     );
   };
@@ -84,6 +84,36 @@ export default function StackNavigation(props: any) {
         options={{ title: "Listing", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
+        name="mapmain"
+        component={MapMain}
+        options={{ title: "Listings Overview", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="requestPickup"
+        component={RequestPickup}
+        options={{ title: "Request For Pickup", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="myRequests"
+        component={MyRequests}
+        options={{ title: "My Requests", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="listingDetails"
+        component={ListingDetails}
+        options={{
+          headerTransparent: true,
+          title: "Listing Details",
+          headerLeft: () => buttonBack(),
+        }}
+      />
+      <Stack.Screen
+        name="schedulePickup"
+        component={PickupSchedule}
+        options={{ title: "Schedule Pickup", headerLeft: () => buttonBack() }}
+      />
+
+      {/* <Stack.Screen
         name="singlegoal"
         component={SingleGoal}
         options={{ title: '', headerLeft: () => buttonBack() }}
@@ -112,36 +142,7 @@ export default function StackNavigation(props: any) {
         name="singleExercise"
         component={SingleExercise}
         options={{ title: "", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="mapmain"
-        component={MapMain}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="requestPickup"
-        component={RequestPickup}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="myRequests"
-        component={MyRequests}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="listingDetails"
-        component={ListingDetails}
-        options={{
-          headerTransparent: true,
-          title: "",
-          headerLeft: () => buttonBack(),
-        }}
-      />
-      <Stack.Screen
-        name="schedulePickup"
-        component={PickupSchedule}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

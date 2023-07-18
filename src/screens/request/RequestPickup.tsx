@@ -14,9 +14,9 @@ import { usePreferences } from '../../hooks';
 import { createListing } from '../../redux/actions/listing';
 import { Loading } from '../../redux/actions/ui';
 
-const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
+const categories = ['generic', 'paper', 'glass', 'textile', 'furniture', 'e-waste', 'batteries', 'plastic', 'metal'];
 const includeExtra = true;
-
+const imgUrl = "https://firebasestorage.googleapis.com/v0/b/wmg-pnot.appspot.com/o/listings%2Frn_image_picker_lib_temp_16f458d0-a4d8-41e6-a72a-922f4e002033.jpg?alt=media&token=21c7a41d-cb9c-439b-b4cf-795396c580c8";
 interface Action {
   title: string;
   type: 'capture' | 'library';
@@ -60,24 +60,20 @@ if (Platform.OS === 'ios') {
 }
 
 export default function RequestPickup(props: any) {
+  const { navigation }: any = props;
   const { theme } = usePreferences();
   const dispatch: any = useDispatch();
-  const [title, setTitle] = useState('');
-  const [instruction, setInstruction] = useState('');
-  const [description, setDescription] = useState('');
-  const [weight, setWeight] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState('Old detective books');
+  const [instruction, setInstruction] = useState('not negotiable');
+  const [description, setDescription] = useState('45 novels');
+  const [weight, setWeight] = useState('12');
+  const [price, setPrice] = useState('16000');
+  const [category, setCategory] = useState('paper');
   const [imageResource, setImageResource] = useState<any>('');
   const [imageUrl, setImageUrl] = useState('');
   const [categoriesModalState, setCategoriesModalVisible] = useState(false);
   const [dialogState, setDialogState] = useState(false);
-  const [location, setLocation] = useState<any>({
-    latitude: 6.5244,
-    longitude: 3.3792,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+  const [location, setLocation] = useState<any>({ "latitude": 6.526911594850771, "latitudeDelta": 0.08336536212395451, "longitude": 3.3194048143923283, "longitudeDelta": 0.043651945888996124 });
 
   const { loading, user } = useSelector(
     (state: any) => ({
@@ -90,16 +86,14 @@ export default function RequestPickup(props: any) {
   useEffect(() => {
     const daat: any = getLocation();
     setTimeout(() => {
-      console.log('attention', daat?._z)
       daat.then((coords: any) => {
         console.log('coords', coords);
         setLocation(coords);
       })
-      // console.log(JSON.parse(daat))
     }, 3000)
-  }, [])
+  }, []);
 
-  const showModal = () => setCategoriesModalVisible(true)
+  const showModal = () => setCategoriesModalVisible(true);
   const hideModal = () => setCategoriesModalVisible(false);
   const chooseImage = React.useCallback((type: any, options: any) => {
     if (type === 'capture') {
@@ -118,36 +112,37 @@ export default function RequestPickup(props: any) {
   // const generateRandomNumbers: any = () => Math.floor(Math.random() * 1000083920);
 
   const uploadImage = async () => {
-    if (imageResource?.assets) {
-      dispatch(Loading(true));
-      const { uri } = imageResource?.assets[0];
-      let task: any;
-      if (uri) {
-        const filename = uri.substring(uri.lastIndexOf('/') + 1);
-        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-        task = storage().ref(`/listings/${filename}`).putFile(uploadUri);
-      }
-      try {
-        await task;
-        task.then(async () => {
-          const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
-          setImageUrl(url);
-          createListingRequest(url);
-        })
-      } catch (e) {
-        dispatch(Loading(false));
-        console.error(e);
-      }
-    } else {
-      dispatch(Loading(false));
-      Alert.alert('Please upload an image');
-    }
+    createListingRequest(imgUrl);
+    // if (imageResource?.assets) {
+    //   dispatch(Loading(true));
+    //   const { uri } = imageResource?.assets[0];
+    //   let task: any;
+    //   if (uri) {
+    //     const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    //     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    //     task = storage().ref(`/listings/${filename}`).putFile(uploadUri);
+    //   }
+    //   try {
+    //     await task;
+    //     task.then(async () => {
+    //       const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
+    //       setImageUrl(url);
+    //       createListingRequest(url);
+    //     })
+    //   } catch (e) {
+    //     dispatch(Loading(false));
+    //     console.error(e);
+    //   }
+    // } else {
+    //   dispatch(Loading(false));
+    //   Alert.alert('Please upload an image');
+    // }
   };
 
   const createListingRequest = (url: string) => {
-    if (!url) {
-      return Alert.alert('Please upload an image');
-    }
+    // if (!url) {
+    //   return Alert.alert('Please upload an image');
+    // }
     if (!title || !description || !instruction || !weight || !price || !category || !title || !title || !title) {
       return Alert.alert('All fields are compulsory');
     }
@@ -165,15 +160,15 @@ export default function RequestPickup(props: any) {
       },
     }
     dispatch(createListing(payload)).then((res: any) => {
-      setImageResource('');
-      setTitle('');
-      setDescription('')
-      setInstruction('')
-      setWeight('')
-      setPrice('')
-      setCategory('')
-      console.log('got CLEANED!');
+      // setImageResource('');
+      // setTitle('');
+      // setDescription('')
+      // setInstruction('')
+      // setWeight('')
+      // setPrice('')
+      // setCategory('')
       Toast.show({ text1: 'Pickup request has been created', position: 'bottom' });
+      navigation.navigate('home')
     })
   }
 
