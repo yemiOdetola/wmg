@@ -55,6 +55,12 @@ export default StyleSheet.create({
   mt32: {
     marginTop: 32,
   },
+  mt80: {
+    marginTop: 80,
+  },
+  mt120: {
+    marginTop: 120,
+  },
   mb8: {
     marginBottom: 8,
   },

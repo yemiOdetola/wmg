@@ -28,6 +28,7 @@ export default function GuestNavigation(props: any) {
 			shadowColor: 'transparent',
 			elevation: 0,
 			shadowOpacity: 0,
+			backgroundColor: theme === 'light' ? '#fff' : '#000',
 		},
 		// presentation: 'modal',
 		headerTitleStyle: {

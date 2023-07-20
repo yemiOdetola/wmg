@@ -6,8 +6,9 @@ import ModalNavigation from "./ModalNavigation";
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
+
   return (
-    <Drawer.Navigator initialRouteName="main" drawerContent={(props) => <DrawerContent {...props} />}>
+    <Drawer.Navigator initialRouteName="home" drawerContent={(props) => <DrawerContent {...props} />}>
       <Drawer.Screen name="main" component={ModalNavigation} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );

@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import RangeSlider from 'rn-range-slider';
 import Toast from 'react-native-toast-message';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Input } from '../../components/shared';
 import { styles, colors } from '../../utils';
 import { usePreferences } from '../../hooks'
@@ -51,12 +52,13 @@ export default function Register(props: any) {
   const hideModal = () => setPreferenceModalVisible(false);
   const hideSecModal = () => setSecPreferenceModalVisible(false);
   const hideTetModal = () => setTetPreferenceModalVisible(false);
+
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
   const renderRailSelected = useCallback(() => <RailSelected />, []);
   const renderLabel = useCallback((value: any) => {
-    setDistanceValue(value)
-    return <Label text={value} />
+    setDistanceValue(value || 0)
+    return <Label text={value || 0} />
   }, []);
 
   const selectUserType = (type: string) => {
@@ -111,20 +113,20 @@ export default function Register(props: any) {
     <>
       <SafeAreaView style={[styles.AuthPage, { flex: 1, justifyContent: 'center' }]}>
         <View style={styles.AuthContent}>
-          <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 16 }}>
-            <Text style={{ alignSelf: 'center', fontSize: 20, textAlign: 'center' }}> Create Your Account</Text>
-          </View>
-          <View style={[styles.row, styles.my10, styles.itemCenter]}>
-            <Text style={{ marginRight: 8 }}>Register as:</Text>
-            <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
-            <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
-          </View>
           <KeyboardAwareScrollView
             // enableOnAndroid={true}
             keyboardShouldPersistTaps={"handled"}
             enableResetScrollToCoords={false}
           >
-            {userType === 'recycler' ? <Text style={styles.formSubTitle}>Basic info</Text> : null}
+            {userType === 'recycler' ? <View style={styles.mt120} /> : null}
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 16 }}>
+              <Text style={{ alignSelf: 'center', fontSize: 20, textAlign: 'center' }}> Create Your Account</Text>
+            </View>
+            <View style={[styles.row, styles.my10, styles.itemCenter]}>
+              <Text style={{ marginRight: 8 }}>Register as:</Text>
+              <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
+              <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
+            </View>
             <Input
               label="Name"
               value={name}
@@ -192,27 +194,36 @@ export default function Register(props: any) {
                   <Text style={styles.ddLabel}>{tetPreference ? `3. Least Preferred: ${tetPreference}` : "3. Least Preferred"}</Text>
                 </TouchableOpacity>
 
-                {preference.toLowerCase() == 'distance' || secPreference.toLowerCase() == 'distance' || tetPreference.toLowerCase() == 'distance' ?
-                  <>
-                    <Text style={styles.RangeLabel}>Target coverage: {distanceValue}km</Text>
-                    <RangeSlider
-                      disableRange
+                {preference?.toLowerCase() == 'distance' || secPreference?.toLowerCase() == 'distance' || tetPreference?.toLowerCase() == 'distance' ?
+                  <View style={styles.my16}>
+                    <Text style={styles.RangeLabel}>Target coverage: {distanceValue || 0}km</Text>
+                    <Input
+                      label=""
+                      value={distanceValue}
+                      onChangeText={(text: string) => setDistanceValue(text.trim())}
+                      mode="flat"
+                      keyboardType="numeric"
+                      autoCapitalize="none"
+                      style={styles.AuthInput}
+                    />
+                    {/* <RangeSlider
+                      // disableRange
                       min={0}
                       max={200}
-                      step={2}
+                      step={1}
                       renderThumb={renderThumb}
                       renderRail={renderRail}
                       renderRailSelected={renderRailSelected}
                       renderLabel={renderLabel}
-                    />
-                  </>
+                    /> */}
+                  </View>
                   : null}
               </Fragment>
               : null}
             <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
               <Checkbox
                 color={colors.PRIMARY}
-                uncheckedColor="red"
+                uncheckedColor={colors.PRIMARY}
                 status={checked ? 'checked' : 'unchecked'}
                 onPress={() => { setChecked(!checked); }}
               />
@@ -231,6 +242,8 @@ export default function Register(props: any) {
                 </Text>
               </TouchableOpacity>
             </View>
+
+            {userType === 'recycler' ? <View style={styles.mb32} /> : null}
           </KeyboardAwareScrollView>
         </View>
       </SafeAreaView>
@@ -245,7 +258,7 @@ export default function Register(props: any) {
               <RadioButton
                 key={`pref-${index}`}
                 value={pref}
-                color="#000"
+                color={colors.PRIMARY}
                 status={preference === pref ? 'checked' : 'unchecked'}
               />
               <Text>{pref}</Text>
@@ -266,7 +279,7 @@ export default function Register(props: any) {
               <RadioButton
                 key={`secPref-${index}`}
                 value={secPref}
-                color="#000"
+                color={colors.PRIMARY}
                 status={secPreference === secPref ? 'checked' : 'unchecked'}
               />
               <Text>{secPref}</Text>
@@ -287,7 +300,7 @@ export default function Register(props: any) {
               <RadioButton
                 key={`tetPref-${index}`}
                 value={tetPref}
-                color="#000"
+                color={colors.PRIMARY}
                 status={tetPreference === tetPref ? 'checked' : 'unchecked'}
               />
               <Text>{tetPref}</Text>

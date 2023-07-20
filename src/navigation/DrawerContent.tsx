@@ -11,7 +11,6 @@ export default function DrawerContent(props: any) {
 
 	const { navigation } = props;
 
-
 	const onChangeScreen = (screen: string) => {
 		navigation.navigate(screen);
 	};
@@ -19,12 +18,6 @@ export default function DrawerContent(props: any) {
 	return (
 
 		<DrawerContentScrollView>
-			<TouchableOpacity onPress={() => onChangeScreen("home")} activeOpacity={0.8}>
-				<View style={styles.DrawerHeader}>
-					<Image source={theme === "dark" ? require('../assets/logo-white.png') : require('../assets/logo.png')} resizeMode={"contain"} style={styles.DrawerImage} />
-				</View>
-			</TouchableOpacity>
-
 			<View style={{ flex: 1 }}>
 				<TouchableOpacity onPress={() => onChangeScreen("listing")} activeOpacity={0.8}>
 					<List.Item

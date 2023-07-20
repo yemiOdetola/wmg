@@ -88,7 +88,7 @@ export default function Home({ navigation }: any) {
     setTimeout(() => {
       requestLocationPermission();
       setRefreshing(false);
-    }, 3000);
+    }, 1000);
   }
 
   const randomizeGreeting = () => {
@@ -114,7 +114,7 @@ export default function Home({ navigation }: any) {
                   <View>
                     <Text style={homeStyles.label}>Bin weight</Text>
                     <View style={[styles.row, styles.itemsBaseline, styles.my4]}>
-                      <Text style={homeStyles.value}>{Number(12).toFixed(2)}</Text>
+                      <Text style={homeStyles.value}>{Number(1.09).toFixed(2)}</Text>
                       <Text style={homeStyles.extra}>KG</Text>
                     </View>
                   </View>
@@ -143,7 +143,7 @@ export default function Home({ navigation }: any) {
                     <Icon style={homeStyles.featureIcon} name="calendar-month" />
                   </View>
                   <Text style={homeStyles.title}>My Profile</Text>
-                  <Text style={homeStyles.subtitle}>View and update your user information. This might help during pickup.</Text>
+                  <Text style={homeStyles.subtitle}>View and update your user setting and information. This might help during pickup.</Text>
                   <View style={[homeStyles.action, homeStyles.action2]}>
                     <Text style={homeStyles.actionText}>View Profile</Text>
                   </View>
@@ -173,27 +173,29 @@ export default function Home({ navigation }: any) {
             : null}
           {user.role == 'recycler' ?
             <>
-              <View style={[homeStyles.balance, homeStyles.balanceRec]}>
-                <View>
-                  <Text style={homeStyles.label}>Total Available</Text>
-                  <View style={[styles.row, styles.itemsBaseline, styles.my4]}>
-                    <Text style={homeStyles.value}>{Number(219).toFixed(2)}</Text>
-                    <Text style={homeStyles.extra}>KG</Text>
+              <View style={styles.mx20}>
+                <View style={[homeStyles.balance, homeStyles.balanceRec]}>
+                  <View>
+                    <Text style={homeStyles.label}>Total Available</Text>
+                    <View style={[styles.row, styles.itemsBaseline, styles.my4]}>
+                      <Text style={homeStyles.value}>{Number(219).toFixed(2)}</Text>
+                      <Text style={homeStyles.extra}>KG</Text>
+                    </View>
                   </View>
+                  <TouchableOpacity style={homeStyles.req} onPress={() => navigation.navigate('schedulePickup')}>
+                    <Text style={homeStyles.reqTxt}>Schedule Pickup</Text>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={homeStyles.req} onPress={() => navigation.navigate('requestPickup')}>
-                  <Text style={homeStyles.reqTxt}>Schedule Pickup</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={homeStyles.credits}>
-                <Text style={[homeStyles.creditLabel]}>Ratings</Text>
-                <Text style={[homeStyles.creditVal]}>
-                  {Number(4.3).toFixed(1)}
-                  <Icon name="star-outline" size={18} color={colors.PRIMARY} />
-                </Text>
+                <View style={homeStyles.credits}>
+                  <Text style={[homeStyles.creditLabel]}>Ratings</Text>
+                  <Text style={[homeStyles.creditVal]}>
+                    {Number(4.3).toFixed(1)}
+                    <Icon name="star-outline" size={18} color={colors.PRIMARY} />
+                  </Text>
+                </View>
               </View>
               <View style={homeStyles.buttonGroup}>
-                <TouchableOpacity style={[homeStyles.button, homeStyles.f6]}>
+                <TouchableOpacity style={[homeStyles.button, homeStyles.f6]} onPress={() => onChangeScreen('mapmain')}>
                   <View style={[homeStyles.icon, homeStyles.icon2]}>
                     <Icon style={homeStyles.featureIcon} name="dots-triangle" />
                   </View>
@@ -203,17 +205,7 @@ export default function Home({ navigation }: any) {
                     <Text style={homeStyles.actionText}>Track</Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[homeStyles.button, homeStyles.f7]} onPress={() => navigation.navigate('requestPickup')}>
-                  <View style={[homeStyles.icon, homeStyles.icon1]}>
-                    <Icon style={homeStyles.featureIcon} name="bus-stop" />
-                  </View>
-                  <Text style={homeStyles.title}>Leaderboard</Text>
-                  <Text style={homeStyles.subtitle}>Ranking based on your ratings and participation on the platform.</Text>
-                  <View style={[homeStyles.action, homeStyles.action1]}>
-                    <Text style={homeStyles.actionText}>Track your progress</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={[homeStyles.button, homeStyles.f8]} onPress={() => onChangeScreen('mapmain')}>
+                <TouchableOpacity style={[homeStyles.button, homeStyles.f8]} onPress={() => onChangeScreen('schedulePickup')}>
                   <View style={[homeStyles.icon, homeStyles.icon3]}>
                     <Icon style={homeStyles.featureIcon} name="calendar-month" />
                   </View>
@@ -231,6 +223,16 @@ export default function Home({ navigation }: any) {
                   <Text style={homeStyles.subtitle}>Information about updates related to offers sent and/or counter offer by households.</Text>
                   <View style={[homeStyles.action, homeStyles.action4]}>
                     <Text style={homeStyles.actionText}>View offer history</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={[homeStyles.button, homeStyles.f7]} onPress={() => navigation.navigate('profile')}>
+                  <View style={[homeStyles.icon, homeStyles.icon1]}>
+                    <Icon style={homeStyles.featureIcon} name="bus-stop" />
+                  </View>
+                  <Text style={homeStyles.title}>My profile</Text>
+                  <Text style={homeStyles.subtitle}>View and update your user setting and information. This might help during pickup.</Text>
+                  <View style={[homeStyles.action, homeStyles.action1]}>
+                    <Text style={homeStyles.actionText}>View Profile</Text>
                   </View>
                 </TouchableOpacity>
               </View>

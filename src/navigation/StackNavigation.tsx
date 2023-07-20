@@ -19,6 +19,7 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigation(props: any) {
   const { theme } = usePreferences();
 
+  console.log('props: ', props.navigation.openDrawer);
   const { navigation } = props;
 
   const navigatorOptions: any = {
@@ -66,7 +67,7 @@ export default function StackNavigation(props: any) {
       <Stack.Screen
         name="home"
         component={Home}
-        options={{ title: "MSW", headerLeft: () => buttonMenu() }}
+        options={{ title: "", headerLeft: () => buttonMenu() }}
       />
       <Stack.Screen
         name="profile"
@@ -112,37 +113,6 @@ export default function StackNavigation(props: any) {
         component={PickupSchedule}
         options={{ title: "Schedule Pickup", headerLeft: () => buttonBack() }}
       />
-
-      {/* <Stack.Screen
-        name="singlegoal"
-        component={SingleGoal}
-        options={{ title: '', headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="workouts"
-        component={Workouts}
-        options={{ title: "Workouts", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="store"
-        component={Store}
-        options={{ title: "Store", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="diets"
-        component={Diets}
-        options={{ title: "Diets", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="exercises"
-        component={Exercises}
-        options={{ title: "Exercises", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="singleExercise"
-        component={SingleExercise}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      /> */}
     </Stack.Navigator>
   );
 }
