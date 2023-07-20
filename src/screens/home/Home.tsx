@@ -199,7 +199,7 @@ export default function Home({ navigation }: any) {
                   <View style={[homeStyles.icon, homeStyles.icon2]}>
                     <Icon style={homeStyles.featureIcon} name="dots-triangle" />
                   </View>
-                  <Text style={homeStyles.title}>Track Requests</Text>
+                  <Text style={homeStyles.title}>Map Overview</Text>
                   <Text style={homeStyles.subtitle}>Visual representation of available pickup requests; including locations and waste resources.</Text>
                   <View style={[homeStyles.action, homeStyles.action2]}>
                     <Text style={homeStyles.actionText}>Track</Text>

@@ -57,10 +57,7 @@ export default function Profile(props: any) {
           </View>
 
           <View style={{ marginBottom: 40 }}>
-            {/* <CustomButton Icon="dumbbell" Label="Custom Workouts" Click={() => onChangeScreen("customworkouts")} /> */}
             <CustomButton Icon="silverware-fork-knife" Label="Settings" Click={() => onChangeScreen("settings")} />
-            {/* <CustomButton Icon="heart-outline" Label="Favorites" Click={() => onChangeScreen("favorites")} /> */}
-            {/* <CustomButton Icon="bookmark-outline" Label="About us" Click={() => onChangeScreen("about")} /> */}
             <CustomButton Icon="file-document-outline" Label="Terms and conditions" Click={() => onChangeScreen("terms")} />
             <CustomButton Icon="logout" Label="Sign out" Click={signout} />
             <CustomButton Icon="account-cancel-outline" Label="delete my account" Click={() => setVisible(true)} />
