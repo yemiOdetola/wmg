@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Platform, Image, ScrollView, LayoutAnimation } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Text, Divider, Checkbox } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { colors, styles } from '../../utils';
+import { colors, styles, config } from '../../utils';
 import { usePreferences } from '../../hooks';
 import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

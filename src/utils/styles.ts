@@ -200,6 +200,18 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
 
+  autoCompleteInput: {
+    marginVertical: 10,
+    padding: 0,
+    borderRadius: 0,
+    borderBottomWidth: 1,
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  autoCompleteInputLabel: {
+    fontSize: 12,
+    marginVertical: 8,
+  },
   AuthButton: {
     marginTop: 15,
     borderRadius: 4,

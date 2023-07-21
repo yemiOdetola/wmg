@@ -2,14 +2,9 @@
 
 const ConfigApp = {
   // backend url (with slash at end)
-  URL: 'https://wicombit.com/demo/fitpro/',
-
+  google_key: 'AIzaSyCq3ktbaZz2tGgZUYvyoXIvzoCYb8Ndi50',
   DEFAULTLANG: 'en',
-
   THEMEMODE: 'light', // light or dark
-
-  // testdevice id, DON'T CHANGE IT
-  // TESTDEVICE_ID : isStandAloneApp ? "EMULATOR" : "EMULATOR"
   TESTDEVICE_ID: 'EMULATOR',
 };
 

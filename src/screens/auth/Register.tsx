@@ -7,7 +7,7 @@ import RangeSlider from 'rn-range-slider';
 import Toast from 'react-native-toast-message';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Input } from '../../components/shared';
-import { styles, colors } from '../../utils';
+import { styles, colors, config } from '../../utils';
 import { usePreferences } from '../../hooks'
 import { Thumb, Rail, RailSelected, Label } from './meta';
 import { register } from '../../redux/actions/auth';
@@ -65,6 +65,8 @@ export default function Register(props: any) {
     setUserType(type || 'household')
   }
 
+  const generateRandomNumbers: any = () => Math.floor(Math.random() * 10000);
+
   const updateCategory = (cat: any) => {
     const cloneCat: any = [...category];
     const currIdx = cloneCat.indexOf(cat);
@@ -78,9 +80,13 @@ export default function Register(props: any) {
       Alert.alert('You can only select 3 categories')
     }
   }
+  const getPlacesLocation = (details: any) => {
+    console.log('PLACES DETAILS', details?.formatted_address, details?.geometry?.location);
+    //details?.geometry?.location.lat, details?.geometry?.location.lng
+  }
 
 
-  const generateRandomNumbers: any = () => Math.floor(Math.random() * 10000);
+
   const createAccount = () => {
     if (!name || !email || !password || !phone) {
       return Toast.show({ type: 'error', text1: 'All fields is compulsory', position: 'bottom' })
@@ -91,6 +97,7 @@ export default function Register(props: any) {
       phone: phone,
       avatar: `https://avatars.dicebear.com/api/avataaars/${generateRandomNumbers() || '1805'}.svg`,
       password: password,
+      address: {},
       role: "user"
     };
     if (userType == 'recycler') {
@@ -170,6 +177,25 @@ export default function Register(props: any) {
                   autoCapitalize="none"
                   style={styles.AuthInput}
                 />
+                <View style={[styles.autoCompleteInput, {
+                  borderBottomColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : '#ccc',
+                  borderBottomWidth: 1,
+                  backgroundColor: 'transparent',
+                }]}>
+                  <Text style={styles.autoCompleteInputLabel}>Type your company location</Text>
+                  <GooglePlacesAutocomplete
+                    placeholder="Type your company location"
+                    query={{
+                      key: config.google_key,
+                      language: 'en',
+                      region: 'NG',
+                    }}
+                    fetchDetails={true}
+                    onPress={(data, details = null) => getPlacesLocation(details)}
+                    onFail={error => console.log('error occured', error)}
+                    onNotFound={() => console.log('no results')}
+                  />
+                </View>
                 <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setCategoriesModalVisible(true)}>
                   <Text style={styles.ddLabel}>{category ? `Select 3 Categories: ${category}` : "Category"}</Text>
                 </TouchableOpacity>

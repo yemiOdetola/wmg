@@ -1,5 +1,17 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {firebase} from '@react-native-firebase/database';
+import database from '@react-native-firebase/database';
+
+export const initiateRealtimedb = () => {
+  return firebase
+    .app()
+    .database('https://wmg-pnot-default-rtdb.firebaseio.com/')
+    .ref()
+    .on('value', (snapshot: any) => {
+      console.log('User data: ', snapshot.val());
+    });
+};
 
 export const requestUserPermission = async () => {
   const authStatus = await messaging().requestPermission();

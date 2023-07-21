@@ -13,7 +13,7 @@ import { Loading } from './src/components/shared';
 import { Preferences } from './src/context';
 import { colors, config } from './src/utils';
 import store from './src/redux/root.store';
-import { NotificationListener, requestUserPermission } from './pushNotificationManager';
+import { NotificationListener, requestUserPermission, initiateRealtimedb } from './firebase';
 
 DarkThemePaper.colors.primary = colors.PRIMARY;
 DarkThemePaper.colors.accent = colors.PRIMARY;
@@ -42,6 +42,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    initiateRealtimedb();
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
