@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import SplashScreen from 'react-native-splash-screen'
-import { LogBox, StatusBar } from 'react-native';
+import { LogBox, PermissionsAndroid, StatusBar, Alert } from 'react-native';
 import { Provider } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider as PaperProvider, MD2LightTheme as DefaultThemePaper, MD2DarkTheme as DarkThemePaper } from 'react-native-paper';
 import { NavigationContainer, DefaultTheme as DefaultThemeNav, DarkTheme as DarkThemeNav } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import messaging from '@react-native-firebase/messaging';
 import Toast from 'react-native-toast-message';
+import { NavigationControl } from './src/navigation/NavigationControl';
 import { Loading } from './src/components/shared';
 import { Preferences } from './src/context';
 import { colors, config } from './src/utils';
 import store from './src/redux/root.store';
-import { NavigationControl } from './src/navigation/NavigationControl';
+import { NotificationListener, requestUserPermission, initiateRealtimedb } from './firebase';
 
 DarkThemePaper.colors.primary = colors.PRIMARY;
 DarkThemePaper.colors.accent = colors.PRIMARY;
@@ -28,16 +30,35 @@ const App = () => {
   const [theme, setTheme] = useState(config.THEMEMODE);
   const [loaded, setLoaded] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
+  const [location, setLocation] = useState<any>({
+    latitude: 6.5244,
+    longitude: 3.3792,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
+  useEffect(() => {
+    initiateRealtimedb();
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    requestUserPermission()
+    NotificationListener()
+  }, [])
 
   console.log('console.log(): ', store.getState());
   useEffect(() => {
     async function checkUser() {
       if (store.getState().auth.token) {
+        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
         setIsLogged(true);
       } else {
         setIsLogged(false);

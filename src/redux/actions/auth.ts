@@ -18,7 +18,7 @@ export function register(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));
     return axios
-      .post(`${config.base_url}/auth/register`, payload)
+      .post(`${config.base_url}/auth/register/`, payload)
       .then(res => {
         const {user, token} = res?.data;
         storeToken(token?.access);
@@ -44,7 +44,7 @@ export function login(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));
     return axios
-      .post(`${config.base_url}/auth/login`, payload)
+      .post(`${config.base_url}/auth/login/`, payload)
       .then(res => {
         const {user, token} = res?.data;
         storeToken(token?.access);
@@ -95,7 +95,7 @@ export function fetchUser() {
   return (dispatch: any) => {
     dispatch(Loading(true));
     axios
-      .get(`${config.base_url}/user`, {headers})
+      .get(`${config.base_url}/user/`, {headers})
       .then(res => {
         if (res.status === 200) {
           const {user, wallet, beneficiaries} = res.data.data;

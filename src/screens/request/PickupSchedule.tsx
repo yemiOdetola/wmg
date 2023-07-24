@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Platform, Image, ScrollView, LayoutAnimation } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Text, Divider, Checkbox } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { colors, styles } from '../../utils';
+import { colors, styles, config } from '../../utils';
 import { usePreferences } from '../../hooks';
 import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -101,20 +102,20 @@ export default function PickupSchedule(props: any) {
           </View>
         </View>
 
-        <Text style={[reqstyles.sectionTitle, { color: colors.PRIMARY }]}>Select pickups...</Text>
+        <Text style={[reqstyles.sectionTitle, { color: colors.PRIMARY }]}>Select requests...</Text>
         {Array(12).fill('x').map((item: any, index: number) => (
-          <TouchableOpacity key={index} style={[reqstyles.item, styles.row, styles.itemCenter]} onPress={() => addToPickup(index)}>
-            <View>
+          <TouchableOpacity key={index} style={[reqstyles.item, styles.row, styles.itemCenter]}>
+            <View style={reqstyles.itemData}>
               <Text style={reqstyles.title}>{listing.title}</Text>
               <Text style={reqstyles.offer}>₦{listing.currentOffer.toLocaleString()}</Text>
               <Text style={reqstyles.weight}>{listing.weight}kg</Text>
             </View>
-            <View>
+            <TouchableOpacity style={reqstyles.itemCheck} onPress={() => addToPickup(index)}>
               {pickupIndices.findIndex((el) => el == index) >= 0
                 ? <Icon name="checkbox-marked-circle" style={[reqstyles.checkBox, {}]} />
                 : <Icon name="checkbox-blank-circle-outline" style={[reqstyles.checkBox, {}]} />
               }
-            </View>
+            </TouchableOpacity>
           </TouchableOpacity>
         ))}
       </ScrollView>

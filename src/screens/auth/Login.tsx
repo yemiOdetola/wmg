@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Toast from 'react-native-toast-message';
 import { Input } from '../../components/shared';
 import { styles } from '../../utils';
@@ -14,8 +15,8 @@ export default function Login({ navigation }: any) {
   const { theme, toggleTheme } = usePreferences();
   const dispatch: any = useDispatch();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test@gmail.com');
+  const [password, setPassword] = useState('password');
 
   const { loading } = useSelector(
     (state: any) => ({
@@ -40,35 +41,36 @@ export default function Login({ navigation }: any) {
   }
 
   return (
-
-
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
-      {/* <Image source={theme === "dark" ? require('../../assets/logo-white.png') : require('../../assets/logo.png')} resizeMode={"contain"} style={styles.AuthLogo} /> */}
+    <SafeAreaView style={[styles.AuthPage, { flex: 1, justifyContent: 'center' }]}>
       <View style={styles.AuthContent}>
-        <Input
-          label="Email address"
-          value={email}
-          onChangeText={(text: string) => setEmail(text.trim())}
-          mode="outlined"
-          autoCapitalize="none"
-          style={styles.AuthInput}
-        />
-        <Input
-          label="Password"
-          value={password}
-          onChangeText={(text: string) => setPassword(text)}
-          mode="outlined"
-          secureTextEntry={true}
-          style={styles.AuthInput}
-        />
-        <TouchableOpacity onPress={() => onChangeScreen('forgotPassword')}>
-          <Text style={styles.ForgotPass}>Forgot Password?</Text>
-        </TouchableOpacity>
-        <Button mode="contained" onPress={() => signin()} dark={theme === "dark" ? false : true}
-          style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
-          {!loading ? "Continue" : "Please Wait..."}
-        </Button>
-
+        <KeyboardAwareScrollView
+          // enableOnAndroid={true}
+          keyboardShouldPersistTaps={"handled"}
+          enableResetScrollToCoords={false}>
+          <Input
+            label="Email address"
+            value={email}
+            onChangeText={(text: string) => setEmail(text.trim())}
+            mode="outlined"
+            autoCapitalize="none"
+            style={styles.AuthInput}
+          />
+          <Input
+            label="Password"
+            value={password}
+            onChangeText={(text: string) => setPassword(text)}
+            mode="outlined"
+            secureTextEntry={true}
+            style={styles.AuthInput}
+          />
+          <TouchableOpacity onPress={() => onChangeScreen('forgotPassword')}>
+            <Text style={styles.ForgotPass}>Forgot Password?</Text>
+          </TouchableOpacity>
+          <Button mode="contained" onPress={() => signin()} dark={theme === "dark" ? false : true}
+            style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
+            {!loading ? "Continue" : "Please Wait..."}
+          </Button>
+        </KeyboardAwareScrollView>
         <View style={styles.AuthBottomContent}>
           <TouchableOpacity activeOpacity={0.9} onPress={() => onChangeScreen('register')}>
             <Text style={styles.AuthBottomText}>
@@ -80,7 +82,5 @@ export default function Login({ navigation }: any) {
 
       </View>
     </SafeAreaView>
-
-
   );
 }

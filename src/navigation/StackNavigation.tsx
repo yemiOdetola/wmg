@@ -7,7 +7,7 @@ import { Home } from '../screens/home';
 import { SingleGoal, Workouts } from '../screens/workout';
 import { Store } from '../screens/store';
 import { Settings } from '../screens/settings';
-import { Profile } from '../screens/profile';
+import { EditProfile, Profile } from '../screens/profile';
 import { Listing, ListingDetails } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
@@ -56,7 +56,7 @@ export default function StackNavigation(props: any) {
       <IconButton
         icon="menu"
         size={24}
-        onPress={() => props.navigation.openDrawer()}
+        onPress={() => navigation.openDrawer()}
       />
     );
   };
@@ -66,13 +66,19 @@ export default function StackNavigation(props: any) {
       <Stack.Screen
         name="home"
         component={Home}
-        options={{ title: "MSW", headerLeft: () => buttonMenu() }}
+        options={{ title: "", headerLeft: () => buttonMenu() }}
       />
       <Stack.Screen
         name="profile"
         component={Profile}
         options={{ title: "User Profile", headerLeft: () => buttonBack() }}
       />
+      <Stack.Screen
+        name="editProfile"
+        component={EditProfile}
+        options={{ title: "Edit Your Profile", headerLeft: () => buttonBack() }}
+      />
+
       <Stack.Screen
         name="settings"
         component={Settings}
@@ -84,63 +90,33 @@ export default function StackNavigation(props: any) {
         options={{ title: "Listing", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
-        name="singlegoal"
-        component={SingleGoal}
-        options={{ title: '', headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="workouts"
-        component={Workouts}
-        options={{ title: "Workouts", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="store"
-        component={Store}
-        options={{ title: "Store", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="diets"
-        component={Diets}
-        options={{ title: "Diets", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="exercises"
-        component={Exercises}
-        options={{ title: "Exercises", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
-        name="singleExercise"
-        component={SingleExercise}
-        options={{ title: "", headerLeft: () => buttonBack() }}
-      />
-      <Stack.Screen
         name="mapmain"
         component={MapMain}
-        options={{ title: "", headerLeft: () => buttonBack() }}
+        options={{ title: "Listings Overview", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
         name="requestPickup"
         component={RequestPickup}
-        options={{ title: "", headerLeft: () => buttonBack() }}
+        options={{ title: "Request For Pickup", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
         name="myRequests"
         component={MyRequests}
-        options={{ title: "", headerLeft: () => buttonBack() }}
+        options={{ title: "My Requests", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
         name="listingDetails"
         component={ListingDetails}
         options={{
           headerTransparent: true,
-          title: "",
+          title: "Listing Details",
           headerLeft: () => buttonBack(),
         }}
       />
       <Stack.Screen
         name="schedulePickup"
         component={PickupSchedule}
-        options={{ title: "", headerLeft: () => buttonBack() }}
+        options={{ title: "Schedule Pickup", headerLeft: () => buttonBack() }}
       />
     </Stack.Navigator>
   );

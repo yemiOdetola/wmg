@@ -55,6 +55,12 @@ export default StyleSheet.create({
   mt32: {
     marginTop: 32,
   },
+  mt80: {
+    marginTop: 80,
+  },
+  mt120: {
+    marginTop: 120,
+  },
   mb8: {
     marginBottom: 8,
   },
@@ -91,6 +97,12 @@ export default StyleSheet.create({
   py14: {
     paddingVertical: 14,
   },
+  mx10: {
+    marginHorizontal: 10,
+  },
+  mx20: {
+    marginHorizontal: 20,
+  },
   chip: {
     marginRight: 10,
     borderRadius: 6,
@@ -116,7 +128,7 @@ export default StyleSheet.create({
   formSubTitle: {
     fontWeight: '300',
     marginVertical: 20,
-    paddingLeft: 16,
+    paddingLeft: 0,
     fontSize: 20,
   },
   ddlight: {
@@ -188,6 +200,18 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
 
+  autoCompleteInput: {
+    marginVertical: 10,
+    padding: 0,
+    borderRadius: 0,
+    borderBottomWidth: 1,
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  autoCompleteInputLabel: {
+    fontSize: 12,
+    marginVertical: 8,
+  },
   AuthButton: {
     marginTop: 15,
     borderRadius: 4,

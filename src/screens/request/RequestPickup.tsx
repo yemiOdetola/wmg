@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import { View, SafeAreaView, TouchableOpacity, Platform, Image, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, SafeAreaView, TouchableOpacity, Platform, Image, Alert } from 'react-native';
 import { Text, Button, Modal, RadioButton, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'react-native-image-picker';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-toast-message';
+import { utils } from '@react-native-firebase/app';
+import storage from '@react-native-firebase/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '../../components/shared';
 import { colors, styles } from '../../utils';
 import { usePreferences } from '../../hooks';
-import { createListingTest } from '../../redux/actions/listing';
-import Toast from 'react-native-toast-message';
+import { createListing } from '../../redux/actions/listing';
+import { Loading } from '../../redux/actions/ui';
 
-const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
+const categories = ['generic', 'paper', 'glass', 'textile', 'furniture', 'e-waste', 'batteries', 'plastic', 'metal'];
 const includeExtra = true;
-
+const imgUrl = "https://firebasestorage.googleapis.com/v0/b/wmg-pnot.appspot.com/o/listings%2Frn_image_picker_lib_temp_16f458d0-a4d8-41e6-a72a-922f4e002033.jpg?alt=media&token=21c7a41d-cb9c-439b-b4cf-795396c580c8";
 interface Action {
   title: string;
   type: 'capture' | 'library';
@@ -56,29 +60,41 @@ if (Platform.OS === 'ios') {
 }
 
 export default function RequestPickup(props: any) {
+  const { navigation }: any = props;
   const { theme } = usePreferences();
   const dispatch: any = useDispatch();
-
-  const [title, setTitle] = useState('');
-  const [instruction, setInstruction] = useState('');
-  const [description, setDescription] = useState('');
-  const [weight, setWeight] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState('Old detective books');
+  const [instruction, setInstruction] = useState('not negotiable');
+  const [description, setDescription] = useState('45 novels');
+  const [weight, setWeight] = useState('12');
+  const [price, setPrice] = useState('16000');
+  const [category, setCategory] = useState('paper');
   const [imageResource, setImageResource] = useState<any>('');
+  const [imageUrl, setImageUrl] = useState('');
   const [categoriesModalState, setCategoriesModalVisible] = useState(false);
   const [dialogState, setDialogState] = useState(false);
+  const [location, setLocation] = useState<any>({ "latitude": 6.526911594850771, "latitudeDelta": 0.08336536212395451, "longitude": 3.3194048143923283, "longitudeDelta": 0.043651945888996124 });
 
-  const { loading } = useSelector(
+  const { loading, user } = useSelector(
     (state: any) => ({
-      loading: state.ui.loading
+      loading: state.ui.loading,
+      user: state.auth.user,
     }),
     shallowEqual
   );
 
-  const showModal = () => setCategoriesModalVisible(true)
-  const hideModal = () => setCategoriesModalVisible(false);
+  useEffect(() => {
+    const daat: any = getLocation();
+    setTimeout(() => {
+      daat.then((coords: any) => {
+        console.log('coords', coords);
+        setLocation(coords);
+      })
+    }, 3000)
+  }, []);
 
+  const showModal = () => setCategoriesModalVisible(true);
+  const hideModal = () => setCategoriesModalVisible(false);
   const chooseImage = React.useCallback((type: any, options: any) => {
     if (type === 'capture') {
       ImagePicker.launchCamera(options, setImageResource);
@@ -87,24 +103,81 @@ export default function RequestPickup(props: any) {
     }
   }, []);
 
-  const createListing = () => {
-    const payload = {}
-    dispatch(createListingTest(payload)).then((res: any) => {
-      Toast.show({
-        text1: 'Pickup request has been created'
-      });
+  const getLocation = async () => {
+    const coords: any = await AsyncStorage.getItem('coords');
+    console.log('coords', coords);
+    return JSON.parse(coords);
+  }
+
+  // const generateRandomNumbers: any = () => Math.floor(Math.random() * 1000083920);
+
+  const uploadImage = async () => {
+    createListingRequest(imgUrl);
+    // if (imageResource?.assets) {
+    //   dispatch(Loading(true));
+    //   const { uri } = imageResource?.assets[0];
+    //   let task: any;
+    //   if (uri) {
+    //     const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    //     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    //     task = storage().ref(`/listings/${filename}`).putFile(uploadUri);
+    //   }
+    //   try {
+    //     await task;
+    //     task.then(async () => {
+    //       const url = await storage().ref(`/listings/${uri.substring(uri.lastIndexOf('/') + 1)}`).getDownloadURL();
+    //       setImageUrl(url);
+    //       createListingRequest(url);
+    //     })
+    //   } catch (e) {
+    //     dispatch(Loading(false));
+    //     console.error(e);
+    //   }
+    // } else {
+    //   dispatch(Loading(false));
+    //   Alert.alert('Please upload an image');
+    // }
+  };
+
+  const createListingRequest = (url: string) => {
+    // if (!url) {
+    //   return Alert.alert('Please upload an image');
+    // }
+    if (!title || !description || !instruction || !weight || !price || !category || !title || !title || !title) {
+      return Alert.alert('All fields are compulsory');
+    }
+    const payload = {
+      title: title,
+      description: description,
+      instruction: instruction,
+      image: url,
+      weight: weight,
+      price: price,
+      category: category,
+      user: user.id,
+      location: {
+        coordinates: [location?.longitude, location?.latitude]
+      },
+    }
+    dispatch(createListing(payload)).then((res: any) => {
+      // setImageResource('');
+      // setTitle('');
+      // setDescription('')
+      // setInstruction('')
+      // setWeight('')
+      // setPrice('')
+      // setCategory('')
+      console.log('RESSSSS:', res);
+      Toast.show({ text1: 'Pickup request has been created', position: 'bottom' });
+      navigation.navigate('home')
     })
   }
 
 
   return (
-    <KeyboardAwareScrollView
-      enableOnAndroid={true}
-      keyboardShouldPersistTaps={"handled"}
-      enableResetScrollToCoords={false}
-    >
+    <KeyboardAwareScrollView>
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', margin: 20 }}>
-        <Text style={[styles.formSubTitle, { alignSelf: 'center', fontSize: 22, textAlign: 'center' }]}>Request for pickup</Text>
+        <Text style={[styles.formSubTitle, { alignSelf: 'center', fontSize: 18, fontWeight: '300', textAlign: 'center' }]}>Enter pickup details to continue</Text>
         <Input
           label="Title"
           value={title}
@@ -146,7 +219,7 @@ export default function RequestPickup(props: any) {
             backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
           }]}
         >
-          <Text style={styles.ddLabel}>{category ? `Category: ${category}` : "Choose image"}</Text>
+          <Text style={styles.ddLabel}>{"Choose image"}</Text>
         </TouchableOpacity>
         {imageResource?.assets &&
           imageResource?.assets.map(({ uri }: { uri: string }) => (
@@ -165,9 +238,13 @@ export default function RequestPickup(props: any) {
           keyboardType="number-pad"
           onChangeText={(text: any) => setPrice(text.trim())}
         />
-        <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => setDialogState(true)}
+        {/* <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => uploadImage()}
           style={styles.AuthButton} labelStyle={styles.authButtonLabel} contentStyle={styles.AuthButtonContent}>
           {!loading ? "Continue" : "Please wait..."}
+        </Button> */}
+        <Button disabled={loading} mode="contained" onPress={() => uploadImage()} dark={theme === "dark" ? false : true}
+          style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
+          {!loading ? "Continue" : "Please Wait..."}
         </Button>
       </SafeAreaView>
       <Modal visible={categoriesModalState} onDismiss={hideModal}
@@ -190,16 +267,16 @@ export default function RequestPickup(props: any) {
         </RadioButton.Group>
         <Button onPress={hideModal}>OK</Button>
       </Modal>
-      <Dialog visible={dialogState} onDismiss={() => setDialogState(false)}>
+      {/* <Dialog visible={dialogState} onDismiss={() => setDialogState(false)}>
         <Dialog.Title style={{ fontSize: 18 }}>Do you wish to continue?</Dialog.Title>
         <Dialog.Content>
           <Text variant="bodyMedium">This request will have your address as the pickup location</Text>
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={() => setDialogState(false)}>Cancel</Button>
-          <Button onPress={createListing}>OK</Button>
+          <Button onPress={uploadImage}>OK</Button>
         </Dialog.Actions>
-      </Dialog>
+      </Dialog> */}
     </KeyboardAwareScrollView>
   );
 }

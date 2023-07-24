@@ -1,22 +1,20 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { Text, TextInput, Button, Checkbox, Chip, RadioButton, Modal } from 'react-native-paper';
+import { SafeAreaView, View, TouchableOpacity, Alert } from 'react-native';
+import { Text, Button, Checkbox, Chip, RadioButton, Modal } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import RangeSlider from 'rn-range-slider';
 import Toast from 'react-native-toast-message';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Input } from '../../components/shared';
 import { styles, colors, config } from '../../utils';
 import { usePreferences } from '../../hooks'
-import { Thumb, Rail, RailSelected, Label } from './meta';
 import { register } from '../../redux/actions/auth';
 import { Loading } from '../../redux/actions/ui';
 
 
 const categories = ['generic', 'paper', 'glass', 'textitle', 'furniture', 'e-waste', 'batteries', 'plastic'];
 
-export default function Register(props: any) {
+export default function EditProfile(props: any) {
   const dispatch: any = useDispatch();
   const { theme } = usePreferences();
   const [preferences] = useState(['Distance', 'Quantity', 'Price', 'Availability', 'Waste Composition']);
@@ -28,26 +26,33 @@ export default function Register(props: any) {
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
   const [threshold, setThreshold] = useState('');
-  const [password, setPassword] = useState('');
   const [distanceValue, setDistanceValue] = useState('');
   const [locationData, setLocationData] = useState<any>('');
-  const [checked, setChecked] = useState(false);
   const [category, setCategory] = useState<any>([]);
-  const [userType, setUserType] = useState<any>('household');
   const [preferenceModalVisible, setPreferenceModalVisible] = useState(false);
   const [categoriesModalVisible, setCategoriesModalVisible] = useState(false);
   const [secPreferenceModalVisible, setSecPreferenceModalVisible] = useState(false);
   const [tetPreferenceModalVisible, setTetPreferenceModalVisible] = useState(false);
 
-  const { loading } = useSelector(
+  const { loading, user } = useSelector(
     (state: any) => ({
-      loading: state.ui.loading
+      loading: state.ui.loading,
+      user: state.auth.user,
     }),
     shallowEqual
   );
 
   useEffect(() => {
     dispatch(Loading(false));
+    if (user?.name) setName(user.name);
+    if (user?.email) setEmail(user.email);
+    if (user?.phone) setPhone(user.phone);
+    if (user?.preference && user?.preference.length > 0) {
+      setPreference(user.preference[0])
+      setSecPreference(user.preference[1])
+      setTetPreference(user.preference[2])
+    }
+    if (user?.distance) setDistanceValue(`${user.distance}`);
   }, [])
 
 
@@ -59,17 +64,6 @@ export default function Register(props: any) {
   const hideSecModal = () => setSecPreferenceModalVisible(false);
   const hideTetModal = () => setTetPreferenceModalVisible(false);
 
-  const renderThumb = useCallback(() => <Thumb />, []);
-  const renderRail = useCallback(() => <Rail />, []);
-  const renderRailSelected = useCallback(() => <RailSelected />, []);
-  const renderLabel = useCallback((value: any) => {
-    setDistanceValue(value || 0)
-    return <Label text={value || 0} />
-  }, []);
-
-  const selectUserType = (type: string) => {
-    setUserType(type || 'household')
-  }
 
   const generateRandomNumbers: any = () => Math.floor(Math.random() * 10000);
 
@@ -87,18 +81,14 @@ export default function Register(props: any) {
     }
   }
   const getPlacesLocation = (details: any) => {
-    console.log('PLACES DETAILS', details?.formatted_address, details?.geometry?.location);
     setLocationData({
       coord: details?.geometry?.location,
       address: details?.formatted_address,
     })
-    //details?.geometry?.location.lat, details?.geometry?.location.lng
   }
 
-
-
-  const createAccount = () => {
-    if (!name || !email || !password || !phone) {
+  const editAccount = () => {
+    if (!name || !email || !phone) {
       return Toast.show({ type: 'error', text1: 'All fields is compulsory', position: 'bottom' })
     }
     const payload: any = {
@@ -106,10 +96,9 @@ export default function Register(props: any) {
       email: email,
       phone: phone,
       avatar: `https://avatars.dicebear.com/api/avataaars/${generateRandomNumbers() || '1805'}.svg`,
-      password: password,
       role: "user"
     };
-    if (userType == 'recycler') {
+    if (user?.role == 'recycler') {
       if (!company || !threshold || !categories || !preference || !secPreference || !tetPreference || !locationData) {
         return Toast.show({ type: 'error', text1: 'All fields are compulsory' });
       }
@@ -131,19 +120,9 @@ export default function Register(props: any) {
       <SafeAreaView style={[styles.AuthPage, { flex: 1, justifyContent: 'center' }]}>
         <View style={styles.AuthContent}>
           <KeyboardAwareScrollView
-            // enableOnAndroid={true}
             keyboardShouldPersistTaps={"handled"}
             enableResetScrollToCoords={false}
           >
-            {userType === 'recycler' ? <View style={styles.mt120} /> : null}
-            <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 16 }}>
-              <Text style={{ alignSelf: 'center', fontSize: 20, textAlign: 'center' }}> Create Your Account</Text>
-            </View>
-            <View style={[styles.row, styles.my10, styles.itemCenter]}>
-              <Text style={{ marginRight: 8 }}>Register as:</Text>
-              <Chip onPress={() => selectUserType('household')} style={styles.chip} selected={userType === 'household'}>Household</Chip>
-              <Chip onPress={() => selectUserType('recycler')} style={styles.chip} selected={userType === 'recycler'}>Recycler</Chip>
-            </View>
             <Input
               label="Name"
               value={name}
@@ -156,6 +135,7 @@ export default function Register(props: any) {
               value={email}
               onChangeText={(text: string) => setEmail(text.trim())}
               mode="flat"
+              editable={false}
               autoCapitalize="none"
               style={styles.AuthInput}
             />
@@ -168,61 +148,9 @@ export default function Register(props: any) {
               autoCapitalize="none"
               style={styles.AuthInput}
             />
-            <Input
-              secureTextEntry
-              label="Password"
-              value={password}
-              onChangeText={(text: string) => setPassword(text)}
-              mode="flat"
-              style={styles.AuthInput}
-            />
-            {userType === 'recycler'
+            {user?.role === 'recycler'
               ? <Fragment>
-                <Text style={styles.formSubTitle}>Company's info</Text>
-                <Input
-                  label="Recycling company"
-                  value={company}
-                  onChangeText={(text: string) => setCompany(text)}
-                  mode="flat"
-                  autoCapitalize="none"
-                  style={styles.AuthInput}
-                />
-                <View style={[styles.autoCompleteInput, {
-                  borderBottomColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : '#ccc',
-                  borderBottomWidth: 1,
-                  backgroundColor: 'transparent',
-                }]}>
-                  <Text style={styles.autoCompleteInputLabel}>Type your company location</Text>
-                  <ScrollView horizontal={true} style={{ width: "100%" }}>
-                    <GooglePlacesAutocomplete
-                      placeholder="Type your company location"
-                      query={{
-                        key: config.google_key,
-                        language: 'en',
-                        region: 'NG',
-                      }}
-                      fetchDetails={true}
-                      onPress={(data, details = null) => getPlacesLocation(details)}
-                      onFail={error => console.log('error occured', error)}
-                      onNotFound={() => console.log('no results')}
-                    />
-                  </ScrollView>
-                </View>
-                <Text style={styles.autoCompleteInputLabel}>Choose recycling material</Text>
-                <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setCategoriesModalVisible(true)}>
-                  <Text style={styles.ddLabel}>{category ? `Select 3 Categories: ${category}` : "Category"}</Text>
-                </TouchableOpacity>
-                <Input
-                  label="Minimum threshold (kg)"
-                  value={threshold}
-                  onChangeText={(text: string) => setThreshold(text.trim())}
-                  mode="flat"
-                  keyboardType="numeric"
-                  autoCapitalize="none"
-                  style={styles.AuthInput}
-                />
-
-                <Text style={styles.formSubTitle}>Choose Pickup Preferences</Text>
+                <Text style={styles.formSubTitle}>Preferences</Text>
                 <TouchableOpacity style={styles.dropdownPlaceholder} onPress={() => setPreferenceModalVisible(true)}>
                   <Text style={styles.ddLabel}>{preference ? `1. Most preferred: ${preference}` : "1. Most preferred"}</Text>
                 </TouchableOpacity>
@@ -239,50 +167,20 @@ export default function Register(props: any) {
                     <Input
                       label=""
                       value={distanceValue}
-                      onChangeText={(text: string) => setDistanceValue(text.trim())}
+                      onChangeText={(text: string) => setDistanceValue(text)}
                       mode="flat"
                       keyboardType="numeric"
                       autoCapitalize="none"
                       style={styles.AuthInput}
                     />
-                    {/* <RangeSlider
-                      // disableRange
-                      min={0}
-                      max={200}
-                      step={1}
-                      renderThumb={renderThumb}
-                      renderRail={renderRail}
-                      renderRailSelected={renderRailSelected}
-                      renderLabel={renderLabel}
-                    /> */}
                   </View>
                   : null}
               </Fragment>
               : null}
-            <View style={{ justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-              <Checkbox
-                color={colors.PRIMARY}
-                uncheckedColor={colors.PRIMARY}
-                status={checked ? 'checked' : 'unchecked'}
-                onPress={() => { setChecked(!checked); }}
-              />
-              <TouchableOpacity activeOpacity={0.8} onPress={() => onChangeScreen("terms")}>
-                <Text style={styles.AuthCheckBoxLabel}>I Agree to Privacy & Terms</Text>
-              </TouchableOpacity>
-            </View>
-            <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => createAccount()} disabled={loading}
+            <Button mode="contained" dark={theme === "dark" ? false : true} onPress={() => editAccount()} disabled={loading}
               style={styles.AuthButton} contentStyle={styles.AuthButtonContent} labelStyle={styles.AuthButtonLabel}>
               {!loading ? "Continue" : "Please wait..."}
             </Button>
-            <View style={styles.AuthBottomContent}>
-              <TouchableOpacity activeOpacity={0.9} onPress={() => onChangeScreen('login')}>
-                <Text style={styles.AuthBottomText}>
-                  Already have an account? <Text style={{ fontWeight: 'bold' }}>Sign in</Text>
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            {userType === 'recycler' ? <View style={styles.mb32} /> : null}
           </KeyboardAwareScrollView>
         </View>
       </SafeAreaView>
@@ -351,10 +249,6 @@ export default function Register(props: any) {
 
       <Modal visible={categoriesModalVisible} onDismiss={() => setCategoriesModalVisible(false)}
         contentContainerStyle={[styles.modalContainerStyle, { backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'white' }]}>
-        {/* <RadioButton.Group
-          onValueChange={value => setCategory(value)}
-          value={category}
-        > */}
         {categories.map((cat: any, index) => (
           <TouchableOpacity key={index} style={[styles.modalItem, styles.row, styles.itemCenter]} onPress={() => updateCategory(cat)}>
             <Checkbox
@@ -366,7 +260,6 @@ export default function Register(props: any) {
             <Text>{cat}</Text>
           </TouchableOpacity>
         ))}
-        {/* </RadioButton.Group> */}
         <Button onPress={() => setCategoriesModalVisible(false)}>OK</Button>
       </Modal >
     </>
