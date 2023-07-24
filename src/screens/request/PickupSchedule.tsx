@@ -102,20 +102,20 @@ export default function PickupSchedule(props: any) {
           </View>
         </View>
 
-        <Text style={[reqstyles.sectionTitle, { color: colors.PRIMARY }]}>Select pickups...</Text>
+        <Text style={[reqstyles.sectionTitle, { color: colors.PRIMARY }]}>Select requests...</Text>
         {Array(12).fill('x').map((item: any, index: number) => (
-          <TouchableOpacity key={index} style={[reqstyles.item, styles.row, styles.itemCenter]} onPress={() => addToPickup(index)}>
-            <View>
+          <TouchableOpacity key={index} style={[reqstyles.item, styles.row, styles.itemCenter]}>
+            <View style={reqstyles.itemData}>
               <Text style={reqstyles.title}>{listing.title}</Text>
               <Text style={reqstyles.offer}>₦{listing.currentOffer.toLocaleString()}</Text>
               <Text style={reqstyles.weight}>{listing.weight}kg</Text>
             </View>
-            <View>
+            <TouchableOpacity style={reqstyles.itemCheck} onPress={() => addToPickup(index)}>
               {pickupIndices.findIndex((el) => el == index) >= 0
                 ? <Icon name="checkbox-marked-circle" style={[reqstyles.checkBox, {}]} />
                 : <Icon name="checkbox-blank-circle-outline" style={[reqstyles.checkBox, {}]} />
               }
-            </View>
+            </TouchableOpacity>
           </TouchableOpacity>
         ))}
       </ScrollView>

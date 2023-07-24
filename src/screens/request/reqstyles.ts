@@ -69,6 +69,8 @@ export default StyleSheet.create({
     fontWeight: '400',
     fontSize: 16,
   },
+  itemData: {},
+  itemCheck: {},
   item: {
     width: '100%',
     padding: 14,

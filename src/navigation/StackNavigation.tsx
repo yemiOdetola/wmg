@@ -7,7 +7,7 @@ import { Home } from '../screens/home';
 import { SingleGoal, Workouts } from '../screens/workout';
 import { Store } from '../screens/store';
 import { Settings } from '../screens/settings';
-import { Profile } from '../screens/profile';
+import { EditProfile, Profile } from '../screens/profile';
 import { Listing, ListingDetails } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
@@ -19,7 +19,6 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigation(props: any) {
   const { theme } = usePreferences();
 
-  console.log('props: ', props.navigation.openDrawer);
   const { navigation } = props;
 
   const navigatorOptions: any = {
@@ -74,6 +73,12 @@ export default function StackNavigation(props: any) {
         component={Profile}
         options={{ title: "User Profile", headerLeft: () => buttonBack() }}
       />
+      <Stack.Screen
+        name="editProfile"
+        component={EditProfile}
+        options={{ title: "Edit Your Profile", headerLeft: () => buttonBack() }}
+      />
+
       <Stack.Screen
         name="settings"
         component={Settings}

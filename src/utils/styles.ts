@@ -128,7 +128,7 @@ export default StyleSheet.create({
   formSubTitle: {
     fontWeight: '300',
     marginVertical: 20,
-    paddingLeft: 16,
+    paddingLeft: 0,
     fontSize: 20,
   },
   ddlight: {

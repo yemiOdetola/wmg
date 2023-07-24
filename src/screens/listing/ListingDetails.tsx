@@ -78,7 +78,6 @@ export default function ListingDetails(props: any) {
     });
   };
 
-
   const renderOptionsButton = () => {
     if (!isBookmark) {
       return (

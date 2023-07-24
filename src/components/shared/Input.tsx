@@ -12,6 +12,7 @@ export default function Input(props: any) {
       secureTextEntry={props.secureTextEntry}
       onChangeText={text => props.onChangeText(text)}
       mode="flat"
+      editable={props.editable}
       autoCapitalize='none'
       placeholder={props.placeholder || ''}
       multiline={props.multiline}
@@ -21,6 +22,7 @@ export default function Input(props: any) {
         borderColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : '#f1f1f1',
         // backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
         backgroundColor: 'transparent',
+        opacity: props?.editable == false ? 0.2 : 1
       }]}
     />
   )
