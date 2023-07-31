@@ -50,6 +50,7 @@ const listing = {
 
 export default function PickupSchedule(props: any) {
   const { theme } = usePreferences();
+  const { navigation }: any = props;
   const dispatch: any = useDispatch();
   const [expanded, setExpanded] = useState(true);
   const [weight, setWeight] = useState(123);
@@ -64,10 +65,6 @@ export default function PickupSchedule(props: any) {
     shallowEqual
   );
 
-  // useEffect(() => {
-
-  // }, [pickupIndices])
-
   const addToPickup = (index: number) => {
     const indices = [...pickupIndices];
     if (indices.findIndex((el) => el == index) >= 0) {
@@ -78,11 +75,16 @@ export default function PickupSchedule(props: any) {
     setPickupIndices(indices)
   }
 
-  // minimumDate={new Date()} maximumDate={new Date()}
+
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', margin: 20 }}>
       <ScrollView>
-        <Text style={[reqstyles.sectionTitle, { color: colors.PRIMARY }]}>Pickup summary</Text>
+        <View style={[styles.row, styles.itemCenter, styles.justifyBetween]}>
+          <Text style={[reqstyles.sectionTitle, { color: colors.PRIMARY }]}>Pickup summary</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('listing')}>
+            <Text>See all</Text>
+          </TouchableOpacity>
+        </View>
         <View style={reqstyles.detailsContainer}>
           <View style={[styles.row, styles.itemsBaseline, styles.my8]}>
             <Text style={reqstyles.totalLabel}>Total Weight:</Text>

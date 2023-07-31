@@ -83,14 +83,14 @@ export default function ListingDetails(props: any) {
       return (
         <TouchableOpacity onPress={() => showOfferModal(true)} style={styles.headerOption}>
           <Icon name="dump-truck" size={20} style={{ marginRight: 2 }} />
-          <Text>Accept Pickup</Text>
+          <Text>Accept</Text>
         </TouchableOpacity>
       )
     } else {
       return (
         <TouchableOpacity onPress={() => removeBookmark(item.id)} style={styles.headerOption}>
           <Icon name="cancel" size={20} style={{ marginRight: 2 }} />
-          <Text>Remove Pickup</Text>
+          <Text>Remove</Text>
         </TouchableOpacity>
       )
     }

@@ -24,11 +24,11 @@ export default StyleSheet.create({
     marginBottom: 14,
   },
   avatar: {
-    width: screenWidth / 3,
+    width: screenWidth / 4,
   },
   avatarImg: {
-    width: screenWidth / 3,
-    height: screenWidth / 3,
+    width: screenWidth / 4,
+    height: screenWidth / 4,
     borderRadius: 6,
   },
   details: {
@@ -44,16 +44,18 @@ export default StyleSheet.create({
   //   marginTop: 'auto',
   // },
   categoryText: {
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: 14,
+    fontWeight: '300',
+    textTransform: 'uppercase',
   },
   title: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: '400',
     marginVertical: 4,
   },
   location: {
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: '600',
   },
   meta: {
     flexDirection: 'row',

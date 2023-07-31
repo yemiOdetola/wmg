@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, View, SafeAreaView } from 'react-native';
 import { Heading } from '../../components/shared';
-import { PostTags, FeaturedPosts, LatestPosts, Posts } from '../../components/listing';
+import { PostTags, FeaturedPosts, LatestPosts, PickupRequests } from '../../components/listing';
 import { styles } from '../../utils';
 
 export default function Listings(props: any) {
@@ -18,8 +18,7 @@ export default function Listings(props: any) {
     >
       <SafeAreaView>
         <View style={styles.HomeScreen}>
-          <PostTags />
-          <Posts />
+          <PickupRequests />
         </View>
       </SafeAreaView>
     </ScrollView>

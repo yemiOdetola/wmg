@@ -60,3 +60,34 @@ export function fetchMyRequests(payload: any) {
       });
   };
 }
+
+export function fetchRequestsAHP() {
+  return (dispatch: any) => {
+    dispatch(Loading(true));
+    return axios
+      .get(`${config.base_url}/listing/ahp`, {headers})
+      .then(res => {
+        const data: any = res?.data;
+        console.log('action?.data?.cranked: ', data);
+        const cranked = data?.rankedData.sort(
+          (a: any, b: any) => b.score - a.score,
+        );
+        console.log('action?.data?.cranked: ', cranked);
+        dispatch({
+          type: Types.REQUESTS_AHP,
+          cranked: cranked,
+          rankedItems: data?.rankedItems,
+        });
+        dispatch(Loading(false));
+        return res;
+      })
+      .catch(error => {
+        Toast.show({
+          type: 'error',
+          text1: error?.message || 'Some error occured',
+          position: 'bottom',
+        });
+        dispatch(Loading(false));
+      });
+  };
+}

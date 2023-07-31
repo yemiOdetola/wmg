@@ -12,3 +12,4 @@ export const RESET_PASSWORD_CRED = 'RESET_PASSWORD_CRED';
 export const TOKEN = 'TOKEN';
 export const UPDATE_URL = 'UPDATE_URL';
 export const MY_REQUESTS = 'MY_REQUESTS';
+export const REQUESTS_AHP = 'REQUESTS_AHP';

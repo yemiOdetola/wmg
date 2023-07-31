@@ -78,7 +78,6 @@ export default function StackNavigation(props: any) {
         component={EditProfile}
         options={{ title: "Edit Your Profile", headerLeft: () => buttonBack() }}
       />
-
       <Stack.Screen
         name="settings"
         component={Settings}
@@ -87,7 +86,7 @@ export default function StackNavigation(props: any) {
       <Stack.Screen
         name="listing"
         component={Listing}
-        options={{ title: "Listing", headerLeft: () => buttonBack() }}
+        options={{ title: "Pickup Requests", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
         name="mapmain"

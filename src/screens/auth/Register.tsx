@@ -105,7 +105,7 @@ export default function Register(props: any) {
       name: name,
       email: email,
       phone: phone,
-      avatar: `https://avatars.dicebear.com/api/avataaars/${generateRandomNumbers() || '1805'}.svg`,
+      avatar: `https://avatars.dicebear.com/api/avataaars/${generateRandomNumbers() || '1805'}.png`,
       password: password,
       role: "user"
     };

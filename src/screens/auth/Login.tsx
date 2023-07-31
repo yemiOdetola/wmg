@@ -15,7 +15,8 @@ export default function Login({ navigation }: any) {
   const { theme, toggleTheme } = usePreferences();
   const dispatch: any = useDispatch();
 
-  const [email, setEmail] = useState('test@gmail.com');
+  // const [email, setEmail] = useState('test@gmail.com');
+  const [email, setEmail] = useState('abcagent@gmail.com');
   const [password, setPassword] = useState('password');
 
   const { loading } = useSelector(

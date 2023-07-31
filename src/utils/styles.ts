@@ -28,6 +28,9 @@ export default StyleSheet.create({
   justifyEnd: {
     justifyContent: 'flex-end',
   },
+  justifyBetween: {
+    justifyContent: 'space-between',
+  },
   itemsBaseline: {
     alignItems: 'baseline',
   },
