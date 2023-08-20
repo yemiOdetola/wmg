@@ -12,7 +12,7 @@ import { Listing, ListingDetails } from '../screens/listing'
 import { Diets } from '../screens/diet'
 import { Exercises, SingleExercise } from '../screens/exercises'
 import { MapMain } from '../screens/map';
-import { RequestPickup, MyRequests, PickupSchedule } from '../screens/request';
+import { RequestPickup, MyRequests, PickupSchedule, ForecastWaste } from '../screens/request';
 
 const Stack = createNativeStackNavigator();
 
@@ -101,7 +101,12 @@ export default function StackNavigation(props: any) {
       <Stack.Screen
         name="myRequests"
         component={MyRequests}
-        options={{ title: "My Requests", headerLeft: () => buttonBack() }}
+        options={{ title: "Forecast Waste", headerLeft: () => buttonBack() }}
+      />
+      <Stack.Screen
+        name="forecastWaste"
+        component={ForecastWaste}
+        options={{ title: "Forecast Waste", headerLeft: () => buttonBack() }}
       />
       <Stack.Screen
         name="listingDetails"

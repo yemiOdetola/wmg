@@ -30,7 +30,7 @@ const headers = {
   Authorization: `Bearer ${state.getState().auth.token}`,
 };
 
-export default function MyRequests(props: any) {
+export default function ForecastWaste(props: any) {
   const { theme } = usePreferences();
   const { navigation }: any = props;
   const dispatch: any = useDispatch();

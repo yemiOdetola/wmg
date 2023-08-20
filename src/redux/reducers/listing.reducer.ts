@@ -4,6 +4,7 @@ const initialState: any = {
   myListing: null,
   rankedItems: null,
   listingsResult: null,
+  myPrediction: null,
 };
 
 export default function (state = initialState, action: any) {
@@ -14,11 +15,15 @@ export default function (state = initialState, action: any) {
         myListing: action?.data,
       };
     case Types.REQUESTS_AHP:
-      console.log('action?.data?.cranked: ', action?.data?.cranked);
       return {
         ...state,
         listingsResult: action?.cranked,
         rankedItems: action?.rankedItems,
+      };
+    case Types.MY_PREDICTION:
+      return {
+        ...state,
+        myPrediction: action?.data,
       };
     default: {
       return {

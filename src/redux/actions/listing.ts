@@ -38,6 +38,28 @@ export function createListing(payload: any) {
   };
 }
 
+export function runPrediction(payload: any) {
+  return (dispatch: any) => {
+    dispatch(Loading(true));
+    return axios
+      .post(`${config.base_url}/listing/new-waste`, payload, {headers})
+      .then((res: any) => {
+        dispatch({type: Types.MY_PREDICTION, data: res?.data?.result});
+        dispatch({type: Types.MY_PREDICTION, data: res?.data?.result});
+        dispatch(Loading(false));
+        return res?.data;
+      })
+      .catch(error => {
+        Toast.show({
+          type: 'error',
+          text1: error?.message || 'Some error occured',
+          position: 'bottom',
+        });
+        dispatch(Loading(false));
+      });
+  };
+}
+
 export function fetchMyRequests(payload: any) {
   return (dispatch: any) => {
     dispatch(Loading(true));

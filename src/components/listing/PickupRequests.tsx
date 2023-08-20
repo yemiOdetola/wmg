@@ -77,8 +77,8 @@ export default function PickupRequests() {
     navigation.navigate(screen);
   };
 
-  const onClickItem = (id: number = 15, title: string = '15kg Stuffed Peppers') => {
-    navigation.navigate('listingDetails', { id, title });
+  const onClickItem = (item: any) => {
+    navigation.navigate('listingDetails', { item });
   };
 
   if (!isLoaded && !listingsResult) {
@@ -91,6 +91,7 @@ export default function PickupRequests() {
     return degrees * (Math.PI / 180);
   }
 
+  // using haversine's formular to calculate distance
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
     const earthRadius = 6371; // Earth's radius in kilometers
     const dLat = degToRad(lat2 - lat1);
@@ -107,7 +108,7 @@ export default function PickupRequests() {
   return (
     <>
       {listingsResult.map((item: any, index: number) => (
-        <TouchableOpacity key={index} onPress={() => onClickItem(item.id, item.title)}>
+        <TouchableOpacity key={index} onPress={() => onClickItem(item)}>
           <View style={listingStyles.itemContainer}>
             <View style={listingStyles.avatar}>
               <Image style={listingStyles.avatarImg} source={{ uri: item?.el?.image || "https://picsum.photos/120/120" }} />

@@ -205,24 +205,24 @@ export default function Home({ navigation }: any) {
                     <Text style={homeStyles.actionText}>Track</Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[homeStyles.button, homeStyles.f8]} onPress={() => onChangeScreen('schedulePickup')}>
+                <TouchableOpacity style={[homeStyles.button, homeStyles.f8]} onPress={() => onChangeScreen('listing')}>
                   <View style={[homeStyles.icon, homeStyles.icon3]}>
                     <Icon style={homeStyles.featureIcon} name="calendar-month" />
                   </View>
-                  <Text style={homeStyles.title}>Schedule pickup</Text>
-                  <Text style={homeStyles.subtitle}>Setup a pickup time and date. This enable households to plan ahead for the pickup</Text>
+                  <Text style={homeStyles.title}>Available Pickups</Text>
+                  <Text style={homeStyles.subtitle}>See list of pickup ranked based on your preferences. Schedule pickup and Setup a pickup date.</Text>
                   <View style={[homeStyles.action, homeStyles.action3]}>
                     <Text style={homeStyles.actionText}>Schedule</Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[homeStyles.button, homeStyles.f9]} onPress={() => onChangeScreen('myRequests')}>
+                <TouchableOpacity style={[homeStyles.button, homeStyles.f9]} onPress={() => onChangeScreen('forecastWaste')}>
                   <View style={[homeStyles.icon, homeStyles.icon4]}>
                     <Icon style={homeStyles.featureIcon} name="database-cog-outline" />
                   </View>
-                  <Text style={homeStyles.title}>Offer History</Text>
-                  <Text style={homeStyles.subtitle}>Information about updates related to offers sent and/or counter offer by households.</Text>
+                  <Text style={homeStyles.title}>Forecast waste</Text>
+                  <Text style={homeStyles.subtitle}>Forecast future waste generation of a location.</Text>
                   <View style={[homeStyles.action, homeStyles.action4]}>
-                    <Text style={homeStyles.actionText}>View offer history</Text>
+                    <Text style={homeStyles.actionText}>Setup prediction</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={[homeStyles.button, homeStyles.f7]} onPress={() => navigation.navigate('profile')}>

@@ -55,7 +55,8 @@ export default function PickupSchedule(props: any) {
   const [expanded, setExpanded] = useState(true);
   const [weight, setWeight] = useState(123);
   const [date, setDate] = useState(new Date());
-  const [price, setPrice] = useState(223500);
+  const [pickerState, togglePicker] = useState(false);
+  const [price, setPrice] = useState(223500); 
   const [pickupIndices, setPickupIndices] = useState([0, 1, 9]);
 
   const { loading } = useSelector(
@@ -95,12 +96,17 @@ export default function PickupSchedule(props: any) {
             <Text style={reqstyles.totalValue}>NGN {price.toLocaleString()}</Text>
           </View>
           <View style={[reqstyles.dateStyle, styles.mt8]}>
-            <Text style={[reqstyles.totalLabel]}>Select date</Text>
-            <DateTimePicker
-              style={{ opacity: 1, backgroundColor: 'transparent' }}
-              value={date} minimumDate={new Date()}
-              placeholderText="select date"
-            />
+            <TouchableOpacity onPress={() => togglePicker(!pickerState)}>
+              <Text style={[reqstyles.totalLabel]}>Select date</Text>
+            </TouchableOpacity>
+            <Text style={[reqstyles.totalLabel]}>{date.toLocaleDateString()}</Text>
+            {pickerState
+              ? <DateTimePicker
+                style={{ opacity: 1, backgroundColor: 'transparent' }}
+                value={date} minimumDate={new Date()}
+                placeholderText="select date"
+              />
+              : null} 
           </View>
         </View>
 

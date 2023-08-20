@@ -13,3 +13,6 @@ export const TOKEN = 'TOKEN';
 export const UPDATE_URL = 'UPDATE_URL';
 export const MY_REQUESTS = 'MY_REQUESTS';
 export const REQUESTS_AHP = 'REQUESTS_AHP';
+export const MY_PREDICTION = 'MY_PREDICTION';
+export const SINGLEUSER = 'SINGLEUSER';
+export const SELLERINFO = 'SELLERINFO';

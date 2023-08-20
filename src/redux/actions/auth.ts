@@ -6,6 +6,10 @@ import * as config from '../config.json';
 import {Loading} from './ui';
 import state from '../root.store';
 
+const headers = {
+  Authorization: `Bearer ${state.getState().auth.token}`,
+};
+
 export const storeToken = async (token: string) => {
   try {
     await AsyncStorage.setItem('userToken', token);
@@ -98,11 +102,6 @@ export function fetchUser() {
       .get(`${config.base_url}/user/`, {headers})
       .then(res => {
         if (res.status === 200) {
-          const {user, wallet, beneficiaries} = res.data.data;
-          if (res.data?.data?.pin_unavailable) {
-            user.pin_unavailable = true;
-          }
-          dispatch({type: Types.USER, ...{user, wallet, beneficiaries}});
         } else {
           Toast.show({
             type: 'error',
@@ -115,6 +114,37 @@ export function fetchUser() {
       })
       .catch(error => {
         console.log('error:: ', error);
+        dispatch(Loading(false));
+      });
+  };
+}
+
+export function fetchSingleUser(id: any) {
+  return (dispatch: any) => {
+    dispatch(Loading(true));
+    return axios
+      .post(`${config.base_url}/auth/single-user`, {userId: id}, {headers})
+      .then(res => {
+        console.log('RESSSS', res);
+        if (res.status === 200) {
+          dispatch({type: Types.SELLERINFO, user: res?.data?.user});
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: 'Please retry your request',
+            position: 'bottom',
+          });
+        }
+        dispatch(Loading(false));
+        return res;
+      })
+      .catch(error => {
+        Toast.show({
+          type: 'error',
+          text1: error?.message || 'Some error occured',
+          position: 'bottom',
+        });
         dispatch(Loading(false));
       });
   };

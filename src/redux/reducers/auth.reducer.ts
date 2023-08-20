@@ -7,6 +7,7 @@ const initialState: any = {
   otp_id: '',
   profile: {},
   newUser: null,
+  sellerInfo: null,
 };
 
 export default function (state = initialState, action: any) {
@@ -21,6 +22,12 @@ export default function (state = initialState, action: any) {
       return {
         ...state,
         dummyUser: action?.payload,
+      };
+    case Types.SELLERINFO:
+      console.log('act payload', action?.user);
+      return {
+        ...state,
+        sellerInfo: action?.user,
       };
     default: {
       return {

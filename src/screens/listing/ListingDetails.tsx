@@ -4,23 +4,34 @@ import { Text, Card, Modal, Button } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getDietById, removeDietBookmark, setDietBookmark } from "../../utils/api";
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { InnerLoading, Input } from '../../components/shared';
+import { fetchSingleUser } from '../../redux/actions/auth';
 import { usePreferences } from '../../hooks';
 import { styles } from '../../utils';
 
 export default function ListingDetails(props: any) {
   const { route } = props;
-  const { id, title } = route.params;
+  const { item } = route.params;
   const { theme } = usePreferences();
+  const dispatch: any = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isBookmark, setBookmark] = useState<boolean>(false);
-  const [item, setItem] = useState<any>({});
+  // const [item, setItem] = useState<any>({});
   const [refreshing, setRefreshing] = useState(false);
   const [offerModal, showOfferModal] = useState(false);
   const [offer, setOffer] = useState('')
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState('');
+
+
+  const { loading, sellerInfo } = useSelector(
+    (state: any) => ({
+      loading: state.ui.loading,
+      sellerInfo: state.auth.sellerInfo,
+    }),
+    shallowEqual
+  );
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -29,71 +40,43 @@ export default function ListingDetails(props: any) {
   }, [isBookmark, item]);
 
   useEffect(() => {
-    getDietById(id).then((response) => {
-      setItem(response[0]);
-      setIsLoaded(true);
-    });
-  }, []);
-
-  const renderBookmark = async (id: any) => {
-    await AsyncStorage.getItem('dietsFav').then((token: any) => {
-      const res = JSON.parse(token);
-
-      if (res !== null) {
-        let data = res.find((value: any) => value.id === id);
-
-        if (data !== null) {
-          let data = res.find((value: any) => value.id === id);
-          return data == null ? setBookmark(false) : setBookmark(true);
-        }
-
-      } else {
-        return false;
-      }
-
-    });
-  };
+    console.log('item?.el?.user: ', item?.el?.user);
+    if (item?.el?.user) {
+      dispatch(fetchSingleUser(item?.el?.user));
+    }
+  }, [])
 
   useEffect(() => {
-    renderBookmark(id);
+    if (item?.el?.user) {
+      fetchSingleUser(item?.el?.user);
+    }
+  }, [item])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 200)
   }, []);
-
-  const saveBookmark = (id: number, title: string, image: any = "https://picsum.photos/200/300") => {
-    let data = { id, title, image };
-    setBookmark(true);
-    setDietBookmark(data).then(token => {
-      if (token === true) {
-        setBookmark(true);
-      }
-    });
-
-  };
-
-  const removeBookmark = (id: number) => {
-    removeDietBookmark(id).then(token => {
-      if (token === true) {
-        setBookmark(false);
-      }
-
-    });
-  };
 
   const renderOptionsButton = () => {
     if (!isBookmark) {
       return (
         <TouchableOpacity onPress={() => showOfferModal(true)} style={styles.headerOption}>
-          <Icon name="dump-truck" size={20} style={{ marginRight: 2 }} />
           <Text>Accept</Text>
         </TouchableOpacity>
       )
     } else {
       return (
-        <TouchableOpacity onPress={() => removeBookmark(item.id)} style={styles.headerOption}>
+        <TouchableOpacity onPress={() => removeItem(item.id)} style={styles.headerOption}>
           <Icon name="cancel" size={20} style={{ marginRight: 2 }} />
           <Text>Remove</Text>
         </TouchableOpacity>
       )
     }
+  }
+
+  const removeItem = (id: string) => {
+    console.log('ID to be removed', id);
   }
 
   const onRefresh = () => {
@@ -103,13 +86,13 @@ export default function ListingDetails(props: any) {
     }, 3000);
   }
 
-  if (!isLoaded) {
-    return (
-      <View style={{ marginTop: 50 }}>
-        <InnerLoading />
-      </View>
-    );
-  }
+  // if (!isLoaded) {
+  //   return (
+  //     <View style={{ marginTop: 50 }}>
+  //       <InnerLoading />
+  //     </View>
+  //   );
+  // }
 
   return (
     <>
@@ -120,10 +103,10 @@ export default function ListingDetails(props: any) {
             onRefresh={onRefresh}
           />
         }>
-          <ImageBackground source={{ uri: "https://unsplash.com/photos/qph7tJfcDys" }} style={styles.Header2Image} resizeMode={'cover'}>
+          <ImageBackground source={{ uri: item?.image || "https://unsplash.com/photos/qph7tJfcDys" }} style={styles.Header2Image} resizeMode={'cover'}>
             <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={styles.Header2Gradient}>
-              <Text style={styles.Header2Category}>Category</Text>
-              <Text style={styles.Header2Title}>Hand Tied Scraps Bundle</Text>
+              <Text style={styles.Header2Category}>{item?.el?.category?.toUpperCase() || 'n/A'}</Text>
+              <Text style={styles.Header2Title}>{item?.el?.title || 'n/A'}</Text>
               <Text style={styles.Header2SubTitle}>Non-negotiable</Text>
             </LinearGradient>
           </ImageBackground>
@@ -131,23 +114,24 @@ export default function ListingDetails(props: any) {
             <Card style={{ marginBottom: 15, borderWidth: 0 }} mode={'outlined'}>
               <Card.Title title="Summary" />
               <Card.Content>
-                <Text>Material: Clean Recycled PP with no foreign contamination
-                  Contains antistat agent that reduces static charge build-up in products.
-                  Safe to use in contact with foodstuff, pharmaceuticals, and drinking water.
-                </Text>
+                <Text>Material: {item?.el?.description}</Text>
               </Card.Content>
             </Card>
 
             <Card style={{ marginBottom: 15, borderWidth: 0 }} mode={'outlined'}>
               <Card.Title title="Additional Information" />
               <Card.Content>
-                <Text>No extra info</Text>
+                <Text>{item?.instruction || 'No additional instruction'}</Text>
               </Card.Content>
             </Card>
             <Card style={{ marginBottom: 15, borderWidth: 0 }} mode={'outlined'}>
               <Card.Title title="Meet your seller" />
               <Card.Content>
-                <Text>Household's INFORMATION</Text>
+                {/* <Text>Household's INFORMATION</Text> */}
+                <Text>{sellerInfo?.name.toUpperCase()}</Text>
+                <Text>{sellerInfo?.phone}</Text>
+                {/* <Text>{sellerInfo?.email}</Text> */}
+
               </Card.Content>
             </Card>
           </View>
